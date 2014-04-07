@@ -1,28 +1,30 @@
-function Scene () 
+function SceneModel () 
 {
-	this.AwakeDone = false;
-	this.StartDone = false;
+	this.name = "Model";
+	this.Started = false;
 
 	this.Awake = function(){};
 
 	this.Start = function()
 	{
-		if(!this.StartDone)
+		if(!this.Started)
 		{
-			// Start behavior here!
-			this.StartDone = true;
+			// Start behavior before the boolean!
+			console.log("hello");
+			this.Started = true;
 		}
 	};
 
-	this.Update = function()
+	this.Update = function() // For Game
 	{
 		if(!Application.GamePaused)
 		{
-
+			ctx.fillStyle = "grey";
+			ctx.fillRect(0,0, canvas.width, canvas.height);
 		}
 	};
 
-	this.LateUpdate = function()
+	this.LateUpdate = function() // For GUI 
 	{
 		if(!Application.GamePaused)
 		{

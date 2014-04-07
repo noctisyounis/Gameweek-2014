@@ -19,7 +19,6 @@ document.addEventListener('mousemove', mouseMove);
 
 
 
-
 //Image Loader
 function LoadImages(ImagesPath, Images, callBack)
 {
@@ -41,8 +40,11 @@ function LoadImages(ImagesPath, Images, callBack)
 
 function ImageLoaded(img)
 {
+	Application.LoadLevel(Scenes.Title);
 	Run();
 }
   
 
 LoadImages(ImagesPath, Images, ImageLoaded);
+	Application.LoadLevel(new SceneModel);
+	Run();

@@ -7,9 +7,9 @@ function GameObject ()
 
 	this.transform =
 	{
-		position: {x, y},
-		rotation: {x, y},
-		scale: {x,y}
+		position: {x:0, y: 0},
+		rotation: {x:0, y: 0},
+		scale: {x: 0, y: 0}
 	};
 
 	this.Started = false;
@@ -35,12 +35,12 @@ function GameObject ()
 		if(!Application.GamePaused && this.enabled)
 		{
 			if(this.BoxCollider)
-			foreach(other in GameObjects)
+			for(var other in GameObjects)
 			{
 				if(other.enabled && other.BoxCollider)
 				{
-					if(BoxCollider({this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transforme.scale.y }, 
-								   {other.transform.position.x, other.transform.position.y, other.transform.scale.x, other .transforme.scale.y } ))
+					if(BoxCollider({x: this.transform.position.x, y: this.transform.position.y,  w: this.transform.scale.x,  h: this.transform.scale.y },
+								   {x: other.transform.position.x,y: other.transform.position.y, w: other.transform.scale.x, h: other .transforme.scale.y } ))
 					{
 						OnTriggerEnter(other);
 					}
@@ -49,7 +49,7 @@ function GameObject ()
 
 			if(this.Clickable)
 			{
-				if(PointCollider(Input.Mouse.x, Input.Mouse.y, {this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transforme.scale.y }))
+				if(PointCollider(Input.Mouse.x, Input.Mouse.y, {x: this.transform.position.x,y: this.transform.position.y,w: this.transform.scale.x,h: this.transforme.scale.y }))
 				{
 					OnClicked();
 				}

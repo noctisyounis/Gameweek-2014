@@ -1,7 +1,8 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2D");
 
-var Scenes = [];
+var Scenes = {};
+
 var GameObjects = [];
 
 var ImagesPath = [];
