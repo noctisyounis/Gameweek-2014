@@ -1,5 +1,5 @@
 var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2D");
+var ctx = canvas.getContext("2d");
 
 var Scenes = {};
 
@@ -10,14 +10,14 @@ var Images = [];
 
 var Application = 
 {
-	LevelLoaded: null,
+	LoadedLevel: null,
 	GamePaused: false,
 	
 	LoadLevel: function (SceneName)
 	{
 		if(SceneName != null)
 		{
-			this.LevelLoaded = SceneName;
+			this.LoadedLevel = SceneName;
 		}
 
 	}

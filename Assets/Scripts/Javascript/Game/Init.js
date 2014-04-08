@@ -46,5 +46,6 @@ function ImageLoaded(img)
   
 
 LoadImages(ImagesPath, Images, ImageLoaded);
-	Application.LoadLevel(new SceneModel);
+
+	Application.LoadLevel(new SceneModel());
 	Run();
