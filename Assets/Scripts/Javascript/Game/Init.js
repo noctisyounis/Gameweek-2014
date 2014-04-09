@@ -43,9 +43,9 @@ function ImageLoaded(img)
 	Application.LoadLevel(Scenes.Title);
 	Run();
 }
-  
 
 LoadImages(ImagesPath, Images, ImageLoaded);
 
-	Application.LoadLevel(new SceneModel());
-	Run();
+Time.TimeWhenGameBegin = new Date().getTime();
+Application.LoadLevel(new SceneModel());
+Run();

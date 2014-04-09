@@ -15,7 +15,7 @@ function SceneModel ()
 	{
 		//codez l'awake avant le console.log
 
-		console.log("Scene: " + this.name + "created!"); 
+		console.log("Scene: " + this.name + " created!"); 
 	};
 
 	this.Start = function()
@@ -25,6 +25,7 @@ function SceneModel ()
 			//codez le start avant le changement de booleen
 
 			this.Started = true;
+			Time.LevelLoaded();
 			console.log("Scene: " + this.name + " have started!");
 		}
 	};
@@ -33,7 +34,11 @@ function SceneModel ()
 	{
 		if(!Application.GamePaused)
 		{
-			//Codez le jeu ici pour que la pause soit prise en compte
+			if(!Text.Scrolling.finished) {Text.Scrolling.Continue();}
+
+
+
+			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que le gris repose les yeux !
 			ctx.fillStyle = "grey";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
 		}

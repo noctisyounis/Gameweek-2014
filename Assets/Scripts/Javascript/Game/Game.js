@@ -1,5 +1,6 @@
 function Run()
 {
+	Time.SetDeltaTime();
 	// Les methodes de la CurrentScene
 	if(Application.LoadedLevel != null)
 	{

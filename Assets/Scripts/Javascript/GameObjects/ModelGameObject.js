@@ -20,7 +20,6 @@
 *		rotation		la rotation x et y de l'element (en degres)
 *		scale			la longueur et la largeur de l'element
 *	
-*	this.started 		Ne pas toucher a cette valeur, elle definis si le start a deja été fait ou non
 */
 
 /*	**** Les methodes du GameObject ****
@@ -52,7 +51,6 @@ function GameObject ()
 		scale: {x: 0, y: 0}
 	};
 
-	this.Started = false;
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;
@@ -62,7 +60,7 @@ function GameObject ()
 
 	this.Start = function()
 	{
-		if(this.Started)
+		if(!this.Started)
 		{
 			// DO START HERE
 
