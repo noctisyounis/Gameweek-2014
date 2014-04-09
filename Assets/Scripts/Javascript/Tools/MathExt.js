@@ -119,7 +119,7 @@ Text.Scrolling =
 					console.log(this.destination);
 					console.log("countdown fini + words " + this.words.length + " letters " + this.letters.length );
 				}
-				else// sinon passe au prochain mot
+				else
 				{
 					switch(this.words[0])
 					{
@@ -144,9 +144,13 @@ Text.Scrolling =
 								this.letters = this.words[0].split("");
 								this.words.splice(0,1);
 								this.destination += " "; 
-								finished = false;
+								this.finished = false;
 							}
-							else finished = true;
+							else 
+								{
+									this.finished = true;
+									console.log("finis");
+								}
 							return;
 					}
 				}
@@ -156,9 +160,44 @@ Text.Scrolling =
 
 	Interupt: function()
 	{
-		//finished = true;
-	}
+		while(this.letters.length > 0)
+		{
+			this.destination += this.letters[0];
+			this.letters.splice(0,1);
+			console.log("letters " + this.letters.length);
+		}
+
+		while(this.words.length > 0)
+		{
+			if(this.words[0] == "[short]" || this.words[0] == "[medium]" || this.words[0] == "[long]") this.words.splice(0,1);
+			else
+			{
+				this.destination += " " + this.words[0];
+				this.words.splice(0,1);
+				console.log("words " + this.words.length);
+			}
+		}	
+		console.clear();
+		console.log(this.destination);
+		finished = true;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
