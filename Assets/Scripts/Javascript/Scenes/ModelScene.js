@@ -11,6 +11,8 @@ function SceneModel ()
 	this.name = "Model";
 	this.Started = false;
 
+	this.GameObjects = [];
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
@@ -38,6 +40,12 @@ function SceneModel ()
 			if(!Dialogue.finished) {Dialogue.Continue();}
 			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que le gris repose les yeux !
 			
+			if(this.GameObjects.length < 1)
+				this.GameObjects.push(new GameObject());
+
+			this.GameObjects[0].Start();
+			
+
 			ctx.clearRect(0,0, canvas.width, canvas.height);
 			
 			ctx.fillStyle = "grey";

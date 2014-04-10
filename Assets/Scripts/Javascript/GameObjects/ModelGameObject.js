@@ -61,7 +61,7 @@ function GameObject ()
 			src: "",
 			NumberOfFrame:
 			{
-				x: 1,
+				x: 5,
 				y: 1,
 			},
 
@@ -72,25 +72,26 @@ function GameObject ()
 				y: 0
 			},
 
-			CurrentState:
+			CurrentFrame:
 			{
 				x: 0,
 				y: 0
-			}
+			},
 		},
 
 		Animation:
 		{
-			current: "",
+			animated: true,
+			current: ["animations", 10, 10],
 			Animations: [],
-
+			countdown:0
 		},
 
 		Draw: function ()
 		{
-			if(this.Renderer.visible)
+			if(this.visible)
 			{
-				ctx.DrawImage(this.Renderer.material, 
+				/*ctx.DrawImage(this.Renderer.Material, 
 					this.Renderer.Material.CurrentState.x * this.Renderer.Material.SizeFrame.x, 
 					this.Renderer.Material.CurrentState.y * this.Renderer.Material.SizeFrame.y, 
 					this.Renderer.material.CurrentState.x + this.Renderer.Material.sizeFrame.x,
@@ -99,7 +100,7 @@ function GameObject ()
 				    this.transform.position.y,
 				    this.transform.scale.x, 
 				    this.transform.scale.y
-				     );
+				     );*/
 			}
 		}
 	},
@@ -135,7 +136,7 @@ function GameObject ()
 			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.width  / this.Renderer.Material.NumberOfFrame.y;
 		}
 
-		Debug.Log("GameObject" + GameObject.name + " Created");
+		Debug.Log("GameObject: " + GameObject.name + " Created");
 	};
 
 	this.Start = function()
@@ -174,6 +175,21 @@ function GameObject ()
 				{
 					if(!Input.Mouseclick) this.OnHover();
 					if(Input.Mouseclick)  this.OnClicked();
+				}
+			}
+
+			if(this.Renderer.Animation.animated)
+			{
+				this.Renderer.Animation.countdown -= Time.DeltaTime;
+				if(this.Renderer.Animation.countdown <= 0)
+				{
+					this.Renderer.Material.CurrentFrame.x += 1;
+					this.Renderer.Animation.countdown = this.Renderer.Animation.current [1];
+
+					if(this.Renderer.Material.CurrentFrame.x > this.Renderer.Material.NumberOfFrame.x)
+						this.Renderer.Material.CurrentFrame.x = 0;
+
+					console.log(this.Renderer.Material.CurrentFrame.x);
 				}
 			}
 

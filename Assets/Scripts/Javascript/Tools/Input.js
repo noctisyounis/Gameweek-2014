@@ -19,13 +19,11 @@ function mouseMove(event)
 function keyDown(event)
 {
 	Input.KeysDown[event.keyCode] = true;
-	console.log("keydown: " + Input.KeysDown);
 }
 
 function keyUp(event)
 {
 	 delete Input.KeysDown[event.keyCode];
-	 console.log("keyup: " + Input.KeysDown);
 }
 
 function touchDown(event)

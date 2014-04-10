@@ -23,6 +23,10 @@ document.addEventListener("touchstart", touchDown, false);
 document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
 
+// DEBUGING NEEDED
+if (canvas.requestFullscreen) canvas.requestFullscreen();
+else if (canvas.mozRequestFullScreen) canvas.mozRequestFullScreen();
+else if (canvas.webkitRequestFullscreen) canvas.webkitRequestFullscreen();
 
 //Image Loader
 function LoadImages(ImagesPath, Images, callBack)
@@ -56,8 +60,8 @@ Application.LoadLevel(new SceneModel());
 
 var test = new Image();
 test.src = "Assets/Graphics/test.jpg";
-
-
 //var o = "";
 //Text.Scrolling.Begin("Salut, Comment Vas Tu? [long] . [long] . [long] . [long] hahaha j'adore cet effet debile", 0.1, o);
 Run();
+
+
