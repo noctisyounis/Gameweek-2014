@@ -49,16 +49,18 @@ function GameObject ()
 	{
 		position: {x:0, y: 0},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 0, y: 0}
+		scale: {x: 50, y: 100}
 	};
 	
 	this.Renderer = 
 	{
 		visible: true,
+		that: this.transform,
 
 		Material:
 		{
-			src: "",
+			src: ImgTest,
+			//console.log("test= " + ImgTest), 
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -74,10 +76,10 @@ function GameObject ()
 			},
 		},
 
-		Animation:
+		Animation: 
 		{
 			animated: true,
-			current: ["animations", 10, 10], // [animationImage, TotalDuration, NumberOfFrame]
+			current: [ImgTest, 10, 12], // [animationImage, TotalDuration, NumberOfFrame]
 			Animations: [],
 			countdown:0
 		},
@@ -86,16 +88,19 @@ function GameObject ()
 		{
 			if(this.visible)
 			{
-				ctx.DrawImage(this.Animation.animated ? this.Animation.current[0] : this.Renderer.Material.src, 
-					this.Renderer.Material.CurrentState.x * this.Renderer.Material.SizeFrame.x, 
-					this.Renderer.Material.CurrentState.y * this.Renderer.Material.SizeFrame.y, 
-					this.Renderer.material.CurrentState.x + this.Renderer.Material.sizeFrame.x,
-					this.Renderer.material.CurrentState.y + this.Renderer.Material.sizeFrame.y,
-				    this.transform.position.x,
-				    this.transform.position.y,
-				    this.transform.scale.x, 
-				    this.transform.scale.y
-				     );*
+				//console.log(this.Animation.animated + " " + this.Animation.current[0].src );
+				debugger;
+				ctx.drawImage(
+					this.Animation.animated ? this.Animation.current[0] : this.Material.src, 
+					this.Material.CurrentFrame.x * this.Material.SizeFrame.x, 
+					this.Material.CurrentFrame.y * this.Material.SizeFrame.y, 
+					this.Material.CurrentFrame.x + this.Material.SizeFrame.x,
+					this.Material.CurrentFrame.y + this.Material.SizeFrame.y,
+				    this.that.position.x,
+				    this.that.position.y,
+				    this.that.scale.x, 
+				    this.that.scale.y
+				     );
 			}
 		}
 	},
@@ -127,8 +132,8 @@ function GameObject ()
 		}
 		if(this.Renderer.Material.src != "")
 		{
-			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.src.height / this.Renderer.Material.NumberOfFrame.y;
-			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.width  / this.Renderer.Material.NumberOfFrame.y;
+			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.width / this.Renderer.Animation.current[2];
+			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.height;
 		}
 
 		Debug.Log("GameObject: " + GameObject.name + " Created");
@@ -184,7 +189,7 @@ function GameObject ()
 					if(this.Renderer.Material.CurrentFrame.x > this.Renderer.Animation.current[2])
 						this.Renderer.Material.CurrentFrame.x = 0;
 
-					console.log(this.Renderer.Material.CurrentFrame.x);
+					//console.log(this.Renderer.Material.CurrentFrame.x);
 				}
 			}
 

@@ -42,14 +42,13 @@ function SceneModel ()
 			
 			if(this.GameObjects.length < 1)
 				this.GameObjects.push(new GameObject());
-
-			this.GameObjects[0].Start();
 			
 
 			ctx.clearRect(0,0, canvas.width, canvas.height);
 			
 			ctx.fillStyle = "grey";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
+			this.GameObjects[0].Start();
 			this.LateUpdate();
 		}
 	};

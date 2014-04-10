@@ -58,8 +58,9 @@ LoadImages(ImagesPath, Images, ImageLoaded);
 Time.TimeWhenGameBegin = new Date().getTime();
 Application.LoadLevel(new SceneModel());
 
-var test = new Image();
-test.src = "Assets/Graphics/test.jpg";
+var ImgTest = new Image();
+ImgTest.src = "Assets/Graphics/test.png";
+ImgTest.onload = function (){ console.log("imageLoaded");};
 //var o = "";
 //Text.Scrolling.Begin("Salut, Comment Vas Tu? [long] . [long] . [long] . [long] hahaha j'adore cet effet debile", 0.1, o);
 Run();
