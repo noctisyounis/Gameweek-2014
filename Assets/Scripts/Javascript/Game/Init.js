@@ -16,11 +16,12 @@ document.addEventListener('mouseup', mouseUp);
 document.addEventListener('mousemove', mouseMove);
 
 //Track TouchEvent
-document.addEventListener("touchstart", "touchDown", false);
+document.addEventListener("touchstart", touchDown, false);
 
 
 //Track Keboard Event
-
+document.addEventListener("keydown", keyDown, false);
+document.addEventListener("keyup", keyUp, false);
 
 
 //Image Loader
@@ -52,6 +53,6 @@ LoadImages(ImagesPath, Images, ImageLoaded);
 
 Time.TimeWhenGameBegin = new Date().getTime();
 Application.LoadLevel(new SceneModel());
-var o = "";
-Text.Scrolling.Begin("Salut, Comment Vas Tu? [long] . [long] . [long] . [long] hahaha j'adore cet effet debile", 0.1, o);
+//var o = "";
+//Text.Scrolling.Begin("Salut, Comment Vas Tu? [long] . [long] . [long] . [long] hahaha j'adore cet effet debile", 0.1, o);
 Run();

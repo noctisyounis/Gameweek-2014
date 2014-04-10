@@ -28,19 +28,22 @@ function SceneModel ()
 			Time.LevelLoaded();
 			console.log("Scene: " + this.name + " have started!");
 		}
+		this.Update();
 	};
 
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
 		{
-			if(!Text.Scrolling.finished) {Text.Scrolling.Continue();}
+			if(!Dialogue.finished) {Dialogue.Continue();}
 
 
 
 			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que le gris repose les yeux !
+			ctx.clearRect(0,0, canvas.width, canvas.height);
 			ctx.fillStyle = "grey";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
+			this.LateUpdate();
 		}
 	};
 
@@ -49,6 +52,10 @@ function SceneModel ()
 		if(!Application.GamePaused)
 		{
 			//Codez la GUI ici pour que la pause soit prise en compte
+		}
+		if(Application.DebugMode)
+		{
+			Debug.ShowStats();
 		}
 	};
 

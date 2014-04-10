@@ -12,6 +12,7 @@ var Application =
 {
 	LoadedLevel: null,
 	GamePaused: false,
+	DebugMode: false,
 	
 	LoadLevel: function (SceneName)
 	{
@@ -26,5 +27,7 @@ var Application =
 var Input = 
 {
 	MouseClick: false,
-	MousePosition: {x: 0, y: 0}
+	MousePosition: {x: 0, y: 0},
+
+	KeysDown: [],
 };

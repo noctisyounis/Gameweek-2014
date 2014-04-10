@@ -1,17 +1,9 @@
 function Run()
 {
-	Time.SetDeltaTime();
-	// Les methodes de la CurrentScene
-	if(Application.LoadedLevel != null)
-	{
-		Application.LoadedLevel.Start();
-		Application.LoadedLevel.Update();
-		Application.LoadedLevel.LateUpdate();
-	}
-	else
-	{
-		console.log("Scene undefined or empty");
-	}
+	Time.SetTimeValues();
+	
+	if(Application.LoadedLevel != null) Application.LoadedLevel.Start();
+	else 								console.log("Scene undefined or empty");
 
 	RequestAnimationFrame(Run);
 }

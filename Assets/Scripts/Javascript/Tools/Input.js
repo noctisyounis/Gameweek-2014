@@ -16,7 +16,19 @@ function mouseMove(event)
 	Input.MousePosition.y = (event.clientY - canvas.offsetTop) / (rect.bottom - rect.top) * canvas.height;
 }
 
-function touchdown(event)
+function keyDown(event)
+{
+	Input.KeysDown[event.keyCode] = true;
+	console.log("keydown " + Input.KeysDown);
+}
+
+function keyUp(event)
+{
+	 delete Input.KeysDown[event.keyCode];
+	 console.log("keyup " + Input.KeysDown);
+}
+
+function touchDown(event)
 {
 	event.preventDefault();
 	event.stopPropagation();
