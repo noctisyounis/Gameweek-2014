@@ -36,14 +36,12 @@ function SceneModel ()
 		if(!Application.GamePaused)
 		{
 			if(!Dialogue.finished) {Dialogue.Continue();}
-
-
-
 			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que le gris repose les yeux !
+			
 			ctx.clearRect(0,0, canvas.width, canvas.height);
+			
 			ctx.fillStyle = "grey";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
-			//ctx.drawImage(test, 0,0, 800, 600);
 			this.LateUpdate();
 		}
 	};
