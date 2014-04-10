@@ -19,17 +19,21 @@ function mouseMove(event)
 function keyDown(event)
 {
 	Input.KeysDown[event.keyCode] = true;
-	console.log("keydown " + Input.KeysDown);
+	console.log("keydown: " + Input.KeysDown);
 }
 
 function keyUp(event)
 {
 	 delete Input.KeysDown[event.keyCode];
-	 console.log("keyup " + Input.KeysDown);
+	 console.log("keyup: " + Input.KeysDown);
 }
 
 function touchDown(event)
 {
 	event.preventDefault();
 	event.stopPropagation();
+	
+	var rect = canvas.getBoundingClientRect();
+	Input.MousePosition.x = (event.targetTouches[0].pageX - rect.left) / (rect.right - rect.left) * canvas.width;
+	Input.MousePosition.y = (event.targetTouches[0].pageY - canvas.offsetTop) / (rect.bottom - rect.top) * canvas.height;
 }

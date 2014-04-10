@@ -43,6 +43,7 @@ function SceneModel ()
 			ctx.clearRect(0,0, canvas.width, canvas.height);
 			ctx.fillStyle = "grey";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
+			ctx.drawImage(test, 0,0, 800, 600);
 			this.LateUpdate();
 		}
 	};
