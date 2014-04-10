@@ -43,7 +43,7 @@ function SceneModel ()
 			ctx.clearRect(0,0, canvas.width, canvas.height);
 			ctx.fillStyle = "grey";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
-			ctx.drawImage(test, 0,0, 800, 600);
+			//ctx.drawImage(test, 0,0, 800, 600);
 			this.LateUpdate();
 		}
 	};
@@ -54,6 +54,7 @@ function SceneModel ()
 		{
 			//Codez la GUI ici pour que la pause soit prise en compte
 		}
+		Debug.ShowStats();
 		if(Application.DebugMode)
 		{
 			Debug.ShowStats();
