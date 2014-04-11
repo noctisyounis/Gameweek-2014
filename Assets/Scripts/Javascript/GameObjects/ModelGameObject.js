@@ -47,19 +47,33 @@ function GameObject ()
 
 	this.transform =
 	{
-		position: {x:0, y: 0},
+		position: {x:100, y: 100},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 50, y: 100}
+		scale: {x: 200, y: 350}
 	};
-	
+
+	this.Physics = 
+	{
+		BoxCollider: false,
+		Clickable:   false,
+		ColliderIsSameSizeAsTransform: false,
+
+		BoxColliderSize: 
+		{
+			position: {x:0, y: 0},
+			rotation: {x:0, y: 0}, // obselete
+			scale: {x: 0, y: 0}
+		}
+	};
 	this.Renderer = 
 	{
 		visible: true,
 		that: this.transform,
+		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			src: ImgTest,
+			source: Images[0],
 			//console.log("test= " + ImgTest), 
 
 			//DontTouch bellow 
@@ -79,7 +93,7 @@ function GameObject ()
 		Animation: 
 		{
 			animated: true,
-			current: [ImgTest, 10, 12], // [animationImage, TotalDuration, NumberOfFrame]
+			current: [Images[0], .7, 3], // [animationImage, TotalDuration, NumberOfFrame]
 			Animations: [],
 			countdown:0
 		},
@@ -89,9 +103,9 @@ function GameObject ()
 			if(this.visible)
 			{
 				//console.log(this.Animation.animated + " " + this.Animation.current[0].src );
-				debugger;
+				//debugger;
 				ctx.drawImage(
-					this.Animation.animated ? this.Animation.current[0] : this.Material.src, 
+					this.Animation.animated ? this.Animation.current[0] : this.Material.source, 
 					this.Material.CurrentFrame.x * this.Material.SizeFrame.x, 
 					this.Material.CurrentFrame.y * this.Material.SizeFrame.y, 
 					this.Material.CurrentFrame.x + this.Material.SizeFrame.x,
@@ -100,22 +114,16 @@ function GameObject ()
 				    this.that.position.y,
 				    this.that.scale.x, 
 				    this.that.scale.y
-				     );
+				    );
+
+				if(Application.DebugMode)
+				{
+					ctx.fillStyle = "pink";
+					ctx.strokeRect (this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y)
+					ctx.fillStyle = "green";
+					ctx.strokeRect (this.thot.position.x, this.thot.position.y, this.thot.scale.x, this.thot.scale.y);
+				}
 			}
-		}
-	},
-
-	this.Physics = 
-	{
-		BoxCollider: false,
-		Clickable:   false,
-		ColliderIsSameSizeAsTransform: false,
-
-		BoxColliderSize: 
-		{
-			position: {x:0, y: 0},
-			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
 		}
 	}
 
@@ -132,8 +140,8 @@ function GameObject ()
 		}
 		if(this.Renderer.Material.src != "")
 		{
-			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.width / this.Renderer.Animation.current[2];
-			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.height;
+			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.source.width / this.Renderer.Animation.current[2];
+			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.source.height;
 		}
 
 		Debug.Log("GameObject: " + GameObject.name + " Created");
@@ -186,7 +194,7 @@ function GameObject ()
 					this.Renderer.Material.CurrentFrame.x += 1;
 					this.Renderer.Animation.countdown = this.Renderer.Animation.current [1] / this.Renderer.Animation.current[2];
 
-					if(this.Renderer.Material.CurrentFrame.x > this.Renderer.Animation.current[2])
+					if(this.Renderer.Material.CurrentFrame.x > this.Renderer.Animation.current[2] - 1)
 						this.Renderer.Material.CurrentFrame.x = 0;
 
 					//console.log(this.Renderer.Material.CurrentFrame.x);

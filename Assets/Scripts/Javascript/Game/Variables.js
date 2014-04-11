@@ -3,14 +3,14 @@ var ctx = canvas.getContext("2d");
 
 var Scenes = {};
 
-var ImagesPath = [];
+var ImagesPath = ["test.png"];
 var Images = [];
 
 var Application = 
 {
 	LoadedLevel: null,
 	GamePaused: false,
-	DebugMode: false,
+	DebugMode: true,
 	
 	LoadLevel: function (SceneName)
 	{

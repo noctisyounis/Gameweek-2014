@@ -29,19 +29,19 @@ else if (canvas.mozRequestFullScreen) canvas.mozRequestFullScreen();
 else if (canvas.webkitRequestFullscreen) canvas.webkitRequestFullscreen();
 
 //Image Loader
-function LoadImages(ImagesPath, Images, callBack)
+function LoadImages(callBack)
 {
 	var count = 0;
     for(var i in ImagesPath)
     {
 		Images[i] = new Image();
-		Images[i].src = ImagesPath[i];
+		Images[i].src = "Assets/Graphics/" + ImagesPath[i];
 		Images[i].onload = function()
 		{
 			count++;
-			if(count == ImagePath.length)
+			if(count == ImagesPath.length)
 			{
-				callBack(Images);
+				ImageLoaded(Images);
 	  		}
   		}
  	}
@@ -49,20 +49,18 @@ function LoadImages(ImagesPath, Images, callBack)
 
 function ImageLoaded(img)
 {
-	Application.LoadLevel(Scenes.Title);
+	Application.LoadLevel(new SceneModel());
+	Debug.Log("loaderFonctionnel")
 	Run();
 }
 
-LoadImages(ImagesPath, Images, ImageLoaded);
+LoadImages();
 
 Time.TimeWhenGameBegin = new Date().getTime();
-Application.LoadLevel(new SceneModel());
+//Application.LoadLevel(new SceneModel());
 
-var ImgTest = new Image();
-ImgTest.src = "Assets/Graphics/test.png";
-ImgTest.onload = function (){ console.log("imageLoaded");};
 //var o = "";
 //Text.Scrolling.Begin("Salut, Comment Vas Tu? [long] . [long] . [long] . [long] hahaha j'adore cet effet debile", 0.1, o);
-Run();
+//Run();
 
 
