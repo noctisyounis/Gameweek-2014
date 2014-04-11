@@ -59,7 +59,6 @@ function SceneModel ()
 		{
 			//Codez la GUI ici pour que la pause soit prise en compte
 		}
-		Debug.ShowStats();
 		if(Application.DebugMode)
 		{
 			Debug.ShowStats();

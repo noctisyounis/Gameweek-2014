@@ -1,44 +1,133 @@
-/*	**** Pour creer une nouveau GameObject **** 
+/*	**** For create a new GameObject **** 
 *
-*	1/	Copiez le modele ci dessous dans un nouveau fichier qui portera le nom de votre GameObject
-*	2/	Sauvegardez le nouveau fichier JS dans le dossier Assets/Javascript/GameObjects/NomDeVotreGameObject.js
-*	3/	Dans l'index.html rajoutez sous le commentaire <!-- GameObjects --> la ligne: 
-*       "<script type="text/javascript" src="Assets/Scripts/Javascript/Scenes/NomDeVotreGameObject.js"></script>"
-*	4/  Pour Creer une instance de votre GameObject faite "new NomDeVotreGameObject();"
+*	@step 1							Copy the content of this file in a new .js document.
+*   ----------------------------------------------------------------------------------------------------------------------------
+*	@step 2							Save the new file in Assets/Javascript/GameObjects/NameOfYourGameObject.js .
+*   ----------------------------------------------------------------------------------------------------------------------------
+*	@step 3                      	In the index.html add below this comment <!-- GameObjects --> the line: 
+*                    "<script type="text/javascript" src="Assets/Scripts/Javascript/Scenes/NameOfYourGameObject.js"></script>"
+*	----------------------------------------------------------------------------------------------------------------------------
+*	@step 4						    To make a new instance of GameObject, use this instruction: "new NomDeVotreGameObject();"
 */
 
-/*	**** Comment faire le setup d'un GameObject ****
+
+/*	**** How to make the setup of a GameObject ****
 *	
-*	this.name:    							id unique du GameObject
-*	this.enabled: 							est ce que le gameObject est actif dans la scene ?
-*	this.BoxCollier:    					Est ce que je dois verifier si je collisionne avec les autres boxCollider de la scene ? 
-*											(Appelle OnTriggerEnter(other))
-*	this.Clickable:     					Est ce que cliquer sur moi provoque une action 
-*											(Appelle OnClick en cas de click sur l'item)
+*	@property name 																											{string} 			 
+*	The name of the object.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@property enabled 																									   {boolean} 			 
+*	The active state of the GameObject.
+*   --------------------------------------------------------------------------------------------------------------------------------
+*	@property physics    																							       {boolean}			 
+*	The active state of Physics component
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@property renderer    																								   {boolean}			 
+*	The active state of Renderer component
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@prefix transform                	    																			 {structure}			 
+*	Position, rotation and scale of the GameObject.
 *
-*	this.ColliderIsSameSizeAsTransform: 	si activé a l'awake prend les valeurs du transform pour les mettres dans le box collider
+*		
+*	@property position 																							{x: float, y: float} 
+*	Position of the GameObject.
 *
-*	this.transform.
-*		position							la position x et y de l'element (la scene fait 800*600)
-*		rotation							la rotation x et y de l'element (en degres)
-*		scale								la longueur et la largeur de l'element
+*	@property rotation																							{x: float, y: float} 
+*	Rotation of the GameObject. (don't use)
+*
+*	@property scale																								{x: float, y: float} 
+*	Scale of the GameObject.	
+*	--------------------------------------------------------------------------------------------------------------------------------     					 
+*	@prefix Physics                   																					 {structure}			 
+*	The Physics component of the GameObject.
+*
+*			
+*	@property BoxCollider 																								   {boolean}			 
+*	If true, call OnTriggerEnter() when colide other box collider.
+*
+*	@property clickable         																						   {boolean}			 
+*	If true, call OnCicked() when click is detected.	
+*
+*	@property RelativePosition																							   {boolean}			 
+*	If true, the collider will follow the transform.
+*
+*	@property ColliderIsSameSizeAsTransform    																		   	   {boolean}			 
+*	If true, the collider take the transform value.	
+*	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  		
+*	@prefix Physics.BoxColliderSize          																			 {structure}			 
+*	Position, rotation and scale of the box collider.
 *	
+*			
+*	@property position 																							{x: float, y: float} 
+*	Position of the box collider.
+*
+*	@property rotation																							{x: float, y: float} 
+*	Rotation of the box collider. (don't use)
+*
+*	@property scale																								{x: float, y: float} 
+*	Scale of the box collider.	
+*	--------------------------------------------------------------------------------------------------------------------------------
+* 	@prefix   Renderer 																									 {structure}			 
+*	The renderer component of the GameObject.
+*
+*	
+*	@property visible																									   {boolean}			 
+*	If true, the GameObject will be visible.
+*	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	
+*	@property Renderer.Material																							 {structure}			 
+*	The material part of the renderer component.
+*
+*	@property source																										 {image}				 
+*	The image drawed if no animation.
+*	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+*	@prefix Renderer.Animation 																							 {structure}			 
+*	The animation part of the renderer component.
+*
+*
+*	@property animated																									   {boolean}			 
+*	If true, the image drawed will be animated.
+*	
+*	@property current 															 {array[image,totalDuration: float,nbFrames: float]}
+*	The current animation that will be played  
+*
+*	@proprety Animations																					   		  {array[[],[]]}
+*	Contain all the animations of the gameObject.
+*	________________________________________________________________________________________________________________________________
 */
 
 /*	**** Les methodes du GameObject ****
 *
-*	SetActive(boolean): 					Change l'etat du GameObject par le boolean en parametre
-*	Awake()									A la creation du GameObject (pendant le new GameObject())
-*	Start()									Doit etre appellé dans la scene qui utilise ce GameObject
-*	Update()								Fait les tests de collision si le boxCollider est activé ou l'element clickable
-*	LateUpdate()							La logique du GameObject
-*	OnTriggerEnter(other)					Appeller si une collision avec un autre boxCollider est détécté, other est l'element colisionant
-*	OnClicked()								Appeller si on clique sur l'element, tant que le click est down
+*	@method SetActive (boolean: state) 					
+*	Change the active state of gameObject by the parameters state.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method SetPosition(x, y)						
+*	Set la position du gameObject et cale le collider si il est relatif
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method Awake()									
+*	Called at the instruction new GameObject().
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method Start()									
+*	Called at the first use of the GameObejct in scene.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method Update()								
+*	Called each frame, all the system is coded here.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method LateUpdate()
+*	Called each frame, code all the behavior here.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method OnTriggerEnter(other)					
+*	Called each frame when an other box collider is in contact with the GameObject.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method OnClicked()								
+*	Called each frame when user click on the collider.
+* 	--------------------------------------------------------------------------------------------------------------------------------
+*	@method OnHoverd()
+*	Called each frame when user mouse is over the collider and don't click.
 */
 
-/* **** Pour lancer le cycle du GameObject ****
+/* **** For launch GameObject ****
 *
-*	rajoutez simplement NomDeVotreGameObject.Start() dans votre Scene
+*	Add NameOfYourGameObject.Start() in your scene.
 */
 function GameObject ()
 {
@@ -59,12 +148,13 @@ function GameObject ()
 		BoxCollider: false,
 		Clickable:   false,
 		ColliderIsSameSizeAsTransform: false,
-
-		BoxColliderSize: 
+		RelativePosition: true,
+ 
+ 		BoxColliderSize: 
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
+			scale: {x: 100, y: 150}
 		}
 	};
 	this.Renderer = 
@@ -102,44 +192,48 @@ function GameObject ()
 
 		Draw: function ()
 		{
-			if(this.visible)
+			ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+			if(Application.DebugMode)
 			{
-				//console.log(this.Animation.animated + " " + this.Animation.current[0].src );
-				//debugger;
-				ctx.drawImage(
-					this.Animation.animated ? this.Animation.current[0] : this.Material.source, 
-					this.Material.CurrentFrame.x * this.Material.SizeFrame.x, 
-					this.Material.CurrentFrame.y * this.Material.SizeFrame.y, 
-					this.Material.CurrentFrame.x + this.Material.SizeFrame.x,
-					this.Material.CurrentFrame.y + this.Material.SizeFrame.y,
-				    this.that.position.x,
-				    this.that.position.y,
-				    this.that.scale.x, 
-				    this.that.scale.y
-				    );
-
-				if(Application.DebugMode)
-				{
-					ctx.fillStyle = "pink";
-					ctx.strokeRect (this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y)
-					ctx.fillStyle = "green";
-					ctx.strokeRect (this.thot.position.x, this.thot.position.y, this.thot.scale.x, this.thot.scale.y);
+				ctx.fillStyle = Debug.SpriteOutlineColor;
+				ctx.strokeRect (this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y)
+				ctx.fillStyle = Debug.ColliderOutlineColor;
+				ctx.strokeRect (this.thot.position.x, this.thot.position.y, this.thot.scale.x, this.thot.scale.y);
 				}
-			}
 		}
 	}
 
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;
-	}
+	};
+
+	this.SetPosition = function(x, y) 
+	{
+		this.transform.position.x = x;
+		this.transform.position.y = y;
+
+		if(this.physics && this.Physics.RelativePosition)
+		{
+			this.Physics.BoxColliderSize.position.x = this.Physics.BoxColliderOriginal.x + this.transform.position.x;
+			this.Physics.BoxColliderSize.position.y = this.Physics.BoxColliderOriginal.x + this.transform.position.x;
+		}
+	};
 
 	this.Awake = function()
 	{
-		if(this.ColliderIsSameSizeAsTransform)
+		this.Physics.BoxColliderOriginal = this.Physics.BoxColliderSize;
+		if(this.physics && this.ColliderIsSameSizeAsTransform)
 		{
 			this.BoxCollider = this.transform; 
 		}
+
+		if(this.physics && this.Physics.RelativePosition)
+		{
+			this.Physics.BoxColliderSize.position.x += this.transform.position.x;
+			this.Physics.BoxColliderSize.position.y += this.transform.position.y;
+		}
+		
 		if(this.Renderer.Material.src != "")
 		{
 			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.source.width / this.Renderer.Animation.current[2];
@@ -163,28 +257,32 @@ function GameObject ()
 
 	this.Update = function()
 	{
-		if(!Application.GamePaused && this.enabled && this.physics){
-			if(this.BoxCollider)
+		if(!Application.GamePaused && this.enabled)
+		{
+			if(this.physics)
 			{
-				for(var other in GameObjects)
+				if(this.BoxCollider)
 				{
-					if(other.enabled && other.BoxCollider)
+					for(var other in GameObjects)
 					{
-						if(BoxCollider({x: this.BoxColliderSize.position.x, y: this.BoxColliderSize.position.y,  w: this.BoxCollider.scale.x,  h: this.BoxColliderSize.scale.y },
-									   {x: other.BoxColliderSize.position.x, y: other.BoxColliderSize.position.y, w: other.BoxColliderSize.scale.x, h: other.BoxColliderSize.scale.y } ))
+						if(other.enabled && other.BoxCollider)
 						{
-							OnTriggerEnter(other);
+							if(BoxCollider({x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,  w: this.Physics.BoxCollider.scale.x,  h: this.Physics.BoxColliderSize.scale.y },
+										   {x: other.Physics.BoxColliderSize.position.x, y: other.Physics.BoxColliderSize.position.y, w: other.Physics.BoxColliderSize.scale.x, h: other.Physics.BoxColliderSize.scale.y } ))
+							{
+								OnTriggerEnter(other);
+							}
 						}
 					}
 				}
-			}
 
-			if(this.Clickable)
-			{
-				if(PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
+				if(this.Clickable)
 				{
-					if(!Input.Mouseclick) this.OnHover();
-					if(Input.Mouseclick)  this.OnClicked();
+					if(PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
+					{
+						if(!Input.Mouseclick) this.OnHover();
+						if(Input.Mouseclick)  this.OnClicked();
+					}
 				}
 			}
 

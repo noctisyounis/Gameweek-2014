@@ -60,7 +60,7 @@ Time.TimeWhenGameBegin = new Date().getTime();
 //Application.LoadLevel(new SceneModel());
 
 //var o = "";
-//Text.Scrolling.Begin("Salut, Comment Vas Tu? [long] . [long] . [long] . [long] hahaha j'adore cet effet debile", 0.1, o);
+//Dialogue.Begin("Salut, Comment Vas Tu? [long] . [long] . [long] . [long] hahaha j'adore cet effet debile", 0.1, o);
 //Run();
 
 
