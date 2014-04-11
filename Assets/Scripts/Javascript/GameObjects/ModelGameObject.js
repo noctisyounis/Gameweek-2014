@@ -44,6 +44,8 @@ function GameObject ()
 {
 	this.name = "GameObject";
 	this.enabled = true;
+	this.physics = true;
+	this.renderer = true;
 
 	this.transform =
 	{
@@ -161,7 +163,7 @@ function GameObject ()
 
 	this.Update = function()
 	{
-		if(!Application.GamePaused && this.enabled){
+		if(!Application.GamePaused && this.enabled && this.physics){
 			if(this.BoxCollider)
 			{
 				for(var other in GameObjects)
@@ -186,7 +188,7 @@ function GameObject ()
 				}
 			}
 
-			if(this.Renderer.Animation.animated)
+			if(this.renderer && this.Renderer.Animation.animated)
 			{
 				this.Renderer.Animation.countdown -= Time.DeltaTime;
 				if(this.Renderer.Animation.countdown <= 0)
@@ -209,8 +211,8 @@ function GameObject ()
 	this.LateUpdate = function ()
 	{
 		// GAMEOBJECT BEHAVIOR HERE ! 
-
-		this.Renderer.Draw();
+		if(this.renderer)
+			this.Renderer.Draw();
 	};
 
 	this.OnTriggerEnter = function (other)
