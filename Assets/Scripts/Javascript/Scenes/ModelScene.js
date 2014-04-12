@@ -1,11 +1,47 @@
-/*	Pour creer une nouvelle Scene: 
-*	1/	Copiez le modele ci dessous dans un nouveau fichier qui portera le nom de votre scene
-*	2/	Sauvegardez le nouveau fichier JS dans le dossier Assets/Javascript/Scenes/NomDeVotreScene.js
-*	3/	Dans l'index.html rajoutez sous le commentaire <!-- Scenes --> la ligne: 
-*       "<script type="text/javascript" src="Assets/Scripts/Javascript/Scenes/NomDeVotreScene.js"></script>"
-*	4/  Pour passer sur votre scene: "Application.LoadLevel(LeNomDeVotreScene);"
-*	
+/*	**** For create a new GameObject **** 
+*
+*	@step 1							Copy the content of this file in a new .js document.
+*   ----------------------------------------------------------------------------------------------------------------------------
+*	@step 2							Save the new file in Assets/Javascript/Scenes/NameOfYourScene.js .
+*   ----------------------------------------------------------------------------------------------------------------------------
+*	@step 3                      	In the index.html add below this comment <!-- Scene --> the line: 
+*                    "<script type="text/javascript" src="Assets/Scripts/Javascript/Scenes/NameOfYourGameObject.js"></script>"
+*	----------------------------------------------------------------------------------------------------------------------------
+*	@step 4						    For create a new scene, use this instruction: "new Scene()".
 */
+
+/*	**** How to make the setup of a Scene ****
+*	
+*	@property name 																											{string} 			 
+*	The name of the scene.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@property GameObjects 																				   {array[GameObject1, ...]} 			 
+*	All the GameObject of the scene	
+*
+*/
+
+/*	**** Method of the scene ****
+*
+*	@method Awake()									
+*	Called at the instruction new Scene().
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method Start()									
+*	Called at the first use of scene in game.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method Update()								
+*	Called each frame,code game is here.
+*	--------------------------------------------------------------------------------------------------------------------------------
+*	@method LateUpdate()
+*	Called each frame, code all the GUI here.
+*/
+
+/* **** For launch Scene ****
+*
+*	To load your scene, use this instruction: "Application.LoadLevel(LevelName)".
+*/
+
+
+
 function SceneModel () 
 {
 	this.name = "Model";
