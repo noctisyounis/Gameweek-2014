@@ -288,12 +288,22 @@ Dialogue =
     },
     
     // Dont Touch the function below
-    Write: function(str, x, y)
+    Write: function(str, x, y, color)
     {
+    	ctx.fillStyle = color;
 	    for(var i = 0; i <= str.length; ++i)
 	    {
 	        var ch = str.charAt(i);
-	        ctx.fillStyle = "red"; /************ FAIRE LA GESTION DE LA COULEUR DU TEXT ICI ***********/
+	        switch(ch)
+	        {
+	        	case "§":
+	        		ctx.fillStyle = ctx.fillStyle == color ? "red" : color;
+	        		continue;        	
+	        	
+	        	case "°":
+	        		ctx.fillStyle = ctx.fillStyle == color ? "green" : color; 
+	        		continue;
+	        }
 	        ctx.fillText(ch, x, y);
 	        x += ctx.measureText(ch).width;
 	    }
@@ -305,7 +315,7 @@ Gfx =
 	Filters: 
 	{
 		Greyscale: function(affectedScreenZone){var pixels = ctx.getImageData(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);var d = pixels.data;for (var i=0; i<d.length; i+=4) {var r = d[i]; var g = d[i+1]; var b = d[i+2];var v = 0.2126*r + 0.7152*g + 0.0722*b;d[i] = d[i+1] = d[i+2] = v}ctx.putImageData(pixels, affectedScreenZone.x, affectedScreenZone.y);},
-		Sepia: function(affectedScreenZone) { var noise = 20;var imageData = ctx.getImageData(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);for (var i=0; i < imageData.data.length; i+=4) {imageData.data[i] = r[imageData.data[i]];imageData.data[i+1] = g[imageData.data[i+1]];imageData.data[i+2] = b[imageData.data[i+2]];if (noise > 0) {var noise = Math.round(noise - Math.random() * noise);for(var j=0; j<3; j++){var iPN = noise + imageData.data[i+j];imageData.data[i+j] = (iPN > 255) ? 255 : iPN;}}}ctx.putImageData(imageData, affectedScreenZone.x, affectedScreenZone.y);},
+		Sepia: function(affectedScreenZone) {var noise = 20;var imageData = ctx.getImageData(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);for (var i=0; i < imageData.data.length; i+=4) {imageData.data[i] = r[imageData.data[i]];imageData.data[i+1] = g[imageData.data[i+1]];imageData.data[i+2] = b[imageData.data[i+2]];if (noise > 0) {var noise = Math.round(noise - Math.random() * noise);for(var j=0; j<3; j++){var iPN = noise + imageData.data[i+j];imageData.data[i+j] = (iPN > 255) ? 255 : iPN;}}}ctx.putImageData(imageData, affectedScreenZone.x, affectedScreenZone.y);},
 		Blur: function(affectedScreenZone, power, blurAlpha) {if (isNaN(power) || power < 1 ) return;if (blurAlpha)Gfx.Filters.boxBlurCanvasRGBA(affectedScreenZone, power);else Gfx.Filters.boxBlurCanvasRGB(affectedScreenZone, power);},
 		Flash: function(affectedZone, power, color){ctx.fillStyle = "rgba(" + color.r +","+ color.g +","+ color.b +"," + power+")";ctx.fillRect(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);},
 
@@ -313,17 +323,18 @@ Gfx =
 		boxBlurCanvasRGBA: function(affectedScreenZone, radius){if ( isNaN(radius) || radius < 1 ) return; radius |= 0;var iterations = 1;var imageData = ctx.getImageData(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);var pixels = imageData.data;var rsum,gsum,bsum,asum,x,y,i,p,p1,p2,yp,yi,yw,idx,pa;var wm = affectedScreenZone.w - 1;var hm = affectedScreenZone.h - 1;var wh = affectedScreenZone.w * affectedScreenZone.h;var rad1 = radius + 1;var mul_sum = mul_table[radius];var shg_sum = shg_table[radius];var r = [];var g = [];var b = [];var a = [];var vmin = [];var vmax = [];while ( iterations-- > 0 ){yw = yi = 0;for ( y=0; y < height; y++ ){rsum = pixels[yw]   * rad1;gsum = pixels[yw+1] * rad1;bsum = pixels[yw+2] * rad1;asum = pixels[yw+3] * rad1;for( i = 1; i <= radius; i++ ){p = yw + (((i > wm ? wm : i )) << 2 );rsum += pixels[p++];gsum += pixels[p++];bsum += pixels[p++];asum += pixels[p]}for ( x = 0; x < affectedScreenZone.w; x++ ) {r[yi] = rsum;g[yi] = gsum;b[yi] = bsum;a[yi] = asum;if( y==0) {vmin[x] = ( ( p = x + rad1) < wm ? p : wm ) << 2;vmax[x] = ( ( p = x - radius) > 0 ? p << 2 : 0 );} p1 = yw + vmin[x];p2 = yw + vmax[x]; rsum += pixels[p1++] - pixels[p2++];gsum += pixels[p1++] - pixels[p2++];bsum += pixels[p1++] - pixels[p2++];asum += pixels[p1]   - pixels[p2];yi++;}yw += ( affectedScreenZone.w << 2 );}for ( x = 0; x < affectedScreenZone.w; x++ ) {yp = x;rsum = r[yp] * rad1;gsum = g[yp] * rad1;bsum = b[yp] * rad1;asum = a[yp] * rad1;for( i = 1; i <= radius; i++ ) {yp += ( i > hm ? 0 : affectedScreenZone.w );rsum += r[yp];gsum += g[yp];bsum += b[yp];asum += a[yp];}	yi = x << 2;for ( y = 0; y < affectedScreenZone.h; y++) {pixels[yi+3] = pa = (asum * mul_sum) >>> shg_sum;if ( pa > 0 ){pa = 255 / pa;pixels[yi]   = ((rsum * mul_sum) >>> shg_sum) * pa;pixels[yi+1] = ((gsum * mul_sum) >>> shg_sum) * pa;pixels[yi+2] = ((bsum * mul_sum) >>> shg_sum) * pa;} else {pixels[yi] = pixels[yi+1] = pixels[yi+2] = 0;}if( x == 0 ) {vmin[y] = ( ( p = y + rad1) < hm ? p : hm ) * affectedScreenZone.w;vmax[y] = ( ( p = y - radius) > 0 ? p * affectedScreenZone.w : 0 );} p1 = x + vmin[y];p2 = x + vmax[y];rsum += r[p1] - r[p2];gsum += g[p1] - g[p2];bsum += b[p1] - b[p2];asum += a[p1] - a[p2];yi += affectedScreenZone.w << 2;}}}ctx.putImageData( imageData, affectedScreenZone.x, affectedScreenZone.y );},
 		boxBlurCanvasRGB: function(affectedScreenZone, radius){if ( isNaN(radius) || radius < 1 ) return; radius |= 0;var iterations = 1;var imageData = ctx.getImageData(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);var pixels = imageData.data;var rsum,gsum,bsum,asum,x,y,i,p,p1,p2,yp,yi,yw,idx;		var wm = affectedScreenZone.w - 1;var hm = affectedScreenZone.h - 1;var wh = affectedScreenZone.w * affectedScreenZone.h;var rad1 = radius + 1;var r = [];var g = [];var b = [];var mul_sum = mul_table[radius];var shg_sum = shg_table[radius];var vmin = [];var vmax = [];while ( iterations-- > 0 ){yw = yi = 0;for ( y=0; y < affectedScreenZone.h; y++ ){rsum = pixels[yw]   * rad1;gsum = pixels[yw+1] * rad1;bsum = pixels[yw+2] * rad1;for( i = 1; i <= radius; i++ ){p = yw + (((i > wm ? wm : i )) << 2 );rsum += pixels[p++];gsum += pixels[p++];bsum += pixels[p++];}for ( x = 0; x < affectedScreenZone.w; x++ ){r[yi] = rsum;g[yi] = gsum;b[yi] = bsum;if( y==0) {vmin[x] = ( ( p = x + rad1) < wm ? p : wm ) << 2;vmax[x] = ( ( p = x - radius) > 0 ? p << 2 : 0 );} p1 = yw + vmin[x];p2 = yw + vmax[x];rsum += pixels[p1++] - pixels[p2++];gsum += pixels[p1++] - pixels[p2++];bsum += pixels[p1++] - pixels[p2++];yi++;}yw += ( affectedScreenZone.w << 2 );}for ( x = 0; x < affectedScreenZone.w; x++ ){yp = x;rsum = r[yp] * rad1;gsum = g[yp] * rad1;bsum = b[yp] * rad1;for( i = 1; i <= radius; i++ ){yp += ( i > hm ? 0 : affectedScreenZone.w);rsum += r[yp];gsum += g[yp];bsum += b[yp];}yi = x << 2;for ( y = 0; y < affectedScreenZone.h; y++){pixels[yi]   = (rsum * mul_sum) >>> shg_sum;pixels[yi+1] = (gsum * mul_sum) >>> shg_sum;pixels[yi+2] = (bsum * mul_sum) >>> shg_sum;if( x == 0 ) {vmin[y] = ( ( p = y + rad1) < hm ? p : hm ) * affectedScreenZone.w;vmax[y] = ( ( p = y - radius) > 0 ? p * affectedScreenZone.w : 0 );} p1 = x + vmin[y];p2 = x + vmax[y];rsum += r[p1] - r[p2];gsum += g[p1] - g[p2];bsum += b[p1] - b[p2];yi += affectedScreenZone.w << 2;}}}ctx.putImageData( imageData, affectedScreenZone.x, affectedScreenZone.y );}
 	}
-}
+};
 
+PlayerPrefs = 
+{
+	Save: function(key, value){localStorage.setitem(key, value);},
+	Load: function(key){return localStorate.getItem(key);},
+	Delete: function(key){localStorage.removeItem(key);}
+};
 
-/**
-* For the brave souls who get this far: You are the chosen ones,
-* the valiant knights of programming who toil away, without rest,
-* fixing our most awful code. To you, true saviors, kings of men,
-* I say this: never gonna give you up, never gonna let you down,
-* never gonna run around and desert you. Never gonna make you cry,
-* never gonna say goodbye. Never gonna tell a lie and hurt you.
-*/
+Data =
+{
 
+};
 
 
