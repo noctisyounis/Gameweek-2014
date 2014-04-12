@@ -1,15 +1,36 @@
 Random = 
 {
-	/* Name of functions
-	
-	* RangeInt	 = Choose random value between min and max, return a int
-	* RangeFloat = Choose random value between min and max, return a float 
-	* InArray  	 = Return element of array randomly
-	* InCircle 	 = Return a screen point in the circle sent in parameters (return {x, y})
-	* InScreen	 = Return a screen randomly (return {x, y})
-	* Color      = Return random RGB color ("rgb(r,g,b)")
+/** **** Method of Random ****
 
-	*/
+* @prefix Random : All the extended method to generate random.wws
+
+* @method RangeInt (): Choose randomly int between min and max.
+* @param1 {float}: min.
+* @param2 {float}: max.
+* @return {int}: randomNumber.
+
+* @method RangeFloat (): Choose randomly float between min and max.
+* @param1 {float}: min.
+* @param2 {float}: max.
+* @return {float}: randomNumber.
+
+* @method InArray (): Choose randomly element of array.
+* @param1 {array}: array.
+* @return {object}: randomElement.	 
+
+* @method InCircle (): Choose randomly a point in a circle. 
+* @param1 {structure}: {x: float, y:float}.
+* @param2 	{float}:   radius.
+* @return struture: {x: float, y: float}.
+
+* @method InScreen (): Choose randomly a screen point.
+* @return {structure}: {x:float, y:float}.
+
+* @method Color (): Choose randomly RGB color.
+* @return {string}: color      
+
+
+*/
 	RangeInt: function (min, max) {return Math.random() * (max - min) + min |0;},
 	RangeFloat: function (min, max) {return Math.random() * (max - min) + min;},
 	InArray: function(array) {array[Math.floor(Math.random() * array.length)]},
@@ -20,6 +41,28 @@ Random =
 
 Debug = 
 {
+/** 												
+* @prefix Debug: Contain all the property and the method of the extended class Debug.
+
+													**** Property of Debug ****
+* @property SpriteOutlineColor 																							  {string} 			 
+* The gizmos color for the sprite bounds.
+
+* @property ColliderOutlineColor 																						  {string} 			 
+* The gizmos color for the collider bounds.
+
+
+ 													**** Methods of Debug ****
+
+* @method Log (): console.log() alternative.
+* @param1 {string}: logMsg
+ 
+* @method ShowStats(): show statistics from game on the canvas.
+ 
+* @method Break(): alternative to debugger, create breakpoint.
+
+*/
+
 	SpriteOutlineColor: "pink", ColliderOutlineColor: "green",
 	Log: function(logMsg)	{console.log(logMsg);},
 
@@ -34,35 +77,35 @@ Debug =
 
 	Break: function() { debugger; }
 };
-/*print: 			console.log
-print = function (logMsg) {console.log(logMsg);};*/
+
+print = function (logMsg) {console.log(logMsg);};
 
 Tween = 
 {
-	/* Name of functions:
+/** **** method of Tween ****
 
-	* Linear: 	 	 no easing no accelleration 
-	* In:  			 accelerating from zero velocity 
-	* Out: 			 decelerating to zero velocity
-	* InOut:  		 acceleration until halfway, then deceleration
+* Linear: 	 	 no easing no accelleration 
+* In:  			 accelerating from zero velocity 
+* Out: 			 decelerating to zero velocity
+* InOut:  		 acceleration until halfway, then deceleration
 
-	*/
+*/
 
-	/* Parametres: 
+/** **** Parametres ****
 
-	* t(time)     = current time
-	* b(base)     = start value
-	* c(change)   = change in value 
-	* d(duration) = duration
-	* a(amplitude) 
-	* p(period)
-	* s(overshoot amount)
+* t(time)     = current time
+* b(base)     = start value
+* c(change)   = change in value 
+* d(duration) = duration
+* a(amplitude) 
+* p(period)
+* s(overshoot amount)
 
-	* Graphical representation: 
+* Graphical representation: 
 
-	* http://blog.26interactive.com/wp-content/uploads/2012/02/Untitled-1.jpg
+* http://blog.26interactive.com/wp-content/uploads/2012/02/Untitled-1.jpg
 
-	*/
+*/
 
 
 	Linear: function (t, b, c, d) {return c*t/d + b;},
@@ -273,7 +316,14 @@ Gfx =
 }
 
 
-
+/**
+* For the brave souls who get this far: You are the chosen ones,
+* the valiant knights of programming who toil away, without rest,
+* fixing our most awful code. To you, true saviors, kings of men,
+* I say this: never gonna give you up, never gonna let you down,
+* never gonna run around and desert you. Never gonna make you cry,
+* never gonna say goodbye. Never gonna tell a lie and hurt you.
+*/
 
 
 

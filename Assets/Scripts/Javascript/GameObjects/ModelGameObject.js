@@ -74,8 +74,9 @@
 *	@property visible																									   {boolean}			 
 *	If true, the GameObject will be visible.
 *	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	
-*	@property Renderer.Material																							 {structure}			 
+*	@prefix Renderer.Material																							 {structure}			 
 *	The material part of the renderer component.
+*
 *
 *	@property source																										 {image}				 
 *	The image drawed if no animation.
@@ -97,38 +98,33 @@
 
 /*	**** Les methodes du GameObject ****
 *
-*	@method SetActive (boolean: state) 					
-*	Change the active state of gameObject by the parameters state.
+*	@method SetActive (): Change the active state of GameObject by the parameters state.
+*	@param1 {boolean} state.		
 *	--------------------------------------------------------------------------------------------------------------------------------
-*	@method SetPosition(x, y)						
-*	Set la position du gameObject et cale le collider si il est relatif
+*	@method SetPosition (): Set position of gameObject.
+*   @param1 {structure} {x: float, y:float}.
 *	--------------------------------------------------------------------------------------------------------------------------------
-*	@method Awake()									
-*	Called at the instruction new GameObject().
+*	@method Awake (): Called at the instruction new GameObject().									
 *	--------------------------------------------------------------------------------------------------------------------------------
-*	@method Start()									
-*	Called at the first use of the GameObejct in scene.
+*	@method Start (): Called at the first use of the GameObejct in scene.
 *	--------------------------------------------------------------------------------------------------------------------------------
-*	@method Update()								
-*	Called each frame, all the system is coded here.
+*	@method Update (): Called each frame, all the system is coded here.
 *	--------------------------------------------------------------------------------------------------------------------------------
-*	@method LateUpdate()
-*	Called each frame, code all the behavior here.
+*	@method LateUpdate (): Called each frame, code all the behavior here.
 *	--------------------------------------------------------------------------------------------------------------------------------
-*	@method OnTriggerEnter(other)					
-*	Called each frame when an other box collider is in contact with the GameObject.
+*	@method OnTriggerEnter(): Called each frame when an other box collider is in contact with the GameObject.
+*	@param1 {object} : other.
 *	--------------------------------------------------------------------------------------------------------------------------------
-*	@method OnClicked()								
-*	Called each frame when user click on the collider.
+*	@method OnClicked(): Called each frame when user click on the collider.
 * 	--------------------------------------------------------------------------------------------------------------------------------
-*	@method OnHoverd()
-*	Called each frame when user mouse is over the collider and don't click.
+*	@method OnHoverd(): Called each frame when user mouse is over the collider and don't click.
 */
 
 /* **** For launch GameObject ****
 *
 *	Add NameOfYourGameObject.Start() in your scene.
 */
+
 function GameObject ()
 {
 	this.name = "GameObject";
@@ -233,7 +229,7 @@ function GameObject ()
 			this.Physics.BoxColliderSize.position.x += this.transform.position.x;
 			this.Physics.BoxColliderSize.position.y += this.transform.position.y;
 		}
-		
+
 		if(this.Renderer.Material.src != "")
 		{
 			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.source.width / this.Renderer.Animation.current[2];
