@@ -75,11 +75,10 @@ function SceneLoader ()
 	{
 		if(!Application.GamePaused)
 		{
-			if(!Dialogue.finished) {Dialogue.Continue();}
-			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que les fond obscure repose les yeux !
-
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
+
+			if(!Dialogue.finished) {Dialogue.Continue();}
 
 			if(Images.logoHtml5)
 					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,130);
@@ -87,7 +86,7 @@ function SceneLoader ()
 			if(!this.loadingShowed)
 			{
 				this.loadingShowed = true;
-				Dialogue.Begin("Chargement", 0.1, {x: 40, y:40}, "white");
+				Dialogue.Begin("Chargement [short] . [short] . [short] . ", 0.3, {x: 450, y:490}, "white");
 			}
 
 			ctx.strokeStyle = "white";
@@ -96,7 +95,6 @@ function SceneLoader ()
 			var portion = 400 / ImagesPath.length;
 			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
 			
-
 			this.LateUpdate();
 		}
 	};

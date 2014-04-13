@@ -330,10 +330,7 @@ Dialogue =
 	        console.log(str + " " + " x "+ x + "y " + y + " color " + color);
 	        ctx.fillText(ch, x, y);
 	        x += ctx.measureText(ch).width;
-	        ctx.fillText(this.destination, 100, 5);
 	  }
-	  if(this.destination == " Chargement")
-	  	debugger;
 	}
 };
 
