@@ -226,14 +226,15 @@ Dialogue =
 	interval: 0, shortInterval: 1, mediumInterval: 2, longInterval: 3,
 
 	//Dont touch these variables
-	words: [], letters: [], intervalCountdown: 0, destination: "", finished: true,
+	words: [], letters: [], intervalCountdown: 0, destination: "", position: {x:0, y:0}, finished: true, defaultColor: "white",
 
-	Begin: function(text, interval, destination) {this.words = text.split(" "); this.interval = interval; this.destination = destination; this.finished = false;},
+	Begin: function(text, interval, destination, defaultColor) {this.words = text.split(" "); this.interval = interval; this.position = destination; this.finished = false;},
 
 	Continue: function()
 	{
 		if(!Application.LoadedLevel.GamePaused) // Si on est pas en pause 
 		{
+			this.Write(this.destination, this.position.x, this.position.y, this.defaultColor);
 			this.intervalCountdown -= Time.DeltaTime;
 			if(this.intervalCountdown <= 0 && this.words.length > -1) // Si on a attendu et qu'il reste des mots ou des lettres a afficher
 			{
@@ -242,8 +243,9 @@ Dialogue =
 					this.destination += this.letters[0];
 					this.letters.splice(0,1);
 					this.intervalCountdown = this.interval;
-					console.clear()
-					console.log(this.destination);
+					//console.clear()
+					//console.log(this.letters);
+					//console.log(this.destination);
 				}
 				else
 				{
@@ -273,10 +275,10 @@ Dialogue =
 								this.finished = false;
 							}
 							else 
-								{
-									this.finished = true;
-									console.log("Sentence showed!");
-								}
+							{
+								this.finished = true;
+								console.log("Sentence showed!");
+							}
 							return;
 					}
 
@@ -308,26 +310,30 @@ Dialogue =
 		finished = true;
     },
     
-    // Dont Touch the function below
     Write: function(str, x, y, color)
     {
     	ctx.fillStyle = color;
 	    for(var i = 0; i <= str.length; ++i)
 	    {
 	        var ch = str.charAt(i);
-	        switch(ch)
+	       switch(ch)
 	        {
-	        	case "§":
+	        	case "§": // Red flag
 	        		ctx.fillStyle = ctx.fillStyle == color ? "red" : color;
 	        		continue;        	
 	        	
-	        	case "°":
+	        	case "°": // Green flag	
 	        		ctx.fillStyle = ctx.fillStyle == color ? "green" : color; 
 	        		continue;
 	        }
+	        console.clear();
+	        console.log(str + " " + " x "+ x + "y " + y + " color " + color);
 	        ctx.fillText(ch, x, y);
 	        x += ctx.measureText(ch).width;
-	    }
+	        ctx.fillText(this.destination, 100, 5);
+	  }
+	  if(this.destination == " Chargement")
+	  	debugger;
 	}
 };
 

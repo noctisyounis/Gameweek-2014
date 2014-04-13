@@ -49,7 +49,7 @@ function SceneLoader ()
 
 	this.GameObjects = [];
 	this.imagesLoaded = 0;
-
+	var loadingShowed = false;
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
@@ -84,12 +84,19 @@ function SceneLoader ()
 			if(Images.logoHtml5)
 					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,130);
 
+			if(!this.loadingShowed)
+			{
+				this.loadingShowed = true;
+				Dialogue.Begin("Chargement", 0.1, {x: 40, y:40}, "white");
+			}
+
 			ctx.strokeStyle = "white";
 			ctx.strokeRect( canvas.width / 2 - 200, 500, 400, 20);
 			ctx.fillStyle = "white";
 			var portion = 400 / ImagesPath.length;
-			//console.log(this.imageLoaded * portion);
 			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
+			
+
 			this.LateUpdate();
 		}
 	};
