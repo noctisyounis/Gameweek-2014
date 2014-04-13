@@ -3,8 +3,11 @@ var ctx = canvas.getContext("2d");
 
 var Scenes = {};
 
-var ImagesPath = ["test.png"];
-var Images = [];
+var ImagesPath = [
+{ name: "logoHtml5", path: "GUI/html5_logo.png"},
+{ name: "textHtml5", path: "GUI/html5_text.png"}
+];
+var Images = {};
 
 var Application = 
 {
@@ -26,6 +29,8 @@ var Input =
 {
 	MouseClick: false,
 	MousePosition: {x: 0, y: 0},
+	MouseDraging: false,
+	DragedElement: null,
 
 	KeysDown: []
 };

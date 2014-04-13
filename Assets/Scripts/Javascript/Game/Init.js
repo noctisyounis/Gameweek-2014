@@ -34,26 +34,29 @@ function LoadImages(callBack)
 	var count = 0;
     for(var i in ImagesPath)
     {
-		Images[i] = new Image();
-		Images[i].src = "Assets/Graphics/" + ImagesPath[i];
-		Images[i].onload = function()
+    	var name = ImagesPath[i].name;
+    	var content = new Image();
+    	Images[name] = content;
+		Images[name].src = "Assets/Graphics/" + ImagesPath[i].path;
+		Images[name].name.onload = function()
 		{
 			count++;
+			Scenes.loader.imageLoaded = count;
 			if(count == ImagesPath.length)
 			{
-				ImageLoaded(Images);
+				ImageLoaded(Images, count);
 	  		}
   		}
  	}
 } 
 
-function ImageLoaded(img)
+function ImageLoaded(img, imagesloaded)
 {
-	console.log(" %c System: Images Loaded!", 'background: #222; color: #bada55');
-	Application.LoadLevel(new SceneModel());
-	Run();
+	console.log(" %c System: "+ imagesloaded +" Images Loaded!", 'background: #222; color: #bada55');
 }
+Time.TimeWhenGameBegin = new Date().getTime();
+Scenes.loader = new SceneLoader();
+Application.LoadLevel(Scenes.loader);
+Run();
 
 LoadImages();
-
-Time.TimeWhenGameBegin = new Date().getTime();

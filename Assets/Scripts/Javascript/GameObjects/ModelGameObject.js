@@ -128,36 +128,37 @@
 function GameObject ()
 {
 	this.name = "Model";
-	this.enabled = true;
-	this.physics = true;
-	this.renderer = true;
+	this.enabled = false;
+	this.physics = false;
+	this.renderer = false;
 
 	this.transform =
 	{
-		position: {x:100, y: 100},
+		position: {x:0, y: 0},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 200, y: 350}
+		scale: {x: 0, y: 0}
 	};
 
 	this.Physics = 
 	{
 		BoxCollider: false,
-		Clickable:   true,
-		DragAndDropable: true,
+		Clickable:   false,
+		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
-		RelativePosition: true,
+		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 200, y: 350}
+			scale: {x: 0, y: 0}
 		}
 	};
 	this.Renderer = 
 	{
-		visible: true,
-		GizmosVisible: true,
+		visible: false,
+		GizmosVisible: false,
+		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
@@ -181,8 +182,8 @@ function GameObject ()
 
 		Animation: 
 		{
-			animated: true,
-			current: [Images[0], .7, 3],
+			animated: false,
+			current: [],
 			Animations: [],
 			countdown:0
 		},
@@ -190,16 +191,25 @@ function GameObject ()
 		Draw: function ()
 		{
 			ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
-			if(Application.DebugMode && this.GizmosVisible)
+			if(Application.DebugMode)
 			{
-				ctx.lineWidth = 10;
-				ctx.strokeStyle = Debug.SpriteOutlineColor;
-				ctx.strokeRect (this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
-				ctx.lineWidth = 3;
-				ctx.strokeStyle = Debug.ColliderOutlineColor;
-				ctx.strokeRect (this.thot.position.x, this.thot.position.y, this.thot.scale.x, this.thot.scale.y);
-				ctx.lineWidth = 1;
-			}
+				if(this.GizmosVisible)
+				{
+					ctx.lineWidth = 10;
+					ctx.strokeStyle = Debug.SpriteOutlineColor;
+					ctx.strokeRect (this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
+					ctx.lineWidth = 3;
+					ctx.strokeStyle = Debug.ColliderOutlineColor;
+					ctx.strokeRect (this.thot.position.x, this.thot.position.y, this.thot.scale.x, this.thot.scale.y);
+					ctx.lineWidth = 1;
+				}
+				ctx.fillStyle = "rgba(122,122,122, 0.4)";
+				ctx.RoundedBox (this.that.position.x - 5, this.that.position.y - 60, 160, 55, 4);
+				ctx.fillStyle = "white";
+				ctx.font = "10px Georgia";
+				ctx.fillText(this.thit , this.that.position.x, this.that.position.y - 45);
+				ctx.fillText("Rend x:" + Math.floor(this.that.position.x) + ", y:" + Math.floor(this.that.position.y) + ", w:" + Math.floor(this.that.scale.x) + ", h:" + Math.floor(this.that.scale.y), this.that.position.x, this.that.position.y - 25);
+			}	ctx.fillText("Collis x:" + Math.floor(this.thot.position.x) + ", y:" + Math.floor(this.thot.position.y) + ", w:" + Math.floor(this.thot.scale.x) + ", h:" + Math.floor(this.thot.scale.y), this.that.position.x, this.that.position.y - 10);
 		}
 	}
 
@@ -308,7 +318,7 @@ function GameObject ()
 
 	this.LateUpdate = function ()
 	{
-		// GAMEOBJECT BEHAVIOR HERE ! 
+		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
 	};
@@ -320,8 +330,10 @@ function GameObject ()
 
 	this.OnClicked = function ()
 	{
-		if(this.Physics.DragAndDropable)
+		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
+			Input.MouseDraging = true;
+			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
 	};

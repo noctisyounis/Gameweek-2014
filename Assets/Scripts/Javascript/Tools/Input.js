@@ -6,6 +6,8 @@ function mouseDown(event)
 function mouseUp(event)
 {
 	Input.MouseClick = false;
+	Input.MouseDraging = false;
+	Input.DraggedElement = null;
 	mouseMove(event);
 }
 function mouseMove(event)

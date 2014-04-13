@@ -74,7 +74,7 @@ Debug =
 
 	ShowStats: function(){
 		ctx.fillStyle = "rgba(122,122,122, 0.4)";
-		ctx.RoundedBox(4, 4, 120, 400, 20);
+		ctx.RoundedBox(4, 4, 120, 70, 20);
 		ctx.font = "14px Georgia";
 		if(Time.Fps > 40) ctx.fillStyle = "green";
 		if(Time.Fps < 40) ctx.fillStyle = "orange";
@@ -86,16 +86,14 @@ Debug =
 		ctx.fillText("Game: " + (Time.GetTimeSinceGameBegin() / 1000 |0).toString().toHHMMSS(), 15, 40);
 		ctx.fillText("Scene: " + (Time.GetTimeSinceLevelLoaded() / 1000 |0).toString().toHHMMSS(), 15, 60);
 
-		ctx.fillText("Mouse x: " + Math.floor(Input.MousePosition.x), 15, 90);
-		ctx.fillText("Mouse y: " + Math.floor(Input.MousePosition.y), 15, 110);
-		ctx.fillText("Click: " + Input.MouseClick, 15, 130);
+		ctx.fillStyle = Input.MouseClick ? "green" : "white";
+		ctx.fillText("x: " + Math.floor(Input.MousePosition.x) + ", y: " + Math.floor(Input.MousePosition.y), Input.MousePosition.x + 10, Input.MousePosition.y);
 
-		ctx.fillText("Scene: " + Application.LoadedLevel.name, 15, 160);
-		ctx.fillText("GameObjects: ", 15, 195 );
-		for(var i = 0; i < Application.LoadedLevel.GameObjects.length; i++)
-		{
-			ctx.fillText(i + ": " +Application.LoadedLevel.GameObjects[i].name , 15, 215 + i * 20);
-		}
+		ctx.fillStyle = "rgba(122,122,122, 0.4)";
+		ctx.RoundedBox(canvas.width - 130, 4, 125, 30, 20);
+		ctx.fillStyle = "white";
+		ctx.fillText("Scene: " + Application.LoadedLevel.name, canvas.width - 120, 23);
+
 	},
 
 	Break: function() { debugger; }
