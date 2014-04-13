@@ -406,5 +406,3 @@ CanvasRenderingContext2D.prototype.fillPolygon = function (pointsArray, fillColo
         this.fill();
     }
 }
-
-
