@@ -38,7 +38,7 @@ function LoadImages(callBack)
     	var content = new Image();
     	Images[name] = content;
 		Images[name].src = "Assets/Graphics/" + ImagesPath[i].path;
-		Images[name].name.onload = function()
+		Images[name].onload = function()
 		{
 			count++;
 			Scenes.loader.imageLoaded = count;
@@ -55,8 +55,8 @@ function ImageLoaded(img, imagesloaded)
 	console.log(" %c System: "+ imagesloaded +" Images Loaded!", 'background: #222; color: #bada55');
 }
 Time.TimeWhenGameBegin = new Date().getTime();
-Scenes.loader = new SceneLoader();
-Application.LoadLevel(Scenes.loader);
+Scenes["loader"] = new SceneLoader();
+Application.LoadLevel("loader");
 Run();
 
 LoadImages();

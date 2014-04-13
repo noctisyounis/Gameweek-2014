@@ -77,11 +77,19 @@ function SceneLoader ()
 		{
 			if(!Dialogue.finished) {Dialogue.Continue();}
 			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que les fond obscure repose les yeux !
-			//if(logoHtml5)
-			//ctx.drawImage(Images.logoHtml5, 0,0);
 
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
+
+			if(Images.logoHtml5)
+					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,130);
+
+			ctx.strokeStyle = "white";
+			ctx.strokeRect( canvas.width / 2 - 200, 500, 400, 20);
+			ctx.fillStyle = "white";
+			var portion = 400 / ImagesPath.length;
+			//console.log(this.imageLoaded * portion);
+			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
 			this.LateUpdate();
 		}
 	};

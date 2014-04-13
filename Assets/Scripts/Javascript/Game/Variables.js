@@ -17,9 +17,9 @@ var Application =
 	
 	LoadLevel: function (SceneName)
 	{
-		if(SceneName != null)
+		if(Scenes[SceneName] != undefined)
 		{
-			this.LoadedLevel = SceneName;
+			this.LoadedLevel = Scenes[SceneName];
 		}
 
 	}
