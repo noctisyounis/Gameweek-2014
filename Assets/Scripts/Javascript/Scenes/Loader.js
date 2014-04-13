@@ -76,6 +76,11 @@ function SceneLoader ()
 	{
 		if(!Application.GamePaused)
 		{
+			if(this.imageLoaded == ImagesPath.length)
+			{
+				 Scenes["title"] = new SceneTitle();
+				 Application.LoadLevel("title");
+			}
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
 			if(Images.loaderBackground)

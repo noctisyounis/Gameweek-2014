@@ -42,7 +42,7 @@
 
 
 
-function Title () 
+function SceneTitle () 
 {
 	this.name = "Title";
 	this.Started = false;
@@ -52,7 +52,7 @@ function Title ()
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
-
+		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
 
@@ -61,7 +61,7 @@ function Title ()
 		if(!this.Started)
 		{
 			//codez le start avant le changement de booleen
-
+			this.GameObjects.push(new ButtonStart());
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
@@ -73,11 +73,17 @@ function Title ()
 	{
 		if(!Application.GamePaused)
 		{
-			if(!Dialogue.finished) {Dialogue.Continue();}
-			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que le gris repose les yeux !
+			ctx.drawImage(Images.titleBackground, 0,0);
+			//if(!Dialogue.finished) {Dialogue.Continue();}
 
-			ctx.fillStyle = "black";
-			ctx.fillRect(0,0, canvas.width, canvas.height);
+			ctx.drawImage(Images.titleForeground,0,0);
+			for(var i = 0; i < this.GameObjects.length; i++)
+			{
+				if(this.GameObjects[i].enabled)
+				{
+					this.GameObjects[i].Start();
+				}
+			}			
 			this.LateUpdate();
 		}
 	};

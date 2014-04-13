@@ -52,7 +52,7 @@ function SceneModel ()
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
-
+		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
 
@@ -73,11 +73,16 @@ function SceneModel ()
 	{
 		if(!Application.GamePaused)
 		{
-			if(!Dialogue.finished) {Dialogue.Continue();}
-			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que le gris repose les yeux !
-
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
+			for(var GameObject in this.GameObjects)
+			{
+				if(GameObject.enable)
+				{
+					GameObject.Start();
+				}
+			}	
+			if(!Dialogue.finished) {Dialogue.Continue();}
 			this.LateUpdate();
 		}
 	};

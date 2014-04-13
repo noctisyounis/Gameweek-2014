@@ -125,26 +125,26 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function GameObject ()
+function ButtonStart ()
 {
-	this.name = "Model";
-	this.enabled = false;
-	this.physics = false;
-	this.renderer = false;
+	this.name = "ButtonStart";
+	this.enabled = true;
+	this.physics = true;
+	this.renderer = true;
 
 	this.transform =
 	{
-		position: {x:0, y: 0},
+		position: {x:470, y: 550},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 0, y: 0}
+		scale: {x: 70, y: 50}
 	};
 
 	this.Physics = 
 	{
 		BoxCollider: false,
-		Clickable:   false,
+		Clickable:   true,
 		DragAndDropable: false,
-		ColliderIsSameSizeAsTransform: false,
+		ColliderIsSameSizeAsTransform: true,
 		RelativePosition: false,
  
  		BoxColliderSize: 
@@ -156,15 +156,16 @@ function GameObject ()
 	};
 	this.Renderer = 
 	{
-		visible: false,
-		GizmosVisible: false,
+		visible: true,
+		GizmosVisible: true,
+		isSprite: false,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			source: Images[0],
+			source: "",
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -190,7 +191,8 @@ function GameObject ()
 
 		Draw: function ()
 		{
-			ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+			if(this.isSprite)
+				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -213,6 +215,7 @@ function GameObject ()
 		}
 	}
 
+	this.textButton = "Play";
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;
@@ -235,9 +238,10 @@ function GameObject ()
 	this.Awake = function()
 	{
 		this.Physics.BoxColliderOriginal = this.Physics.BoxColliderSize;
-		if(this.physics && this.ColliderIsSameSizeAsTransform)
+		console.log( this.physics && this.Physics.ColliderIsSameSizeAsTransform);
+		if(this.physics && this.Physics.ColliderIsSameSizeAsTransform)
 		{
-			this.BoxCollider = this.transform; 
+			this.Physics.BoxColliderSize = this.transform; 
 		}
 
 		if(this.physics && this.Physics.RelativePosition)
@@ -318,7 +322,12 @@ function GameObject ()
 
 	this.LateUpdate = function ()
 	{
-		// GAMEOBJECT BEHAVIOR HERE !
+		ctx.fillStyle = "white";
+		ctx.font = "30px Georgia";
+		ctx.textBaseline="top"; 
+		ctx.fillText(this.textButton, this.transform.position.x, this.transform.position.y);
+		ctx.textBaseline = "bottom";
+		
 		if(this.renderer)
 			this.Renderer.Draw();
 	};
@@ -330,6 +339,7 @@ function GameObject ()
 
 	this.OnClicked = function ()
 	{
+		console.log("clicked");
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;
