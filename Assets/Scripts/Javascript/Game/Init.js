@@ -57,10 +57,3 @@ function ImageLoaded(img)
 LoadImages();
 
 Time.TimeWhenGameBegin = new Date().getTime();
-//Application.LoadLevel(new SceneModel());
-
-//var o = "";
-//Dialogue.Begin("Salut, Comment Vas Tu? [long] . [long] . [long] . [long] hahaha j'adore cet effet debile", 0.1, o);
-//Run();
-
-

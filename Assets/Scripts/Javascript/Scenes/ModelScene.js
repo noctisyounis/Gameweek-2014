@@ -76,15 +76,13 @@ function SceneModel ()
 			if(!Dialogue.finished) {Dialogue.Continue();}
 			//Codez le jeu ici pour que la pause soit prise en compte et n'oubliez jamais que le gris repose les yeux !
 			
-			if(this.GameObjects.length < 1)
+			if(this.GameObjects.length < 2)
 				this.GameObjects.push(new GameObject());
 			
 
-			ctx.clearRect(0,0, canvas.width, canvas.height);
-			
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
-			this.GameObjects[0].Start();
+			//this.GameObjects[0].Start();
 			this.LateUpdate();
 		}
 	};

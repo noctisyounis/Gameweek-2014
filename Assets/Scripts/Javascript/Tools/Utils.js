@@ -41,21 +41,8 @@ Random =
 
 Collision =
 {
-	BoxCollider: function(box1, box2)
-	{
-	   if((box2.x >= box1.x + box1.w)
-	    || (box2.x + box2.w <= box1.x)
-	    || (box2.y >= box1.y + box1.h)
-	    || (box2.y + box2.h <= box1.y))
-	          return false; 
-	   else
-	          return true; 
-	},
-
-PointCollider: function(curseur_x, curseur_y, box)
-{
-  return curseur_x >= box.x  && curseur_x < box.x + box.w&& curseur_y >= box.y && curseur_y < box.y + box.h ? true : false;
-}
+	BoxCollider: function(box1, box2) {(box2.x >= box1.x + box1.w) || (box2.x + box2.w <= box1.x)|| (box2.y >= box1.y + box1.h)	|| (box2.y + box2.h <= box1.y) ? false : true;},
+	PointCollider: function(curseur_x, curseur_y, box) {return curseur_x >= box.x  && curseur_x < box.x + box.w&& curseur_y >= box.y && curseur_y < box.y + box.h ? true : false;}
 };
 
 Debug = 
@@ -87,27 +74,27 @@ Debug =
 
 	ShowStats: function(){
 		ctx.fillStyle = "rgba(122,122,122, 0.4)";
-		ctx.RoundedBox(2, 2, 100, 400, 3);
+		ctx.RoundedBox(4, 4, 120, 400, 20);
 		ctx.font = "14px Georgia";
 		if(Time.Fps > 40) ctx.fillStyle = "green";
 		if(Time.Fps < 40) ctx.fillStyle = "orange";
 		if(Time.Fps < 20) ctx.fillStyle = "red";
 
-		ctx.fillText('Fps: ' + Time.Fps ,5,20);
+		ctx.fillText('Fps: ' + Time.Fps ,40,20);
 		ctx.fillStyle = "white";
 
-		ctx.fillText("Game: " + (Time.GetTimeSinceGameBegin() / 1000 |0), 5, 40);
-		ctx.fillText("Scene: " + (Time.GetTimeSinceLevelLoaded() / 1000 |0), 5, 60);
+		ctx.fillText("Game: " + (Time.GetTimeSinceGameBegin() / 1000 |0).toString().toHHMMSS(), 15, 40);
+		ctx.fillText("Scene: " + (Time.GetTimeSinceLevelLoaded() / 1000 |0).toString().toHHMMSS(), 15, 60);
 
-		ctx.fillText("Mouse x: " + Math.floor(Input.MousePosition.x), 5, 90);
-		ctx.fillText("Mouse y: " + Math.floor(Input.MousePosition.y), 5, 110);
-		ctx.fillText("Click: " + Input.MouseClick, 5, 130);
+		ctx.fillText("Mouse x: " + Math.floor(Input.MousePosition.x), 15, 90);
+		ctx.fillText("Mouse y: " + Math.floor(Input.MousePosition.y), 15, 110);
+		ctx.fillText("Click: " + Input.MouseClick, 15, 130);
 
-		ctx.fillText("Scene: " + Application.LoadedLevel.name, 5, 190);
-		ctx.fillText("GameObjects: ", 5, 220 );
+		ctx.fillText("Scene: " + Application.LoadedLevel.name, 15, 160);
+		ctx.fillText("GameObjects: ", 15, 195 );
 		for(var i = 0; i < Application.LoadedLevel.GameObjects.length; i++)
 		{
-			ctx.fillText(Application.LoadedLevel.GameObjects[i].name , 5, 240 + i * 20);
+			ctx.fillText(i + ": " +Application.LoadedLevel.GameObjects[i].name , 15, 215 + i * 20);
 		}
 	},
 
@@ -351,7 +338,7 @@ Gfx =
 	Filters: 
 	{
 		Greyscale: function(affectedScreenZone){var pixels = ctx.getImageData(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);var d = pixels.data;for (var i=0; i<d.length; i+=4) {var r = d[i]; var g = d[i+1]; var b = d[i+2];var v = 0.2126*r + 0.7152*g + 0.0722*b;d[i] = d[i+1] = d[i+2] = v}ctx.putImageData(pixels, affectedScreenZone.x, affectedScreenZone.y);},
-		Sepia: function(affectedScreenZone) {var noise = 20;var imageData = ctx.getImageData(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);for (var i=0; i < imageData.data.length; i+=4) {imageData.data[i] = r[imageData.data[i]];imageData.data[i+1] = g[imageData.data[i+1]];imageData.data[i+2] = b[imageData.data[i+2]];if (noise > 0) {var noise = Math.round(noise - Math.random() * noise);for(var j=0; j<3; j++){var iPN = noise + imageData.data[i+j];imageData.data[i+j] = (iPN > 255) ? 255 : iPN;}}}ctx.putImageData(imageData, affectedScreenZone.x, affectedScreenZone.y);},
+		Sepia: function(affectedScreenZone) {Gfx.Filters.Greyscale({x:affectedScreenZone.x, y:affectedScreenZone.y, w:affectedScreenZone.w, h:affectedScreenZone.h}); ctx.fillStyle = "rgba(255,204,102,0.3)"; ctx.fillRect(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h)},
 		Blur: function(affectedScreenZone, power, blurAlpha) {if (isNaN(power) || power < 1 ) return;if (blurAlpha)Gfx.Filters.boxBlurCanvasRGBA(affectedScreenZone, power);else Gfx.Filters.boxBlurCanvasRGB(affectedScreenZone, power);},
 		Flash: function(affectedZone, power, color){ctx.fillStyle = "rgba(" + color.r +","+ color.g +","+ color.b +"," + power+")";ctx.fillRect(affectedScreenZone.x, affectedScreenZone.y, affectedScreenZone.w, affectedScreenZone.h);},
 
@@ -373,8 +360,8 @@ Data =
 
 };
 
-CanvasRenderingContext2D.prototype.RoundedBox = 
-function(x,y,w,h,r) {
+CanvasRenderingContext2D.prototype.RoundedBox = function(x,y,w,h,r) 
+{
     if (typeof r === "undefined") {
         r = 2;
     }
@@ -392,7 +379,8 @@ function(x,y,w,h,r) {
     this.fill();
 };
 
-CanvasRenderingContext2D.prototype.fillPolygon = function (pointsArray, fillColor, strokeColor) {
+CanvasRenderingContext2D.prototype.fillPolygon = function (pointsArray, fillColor, strokeColor) 
+{
     if (pointsArray.length <= 0) return;
     this.moveTo(pointsArray[0][0], pointsArray[0][1]);
     for (var i = 0; i < pointsArray.length; i++) {
@@ -405,4 +393,18 @@ CanvasRenderingContext2D.prototype.fillPolygon = function (pointsArray, fillColo
         this.fillStyle = fillColor;
         this.fill();
     }
+}
+
+String.prototype.toHHMMSS = function () 
+{
+    var sec_num = parseInt(this, 10);
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = hours+':'+minutes+':'+seconds;
+    return time;
 }
