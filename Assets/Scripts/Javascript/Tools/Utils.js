@@ -228,7 +228,7 @@ Dialogue =
 	//Dont touch these variables
 	words: [], letters: [], intervalCountdown: 0, destination: "", position: {x:0, y:0}, finished: true, defaultColor: "white",
 
-	Begin: function(text, interval, destination, defaultColor) {this.words = text.split(" "); this.interval = interval; this.position = destination; this.finished = false;},
+	Begin: function(text, interval, destination, defaultColor) {this.words = text.split(" "); this.interval = interval; this.position = destination; this.finished = false; this.destination = ""},
 
 	Continue: function()
 	{
@@ -243,9 +243,7 @@ Dialogue =
 					this.destination += this.letters[0];
 					this.letters.splice(0,1);
 					this.intervalCountdown = this.interval;
-					//console.clear()
-					//console.log(this.letters);
-					//console.log(this.destination);
+
 				}
 				else
 				{
@@ -277,7 +275,6 @@ Dialogue =
 							else 
 							{
 								this.finished = true;
-								console.log("Sentence showed!");
 							}
 							return;
 					}
@@ -326,8 +323,6 @@ Dialogue =
 	        		ctx.fillStyle = ctx.fillStyle == color ? "green" : color; 
 	        		continue;
 	        }
-	        console.clear();
-	        console.log(str + " " + " x "+ x + "y " + y + " color " + color);
 	        ctx.fillText(ch, x, y);
 	        x += ctx.measureText(ch).width;
 	  }

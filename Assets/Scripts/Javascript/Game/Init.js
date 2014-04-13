@@ -44,6 +44,7 @@ function LoadImages(callBack)
 			Scenes.loader.imageLoaded = count;
 			if(count == ImagesPath.length)
 			{
+				if(Images.loaderBackground)
 				ImageLoaded(Images, count);
 	  		}
   		}

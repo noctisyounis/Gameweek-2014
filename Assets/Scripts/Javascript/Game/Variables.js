@@ -4,8 +4,10 @@ var ctx = canvas.getContext("2d");
 var Scenes = {};
 
 var ImagesPath = [
+{ name: "loaderBackground", path: "GUI/background_loader.jpg"},
 { name: "logoHtml5", path: "GUI/html5_logo.png"},
-{ name: "textHtml5", path: "GUI/html5_text.png"}
+{ name: "textHtml5", path: "GUI/html5_text.png"},
+{ name: "logoIsart", path: "GUI/isart_logo.png"}
 ];
 var Images = {};
 
