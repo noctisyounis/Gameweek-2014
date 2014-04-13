@@ -53,7 +53,7 @@ function SceneModel ()
 	{
 		//codez l'awake avant le console.log
 
-		console.log("Scene: " + this.name + " created!"); 
+		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
 
 	this.Start = function()
@@ -64,7 +64,7 @@ function SceneModel ()
 
 			this.Started = true;
 			Time.LevelLoaded();
-			console.log("Scene: " + this.name + " have started!");
+			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
 		}
 		this.Update();
 	};
@@ -82,7 +82,7 @@ function SceneModel ()
 
 			ctx.clearRect(0,0, canvas.width, canvas.height);
 			
-			ctx.fillStyle = "grey";
+			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
 			this.GameObjects[0].Start();
 			this.LateUpdate();

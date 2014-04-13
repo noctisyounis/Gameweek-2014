@@ -39,6 +39,25 @@ Random =
 	Color: function(){return "rgb("+ Math.floor(Math.random()*256)+ "," + Math.floor(Math.random()*256) + "," + Math.floor(Math.random()*256) +")";}
 };
 
+Collision =
+{
+	BoxCollider: function(box1, box2)
+	{
+	   if((box2.x >= box1.x + box1.w)
+	    || (box2.x + box2.w <= box1.x)
+	    || (box2.y >= box1.y + box1.h)
+	    || (box2.y + box2.h <= box1.y))
+	          return false; 
+	   else
+	          return true; 
+	},
+
+PointCollider: function(curseur_x, curseur_y, box)
+{
+  return curseur_x >= box.x  && curseur_x < box.x + box.w&& curseur_y >= box.y && curseur_y < box.y + box.h ? true : false;
+}
+};
+
 Debug = 
 {
 /** 												
@@ -63,16 +82,33 @@ Debug =
 
 */
 
-	SpriteOutlineColor: "pink", ColliderOutlineColor: "green",
+	SpriteOutlineColor: "grey", ColliderOutlineColor: "green",
 	Log: function(logMsg)	{console.log(logMsg);},
 
-	ShowStats: function(){ 
-		ctx.font = "20px Georgia";
+	ShowStats: function(){
+		ctx.fillStyle = "rgba(122,122,122, 0.4)";
+		ctx.RoundedBox(2, 2, 100, 400, 3);
+		ctx.font = "14px Georgia";
 		if(Time.Fps > 40) ctx.fillStyle = "green";
 		if(Time.Fps < 40) ctx.fillStyle = "orange";
 		if(Time.Fps < 20) ctx.fillStyle = "red";
 
-		ctx.fillText('Fps: ' + Time.Fps ,20,50);
+		ctx.fillText('Fps: ' + Time.Fps ,5,20);
+		ctx.fillStyle = "white";
+
+		ctx.fillText("Game: " + (Time.GetTimeSinceGameBegin() / 1000 |0), 5, 40);
+		ctx.fillText("Scene: " + (Time.GetTimeSinceLevelLoaded() / 1000 |0), 5, 60);
+
+		ctx.fillText("Mouse x: " + Math.floor(Input.MousePosition.x), 5, 90);
+		ctx.fillText("Mouse y: " + Math.floor(Input.MousePosition.y), 5, 110);
+		ctx.fillText("Click: " + Input.MouseClick, 5, 130);
+
+		ctx.fillText("Scene: " + Application.LoadedLevel.name, 5, 190);
+		ctx.fillText("GameObjects: ", 5, 220 );
+		for(var i = 0; i < Application.LoadedLevel.GameObjects.length; i++)
+		{
+			ctx.fillText(Application.LoadedLevel.GameObjects[i].name , 5, 240 + i * 20);
+		}
 	},
 
 	Break: function() { debugger; }
@@ -336,5 +372,39 @@ Data =
 {
 
 };
+
+CanvasRenderingContext2D.prototype.RoundedBox = 
+function(x,y,w,h,r) {
+    if (typeof r === "undefined") {
+        r = 2;
+    }
+    this.beginPath();
+    this.moveTo(x + r, y);
+    this.lineTo(x + w - r, y);
+    this.quadraticCurveTo(x + w, y, x + w, y + r);
+    this.lineTo(x + w, y + h - r);
+    this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    this.lineTo(x + r, y + h);
+    this.quadraticCurveTo(x, y + h, x, y + h - r);
+    this.lineTo(x, y + r);
+    this.quadraticCurveTo(x, y, x + r, y);
+    this.closePath();
+    this.fill();
+};
+
+CanvasRenderingContext2D.prototype.fillPolygon = function (pointsArray, fillColor, strokeColor) {
+    if (pointsArray.length <= 0) return;
+    this.moveTo(pointsArray[0][0], pointsArray[0][1]);
+    for (var i = 0; i < pointsArray.length; i++) {
+        this.lineTo(pointsArray[i][0], pointsArray[i][1]);
+    }
+    if (strokeColor != null && strokeColor != undefined)
+        this.strokeStyle = strokeColor;
+
+    if (fillColor != null && fillColor != undefined) {
+        this.fillStyle = fillColor;
+        this.fill();
+    }
+}
 
 

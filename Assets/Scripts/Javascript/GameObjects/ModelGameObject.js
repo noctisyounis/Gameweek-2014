@@ -127,7 +127,7 @@
 
 function GameObject ()
 {
-	this.name = "GameObject";
+	this.name = "Model";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
@@ -142,7 +142,8 @@ function GameObject ()
 	this.Physics = 
 	{
 		BoxCollider: false,
-		Clickable:   false,
+		Clickable:   true,
+		DragAndDropable: true,
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: true,
  
@@ -150,19 +151,19 @@ function GameObject ()
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 100, y: 150}
+			scale: {x: 200, y: 350}
 		}
 	};
 	this.Renderer = 
 	{
 		visible: true,
+		GizmosVisible: true,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
 			source: Images[0],
-			//console.log("test= " + ImgTest), 
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -181,7 +182,7 @@ function GameObject ()
 		Animation: 
 		{
 			animated: true,
-			current: [Images[0], .7, 3], // [animationImage, TotalDuration, NumberOfFrame]
+			current: [Images[0], .7, 3],
 			Animations: [],
 			countdown:0
 		},
@@ -189,13 +190,16 @@ function GameObject ()
 		Draw: function ()
 		{
 			ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
-			if(Application.DebugMode)
+			if(Application.DebugMode && this.GizmosVisible)
 			{
-				ctx.fillStyle = Debug.SpriteOutlineColor;
-				ctx.strokeRect (this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y)
-				ctx.fillStyle = Debug.ColliderOutlineColor;
+				ctx.lineWidth = 10;
+				ctx.strokeStyle = Debug.SpriteOutlineColor;
+				ctx.strokeRect (this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
+				ctx.lineWidth = 3;
+				ctx.strokeStyle = Debug.ColliderOutlineColor;
 				ctx.strokeRect (this.thot.position.x, this.thot.position.y, this.thot.scale.x, this.thot.scale.y);
-				}
+				ctx.lineWidth = 1;
+			}
 		}
 	}
 
@@ -209,10 +213,12 @@ function GameObject ()
 		this.transform.position.x = x;
 		this.transform.position.y = y;
 
+
 		if(this.physics && this.Physics.RelativePosition)
 		{
-			this.Physics.BoxColliderSize.position.x = this.Physics.BoxColliderOriginal.x + this.transform.position.x;
-			this.Physics.BoxColliderSize.position.y = this.Physics.BoxColliderOriginal.x + this.transform.position.x;
+			this.Physics.BoxColliderSize.position.x = this.transform.position.x;
+			this.Physics.BoxColliderSize.position.y = this.transform.position.y;
+
 		}
 	};
 
@@ -236,7 +242,7 @@ function GameObject ()
 			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.source.height;
 		}
 
-		Debug.Log("GameObject: " + GameObject.name + " Created");
+		console.log(" %c System: GameObject " + GameObject.name + " Created!", 'background: #222; color: #bada55');
 	};
 
 	this.Start = function()
@@ -245,7 +251,7 @@ function GameObject ()
 		{
 			// DO START HERE
 
-			Debug.Log("GameObject: " + GameObject.name + " Started");
+			console.log(" %c System: GameObject " + GameObject.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
 		this.Update();
@@ -257,13 +263,13 @@ function GameObject ()
 		{
 			if(this.physics)
 			{
-				if(this.BoxCollider)
+				if(this.Physics.BoxCollider)
 				{
 					for(var other in GameObjects)
 					{
 						if(other.enabled && other.BoxCollider)
 						{
-							if(BoxCollider({x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,  w: this.Physics.BoxCollider.scale.x,  h: this.Physics.BoxColliderSize.scale.y },
+							if(Collision.BoxCollider({x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,  w: this.Physics.BoxCollider.scale.x,  h: this.Physics.BoxColliderSize.scale.y },
 										   {x: other.Physics.BoxColliderSize.position.x, y: other.Physics.BoxColliderSize.position.y, w: other.Physics.BoxColliderSize.scale.x, h: other.Physics.BoxColliderSize.scale.y } ))
 							{
 								OnTriggerEnter(other);
@@ -272,12 +278,12 @@ function GameObject ()
 					}
 				}
 
-				if(this.Clickable)
+				if(this.Physics.Clickable)
 				{
-					if(PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
+					if(Collision.PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
 					{
-						if(!Input.Mouseclick) this.OnHover();
-						if(Input.Mouseclick)  this.OnClicked();
+						if(!Input.MouseClick) this.OnHovered();
+						if(Input.MouseClick)  this.OnClicked();
 					}
 				}
 			}
@@ -292,8 +298,6 @@ function GameObject ()
 
 					if(this.Renderer.Material.CurrentFrame.x > this.Renderer.Animation.current[2] - 1)
 						this.Renderer.Material.CurrentFrame.x = 0;
-
-					//console.log(this.Renderer.Material.CurrentFrame.x);
 				}
 			}
 
@@ -316,11 +320,13 @@ function GameObject ()
 
 	this.OnClicked = function ()
 	{
-
+		if(this.Physics.DragAndDropable)
+		{
+			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
+		}
 	};
 	this.OnHovered = function()
 	{
-
 	};
 
 	this.Awake();

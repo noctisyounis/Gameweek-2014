@@ -49,8 +49,8 @@ function LoadImages(callBack)
 
 function ImageLoaded(img)
 {
+	console.log(" %c System: Images Loaded!", 'background: #222; color: #bada55');
 	Application.LoadLevel(new SceneModel());
-	Debug.Log("loaderFonctionnel")
 	Run();
 }
 
