@@ -55,6 +55,7 @@ function ImageLoaded(img, imagesloaded)
 {
 	console.log(" %c System: "+ imagesloaded +" Images Loaded!", 'background: #222; color: #bada55');
 }
+
 Time.TimeWhenGameBegin = new Date().getTime();
 Scenes["loader"] = new SceneLoader();
 Application.LoadLevel("loader");

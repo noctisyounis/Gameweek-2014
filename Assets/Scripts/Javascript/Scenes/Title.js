@@ -47,7 +47,9 @@ function SceneTitle ()
 	this.name = "Title";
 	this.Started = false;
 
-	this.GameObjects = [];
+	this.GameObjectsTitle = [];
+	this.GameObjectsLoad = [];
+	this.PlayPressed = false;
 
 	this.Awake = function()
 	{
@@ -60,8 +62,13 @@ function SceneTitle ()
 	{
 		if(!this.Started)
 		{
-			//codez le start avant le changement de booleen
-			this.GameObjects.push(new ButtonStart());
+			this.GameObjectsTitle.push(new ButtonStart());
+			this.GameObjectsLoad.push(new ButtonBackToMenu());
+			for(var i = 0; i != 3; i++)
+			{
+				this.GameObjectsLoad.push(new ButtonLoadGame(i + 1));
+			}
+			/****/
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
@@ -77,13 +84,27 @@ function SceneTitle ()
 			//if(!Dialogue.finished) {Dialogue.Continue();}
 
 			ctx.drawImage(Images.titleForeground,0,0);
-			for(var i = 0; i < this.GameObjects.length; i++)
+
+			if(!this.PlayPressed)
 			{
-				if(this.GameObjects[i].enabled)
+				for(var i = 0; i < this.GameObjectsTitle.length; i++)
 				{
-					this.GameObjects[i].Start();
+					if(this.GameObjectsTitle[i].enabled)
+					{
+						this.GameObjectsTitle[i].Start();
+					}
 				}
-			}			
+			}
+			else
+			{
+				for(var i = 0; i < this.GameObjectsLoad.length; i++)
+				{
+					if(this.GameObjectsLoad[i].enabled)
+					{
+						this.GameObjectsLoad[i].Start();
+					}
+				}
+			}		
 			this.LateUpdate();
 		}
 	};

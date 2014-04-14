@@ -125,18 +125,18 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function ButtonStart ()
+function ButtonBackToMenu ()
 {
-	this.name = "ButtonStart";
+	this.name = "ButtonBackToMenu";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
 
 	this.transform =
 	{
-		position: {x:470, y: 550},
+		position: {x:470, y: 600},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 70, y: 50}
+		scale: {x: 70, y: 70}
 	};
 
 	this.Physics = 
@@ -149,9 +149,9 @@ function ButtonStart ()
  
  		BoxColliderSize: 
 		{
-			position: {x:470, y: 550},
+			position: {x:470, y: 600},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 70, y: 50}
+			scale: {x: 70, y: 70}
 		}
 	};
 	this.Renderer = 
@@ -216,7 +216,8 @@ function ButtonStart ()
 		}
 	}
 
-	this.textButton = "Play";
+	this.textButton = "Back";
+	this.textButtonSecond = "to menu";
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;
@@ -324,6 +325,8 @@ function ButtonStart ()
 		ctx.font = "30px Georgia";
 		ctx.textBaseline="top"; 
 		ctx.fillText(this.textButton, this.transform.position.x, this.transform.position.y);
+		ctx.font = "18px Georgia";
+		ctx.fillText(this.textButtonSecond, this.transform.position.x, this.transform.position.y + 30);
 		ctx.textBaseline = "bottom";
 		
 		if(this.renderer)
@@ -338,7 +341,7 @@ function ButtonStart ()
 	this.OnClicked = function ()
 	{
 		console.log("clicked");
-		Scenes["title"].PlayPressed = true;
+		Scenes["title"].PlayPressed = false;
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;

@@ -125,18 +125,20 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function ButtonStart ()
+function ButtonLoadGame (slot)
 {
-	this.name = "ButtonStart";
+	this.name = "ButtonLoadGame" + slot;
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
+	this.slot = slot;
 
+	this.buttonDelete = new ButtonDeleteSave();
 	this.transform =
 	{
-		position: {x:470, y: 550},
+		position: {x:250, y: 80 + (this.slot - 1) * 150},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 70, y: 50}
+		scale: {x: 450, y: 100}
 	};
 
 	this.Physics = 
@@ -144,14 +146,14 @@ function ButtonStart ()
 		BoxCollider: false,
 		Clickable:   true,
 		DragAndDropable: false,
-		ColliderIsSameSizeAsTransform: true,
+		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:470, y: 550},
+			position: {x:250, y: 80 + (this.slot  - 1 )* 150},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 70, y: 50}
+			scale: {x: 450, y: 100}
 		}
 	};
 	this.Renderer = 
@@ -208,7 +210,7 @@ function ButtonStart ()
 				ctx.fillStyle = "rgba(122,122,122, 0.4)";
 				ctx.RoundedBox (this.that.position.x - 5, this.that.position.y - 60, 160, 55, 4);
 				ctx.fillStyle = "white";
-				ctx.font = "11px Georgia";
+				ctx.font = "10px Georgia";
 				ctx.fillText(this.thit , this.that.position.x, this.that.position.y - 45);
 				ctx.fillText("Rend x:" + Math.floor(this.that.position.x) + ", y:" + Math.floor(this.that.position.y) + ", w:" + Math.floor(this.that.scale.x) + ", h:" + Math.floor(this.that.scale.y), this.that.position.x, this.that.position.y - 25);
 				ctx.fillText("Collis x:" + Math.floor(this.thot.position.x) + ", y:" + Math.floor(this.thot.position.y) + ", w:" + Math.floor(this.thot.scale.x) + ", h:" + Math.floor(this.thot.scale.y), this.that.position.x, this.that.position.y - 10);
@@ -216,7 +218,6 @@ function ButtonStart ()
 		}
 	}
 
-	this.textButton = "Play";
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;
@@ -239,9 +240,9 @@ function ButtonStart ()
 	this.Awake = function()
 	{
 		this.Physics.BoxColliderOriginal = this.Physics.BoxColliderSize;
-		if(this.physics && this.Physics.ColliderIsSameSizeAsTransform)
+		if(this.physics && this.ColliderIsSameSizeAsTransform)
 		{
-			this.Physics.BoxColliderSize = this.transform; 
+			this.BoxCollider = this.transform; 
 		}
 
 		if(this.physics && this.Physics.RelativePosition)
@@ -263,6 +264,8 @@ function ButtonStart ()
 	{
 		if(!this.Started)
 		{
+			// DO START HERE
+
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -320,12 +323,16 @@ function ButtonStart ()
 
 	this.LateUpdate = function ()
 	{
+		ctx.fillStyle = "grey";
+		ctx.RoundedBox(this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y, 45);
 		ctx.fillStyle = "white";
+		ctx.font = "15px Georgia";
+		ctx.fillText("Slot", this.transform.position.x + 20, this.transform.position.y + 30);
 		ctx.font = "30px Georgia";
-		ctx.textBaseline="top"; 
-		ctx.fillText(this.textButton, this.transform.position.x, this.transform.position.y);
-		ctx.textBaseline = "bottom";
-		
+		ctx.fillText(slot, this.transform.position.x + 23, this.transform.position.y + 65 );
+		ctx.font = "20px Georgia";
+		ctx.fillText("TAP HERE TO CREATE NEW SAVE FILE", this.transform.position.x + 65	, this.transform.position.y + 60);
+
 		if(this.renderer)
 			this.Renderer.Draw();
 	};
@@ -337,8 +344,9 @@ function ButtonStart ()
 
 	this.OnClicked = function ()
 	{
-		console.log("clicked");
-		Scenes["title"].PlayPressed = true;
+		Application.SaveLoaded = slot;
+		Scenes["intro"] = new SceneIntro();
+		Application.LoadLevel("intro");
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;
