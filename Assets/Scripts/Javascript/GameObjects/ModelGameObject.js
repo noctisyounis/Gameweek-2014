@@ -278,7 +278,7 @@ function GameObject ()
 			{
 				if(this.Physics.BoxCollider)
 				{
-					for(var other in GameObjects)
+					for(var other in Application.LoadedLevel.GameObjects)
 					{
 						if(other.enabled && other.BoxCollider)
 						{
