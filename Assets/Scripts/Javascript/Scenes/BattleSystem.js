@@ -77,8 +77,6 @@ function SceneBattleSystem ()
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
 
-			ctx.fillStyle = "white";
-			ctx.fillRect(0,500, canvas.width, 20);
 			for(var i = 0; i < this.GameObjects.length; i ++)
 			{
 				if(this.GameObjects[i].enabled)

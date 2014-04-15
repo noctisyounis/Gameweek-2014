@@ -217,6 +217,7 @@ function CursorTarget ()
 	}
 
 	this.ImpactObjects = [];
+	this.Monsters = [{x: 400, y: 300, w: 100, h: 400, speed: 10, Life: 5}];
 
 	this.state = true;
 	this.reloadWeapon = 0;
@@ -325,12 +326,51 @@ function CursorTarget ()
 
 	this.LateUpdate = function ()
 	{
-		this.reloadWeapon -= 1 * Time.DeltaTime; // change by reload;
+		this.reloadWeapon -= 2 * Time.DeltaTime; // change by reload;
+
+		// draw Monsters 
+		for(var i =0; i < this.Monsters.length; i++)
+		{
+			ctx.fillStyle = "green";
+			this.Monsters[i].x -= this.Monsters[i].speed / 2 * Time.DeltaTime;
+			this.Monsters[i].y -= this.Monsters[i].speed / 2 * Time.DeltaTime;
+			this.Monsters[i].w += this.Monsters[i].speed * Time.DeltaTime;
+			this.Monsters[i].h += this.Monsters[i].speed * Time.DeltaTime;
+  			ctx.fillRect (this.Monsters[i].x, this.Monsters[i].y, this.Monsters[i].w, this.Monsters[i].h);
+		}
+
+		// Draw Bar 
+		ctx.fillStyle = "white";
+		ctx.fillRect(0,500, canvas.width, 20);
+
+		// Draw Cursor
 		ctx.fillStyle = "grey";
 		ctx.fillRect(this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
 		var newX = this.state ?  this.transform.position.x + (700 * Time.DeltaTime) : this.transform.position.x - (700 * Time.DeltaTime);
 		this.SetPosition(newX, this.transform.position.y);
+		
+		// Draw Monsters Target
+		for(var i =0; i < this.Monsters.length; i++)
+		{
+			ctx.fillStyle = "red";
+			ctx.fillRect (this.Monsters[i].x, 503, this.Monsters[i].w, 10);
+			//CriticalZone
+			ctx.fillStyle = "blue";
+  			ctx.fillRect (this.Monsters[i].x + this.Monsters[i].w /2 - 5, 503, 20, 10);
+		}
 
+		// Draw Imact bar
+		for(var i = 0; i < this.ImpactObjects.length; i++)
+		{
+			this.ImpactObjects[i].h -= 30 * Time.DeltaTime;
+			ctx.fillStyle = "grey";
+			ctx.fillRect(this.ImpactObjects[i].x, this.ImpactObjects[i].y, this.ImpactObjects[i].w, this.ImpactObjects[i].h);
+			if(this.ImpactObjects[i].h < 0)
+			{
+				this.ImpactObjects.splice(i, 1);
+			}
+		}
+		
 		if(this.transform.position.x > canvas.width) this.state = false;
 		if(this.transform.position.x < 0) this.state = true;
 
@@ -347,8 +387,39 @@ function CursorTarget ()
 	{
 		if(this.reloadWeapon < 0)
 		{
-			this.reloadWeapon = 2;/* change by weapon reloadvalue */ ;																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	
+			this.reloadWeapon = 2;/* change by weapon reloadvalue */ ;	
+			this.ImpactObjects.push({x: this.transform.position.x, y: 500, w: 5,h: 30});
+			// If touch enemies	
+			for(var i = 0; i < this.Monsters.length; i++)
+			{
+				if(this.transform.position.x > this.Monsters[i].x && this.transform.position.x < this.Monsters[i].x + this.Monsters[i].w)
+				{
+					if(this.transform.position.x > this.Monsters[i].x + this.Monsters[i].w /2 - 5 && this.transform.position.x < this.Monsters[i].x + this.Monsters[i].w /2 + 5)
+					{
+						this.Monsters[i].Life -= 2;
+						this.Monsters[i].x += 35;
+						this.Monsters[i].y += 35;
+						this.Monsters[i].w -= 35;
+						this.Monsters[i].h -= 35;
+					}
+					else 
+					{
+						this.Monsters[i].Life -= 1;
+						this.Monsters[i].x += 15;
+						this.Monsters[i].y += 15;
+						this.Monsters[i].w -= 15;
+						this.Monsters[i].h -= 15;
+					}
+
+					if(this.Monsters[i].Life < 0)
+					{
+						this.Monsters.splice(i, 1);
+					}
+				}
+			}
+			//if(this.treansform.position.x >)																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														
 		}
+
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;

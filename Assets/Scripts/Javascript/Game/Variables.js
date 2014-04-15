@@ -32,6 +32,8 @@ var Application =
 var Input = 
 {
 	MouseClick: false,
+	MouseLongClick: false,
+	MouseReload: true,
 	MousePosition: {x: 0, y: 0},
 	MouseDraging: false,
 	DragedElement: null,

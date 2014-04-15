@@ -86,7 +86,7 @@ Debug =
 		ctx.fillText("Game: " + (Time.GetTimeSinceGameBegin() / 1000 |0).toString().toHHMMSS(), 15, 40);
 		ctx.fillText("Scene: " + (Time.GetTimeSinceLevelLoaded() / 1000 |0).toString().toHHMMSS(), 15, 60);
 
-		ctx.fillStyle = Input.MouseClick ? "green" : "white";
+		ctx.fillStyle = Input.MouseClick ||Input.MouseLongClick ? "green" : "white";
 		ctx.fillText("x: " + Math.floor(Input.MousePosition.x) + ", y: " + Math.floor(Input.MousePosition.y), Input.MousePosition.x + 10, Input.MousePosition.y);
 
 		ctx.fillStyle = "rgba(122,122,122, 0.4)";
