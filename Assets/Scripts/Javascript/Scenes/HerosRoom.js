@@ -50,6 +50,9 @@ function HerosRoom ()
 	this.FadeOutWhiteScreen = 1;
 	this.FadeInSurgeonAssist = 0;
 	this.SurgeonAssistVisible = false;
+	this.SurgeonMain = false;
+
+	this.FadeInSurgeonMain = 0;
 	this.DialogueStep = 0;
 
 	this.Awake = function()
@@ -95,7 +98,7 @@ function HerosRoom ()
 			}
 			if(this.FadeOutWhiteScreen < 0 && this.DialogueStep == 0)
 			{
-				Dialogue.Begin("qu'est ce [short] . [short] . [short] . qu'est ce qu'il se passe ? [long]", 0.15, {x:30, y:570}, "white", "30px Georgia");
+				Dialogue.Begin("qu'est ce [short] . [short] . [short] . qu'est ce qu'il se passe ? [long]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.DialogueStep = 1;
 			}
 
@@ -110,15 +113,45 @@ function HerosRoom ()
 
 				if(this.FadeInSurgeonAssist > 1) this.SurgeonAssistVisible = true;
 			}
-
+			// Dialogue Surgeon assist
 			if(this.FadeInSurgeonAssist > 1 && this.DialogueStep == 1)
 			{
-				Dialogue.Begin("Docteur ! Le patient se reveille ! [long] ", 0.15, {x:30, y:570}, "white", "30px Georgia");
+				Dialogue.Begin("Docteur ! Le patient se reveille ! [long] ", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.DialogueStep = 2;
 			}
 
 			if(this.SurgeonAssistVisible) ctx.drawImage(Images.ceilingSurgeon, 0, 0);
+			
+			// Fade In Main Surgeon
+			if(this.DialogueStep == 2 && Dialogue.finished) 
+			{
+				this.FadeInSurgeonMain += Time.DeltaTime;
+				var alphaOri = ctx.globalAlpha;
+				ctx.globalAlpha = this.FadeInSurgeonMain;
+				ctx.drawImage(Images.surgeonMain, 0, 0);
+				ctx.globalAlpha = alphaOri;
 
+				if(this.FadeInSurgeonMain > 1)
+				{
+					this.surgeonMainVisible = true;
+					this.DialogueStep = 3;
+				} 
+			}
+
+			if(this.surgeonMainVisible) ctx.drawImage(Images.surgeonMain, 0, 0);
+			
+			if(this.DialogueStep == 3)
+			{
+				Dialogue.Begin("Ce n'est pas un probleme. [short] On continue!", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				this.DialogueStep = 4;
+			}
+
+			if(this.DialogueStep == 4 && Dialogue.finished)
+			{
+				this.GameObjects.push(new ButtonChoice("Se debattre", 150, 250));
+				this.GameObjects.push(new ButtonChoice("Ne rien faire", 550, 250));
+				this.DialogueStep = 5;
+			}
 
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{

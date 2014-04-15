@@ -125,47 +125,49 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function GameObject ()
+function ButtonChoice (text, x, y)
 {
-	this.name = "Model";
-	this.enabled = false;
-	this.physics = false;
-	this.renderer = false;
+	this.name = "ButtonChoice" + text;
+	this.enabled = true;
+	this.physics = true;
+	this.renderer = true;
+
+	this.buttonMessage = text;
 
 	this.transform =
 	{
-		position: {x:0, y: 0},
+		position: {x:x, y: y},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 0, y: 0}
+		scale: {x: 307, y: 158}
 	};
 
 	this.Physics = 
 	{
-		BoxCollider: false,
-		Clickable:   false,
+		BoxCollider: true,
+		Clickable:   true,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:0, y: 0},
+			position: {x:x, y: y},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
+			scale: {x: 307, y: 150}
 		}
 	};
 	this.Renderer = 
 	{
-		visible: false,
-		GizmosVisible: false,
-		isSprite: false,
+		visible: true,
+		GizmosVisible: true,
+		isSprite: true,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			source: "",
+			source: Images.choiceButtonNormal,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -192,7 +194,9 @@ function GameObject ()
 		Draw: function ()
 		{
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -343,14 +347,18 @@ function GameObject ()
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
+
+		this.Renderer.Material.source =  Images.choiceButtonClicked;
+
 	};
 	this.OnHovered = function()
 	{
+		this.Renderer.Material.source = Images.choiceButtonHover;
 	};
-	
 	this.UnHovered = function()
 	{
-	};
+		this.Renderer.Material.source = Images.choiceButtonNormal;
+	}
 
 	this.Awake();
 }

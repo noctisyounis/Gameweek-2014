@@ -19,6 +19,10 @@ var ImagesPath = [
 { name: "ascenseurFerme", path: "Backgrounds/ascenseur_ferme.jpg"},
 { name: "ascenseurOuvert", path: "Backgrounds/ascenseur_ouvert.jpg"},
 { name: "dialogueBox", path: "GUI/dialogue_box.png"},
+{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
+{ name: "choiceButtonNormal", path: "GUI/button_choice_normal.png"},
+{ name: "choiceButtonHover", path: "GUI/button_choice_Hover.png"},
+{ name: "choiceButtonClicked", path: "GUI/button_choice_pressed.png"}
 
 
 ];
