@@ -385,7 +385,6 @@ function CursorTarget ()
 
 	this.OnClicked = function ()
 	{
-		console.log("clicl");
 		if(this.reloadWeapon < 0)
 		{
 			this.reloadWeapon = 2;/* change by weapon reloadvalue */ ;	
@@ -402,7 +401,6 @@ function CursorTarget ()
 						this.Monsters[i].y += 35;
 						this.Monsters[i].w -= 35;
 						this.Monsters[i].h -= 35;
-						console.log("criticalImpact");
 					}
 					else 
 					{
@@ -411,7 +409,6 @@ function CursorTarget ()
 						this.Monsters[i].y += 15;
 						this.Monsters[i].w -= 15;
 						this.Monsters[i].h -= 15;
-						console.log("impact");
 					}
 
 					if(this.Monsters[i].Life < 0)
