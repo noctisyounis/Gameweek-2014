@@ -125,21 +125,21 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function BoardDigit (id)
+function AndroidButton (id,xP,yP,ParentT,parent)
 {
-	this.name = "BoardDigit "+ id;
+	this.name = "AndroidButton " + id;
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
-	this.number = 0;
+	this.number = id;
+	this.parent = parent;
 
 	this.transform =
 	{
-		position: {x:200*id, y: 200},
-		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 50, y: 200}
+		position: {x: ParentT.position.x+75*xP, y: ParentT.position.y+75*yP},
+		rotation: {x: 0, y: 0}, // obselete
+		scale: {x: 50, y: 50}
 	};
-
 	this.Physics = 
 	{
 		BoxCollider: true,
@@ -152,7 +152,7 @@ function BoardDigit (id)
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 50, y: 200}
+			scale: {x: 50, y: 50}
 		}
 	};
 	this.Renderer = 
@@ -325,12 +325,6 @@ function BoardDigit (id)
 		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
-		ctx.font="50px Georgia";
-		ctx.fillStyle="yellow";
-		var originTextAlign = ctx.textAlign;
-		ctx.textAlign="center";
-		ctx.fillText(this.number,this.transform.position.x+this.transform.scale.x/2,this.transform.position.y+this.transform.scale.y/2);
-		ctx.textAlign = originTextAlign;
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -346,16 +340,14 @@ function BoardDigit (id)
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
-		console.log(Input.MouseClick + " " + Input.MouseLongClick + " " + Input.MouseReload);
-		if(Input.MouseClick && Input.MousePosition.y > this.Physics.BoxColliderSize.position.y && Input.MousePosition.y < this.Physics.BoxColliderSize.position.y + this.Physics.BoxColliderSize.scale.y/2){
-			this.number = this.number == 0 ? 9 : this.number -= 1;
-		}
-		else{
-			this.number = this.number == 9 ? 0 : this.number += 1;
-		}
 	};
 	this.OnHovered = function()
 	{
+		if(Input.MouseLongClick){
+			if(this.parent.code.indexOf(this.number) == -1){
+				this.parent.code.push(this.number);
+			}
+		}
 	};
 
 	this.Awake();
