@@ -226,10 +226,19 @@ Dialogue =
 	interval: 0, shortInterval: 1, mediumInterval: 2, longInterval: 3,
 
 	//Dont touch these variables
-	words: [], letters: [], intervalCountdown: 0, destination: "", position: {x:0, y:0}, finished: true, defaultColor: "white",
+	words: [], letters: [], intervalCountdown: 0, destination: "", position: {x:0, y:0}, finished: true, defaultColor: "white",	font: "10px Georgia",
 
-	Begin: function(text, interval, destination, defaultColor) {this.words = text.split(" "); this.interval = interval; this.position = destination; this.finished = false; this.destination = ""},
-
+	InitDialogue: function()
+	{
+		this.words = [];
+		this.letters = [];
+	  	this.intervalCountdown=  0;
+	   	this.destination= ""; 
+	   	this.position=  {x:0, y:0};
+	    this.finished = true; 
+	    this.defaultColor= "white";
+	},
+	Begin: function(text, interval, destination, defaultColor, font) {this.words = text.split(" "); this.interval = interval; this.position = destination; this.finished = false; this.destination = "", this.font = font},
 	Continue: function()
 	{
 		if(!Application.LoadedLevel.GamePaused) // Si on est pas en pause 
@@ -290,7 +299,6 @@ Dialogue =
 		{
 			this.destination += this.letters[0];
 			this.letters.splice(0,1);
-			console.log("letters " + this.letters.length);
 		}
 
 		while(this.words.length > 0)
@@ -306,10 +314,12 @@ Dialogue =
 		console.log("Sentence skipped!");
 		finished = true;
     },
-    
+     
     Write: function(str, x, y, color)
     {
+    	
     	ctx.fillStyle = color;
+    	ctx.font = this.font;
 	    for(var i = 0; i <= str.length; ++i)
 	    {
 	        var ch = str.charAt(i);

@@ -9,7 +9,14 @@ var ImagesPath = [
 { name: "titleForeground", path: "GUI/foreground_title.png"},
 { name: "logoHtml5", path: "GUI/html5_logo.png"},
 { name: "textHtml5", path: "GUI/html5_text.png"},
-{ name: "logoIsart", path: "GUI/isart_logo.png"}
+{ name: "logoIsart", path: "GUI/isart_logo.png"},
+{ name: "roomBackground", path: "Backgrounds/background_room1.jpg"},
+{ name: "couloirBackground", path: "Backgrounds/couloir.jpg"},
+{ name: "ceilingBackground", path: "Backgrounds/ceiling.jpg"},
+{ name: "ceilingSurgeon", path: "Backgrounds/ceiling_surgeons.png"},
+{ name: "dialogueBox", path: "GUI/dialogue_box.png"},
+
+
 ];
 var Images = {};
 

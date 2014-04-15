@@ -1,4 +1,4 @@
-/*	**** For create a new GameObject **** 
+/*	**** For create a new Scene **** 
 *
 *	@step 1							Copy the content of this file in a new .js document.
 *   ----------------------------------------------------------------------------------------------------------------------------
@@ -40,21 +40,24 @@
 *	To load your scene, use this instruction: "Application.LoadLevel(LevelName)".
 */
 
-
-
-function SceneLoader () 
+function HerosRoom () 
 {
-	this.name = "Loader";
+	this.name = "HerosRoom";
 	this.Started = false;
 
 	this.GameObjects = [];
-	this.imageLoaded = 0;
-	var loadingShowed = false;
+
+	this.FadeOutWhiteScreen = 1;
+	this.FadeInSurgeonAssist = 0;
+	this.SurgeonAssistVisible = false;
+	this.DialogueStep = 0;
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
-
-
+		Dialogue.finished = true;
+		Dialogue.InitDialogue();
+		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
 
@@ -63,71 +66,72 @@ function SceneLoader ()
 		if(!this.Started)
 		{
 			//codez le start avant le changement de booleen
-
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
 		}
 		this.Update();
 	};
-	this.alphacountIsartLogo = 0;
-	this.alphacountHtmlLogo = 0;
 
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
 		{
-			ctx.fillStyle = "black";
-			ctx.fillRect(0,0, canvas.width, canvas.height);
-			
-			if(Images.loaderBackground)
-			{
-				ctx.drawImage(Images.loaderBackground, 0, 0, canvas.width, canvas.height);
-			}
-			if(Images.logoIsart && Images.logoHtml5)
-			{
-				ctx.save();
+			// background
+			ctx.drawImage(Images.ceilingBackground, 0, 0);
 
-				this.alphacountIsartLogo += 200/*0.3 */* Time.DeltaTime;
-				ctx.globalAlpha = this.alphacountIsartLogo;
-				ctx.drawImage(Images.logoIsart, canvas. width / 2 - Images.logoHtml5.width /2 + 10,50);
-				if(this.alphacountIsartLogo > 1.5)
+			//Fade Out Whitet
+			if(this.FadeOutWhiteScreen > 0) 
+			{
+				this.FadeOutWhiteScreen -= 0.5 * Time.DeltaTime;
+				if(this.FadeOutWhiteScreen < 0) return;
+				var alphaOri = ctx.globalAlpha;
+				ctx.globalAlpha = this.FadeOutWhiteScreen;
+
+				ctx.fillStyle = "white";
+				ctx.fillRect(0,0, canvas.width, canvas.height);
+
+				ctx.globalAlpha = alphaOri;
+			}
+			if(this.FadeOutWhiteScreen < 0 && this.DialogueStep == 0)
+			{
+				Dialogue.Begin("qu'est ce [short] . [short] . [short] . qu'est ce qu'il se passe ? [long]", 0.15, {x:30, y:570}, "white", "30px Georgia");
+				this.DialogueStep = 1;
+			}
+
+			// surgeon assist
+			if(this.FadeOutWhiteScreen < 0 && this.FadeInSurgeonAssist < 1 && this.DialogueStep == 1 && Dialogue.finished) 
+			{
+				this.FadeInSurgeonAssist += Time.DeltaTime;
+				var alphaOri = ctx.globalAlpha;
+				ctx.globalAlpha = this.FadeInSurgeonAssist;
+				ctx.drawImage(Images.ceilingSurgeon, 0, 0);
+				ctx.globalAlpha = alphaOri;
+
+				if(this.FadeInSurgeonAssist > 1) this.SurgeonAssistVisible = true;
+			}
+
+			if(this.FadeInSurgeonAssist > 1 && this.DialogueStep == 1)
+			{
+				Dialogue.Begin("Docteur ! Le patient se reveille ! [long] ", 0.15, {x:30, y:570}, "white", "30px Georgia");
+				this.DialogueStep = 2;
+			}
+
+			if(this.SurgeonAssistVisible) ctx.drawImage(Images.ceilingSurgeon, 0, 0);
+
+
+			for(var i = 0; i < this.GameObjects.length; i++)
+			{
+				if(this.GameObjects[i].enabled)
 				{
-					this.alphacountHtmlLogo += 200/*1*/ * Time.DeltaTime;
-					ctx.globalAlpha = this.alphacountHtmlLogo;
-					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,150);
+					this.GameObjects[i].Start();
 				}
-				ctx.restore();
-			}
-
-			if(this.alphacountHtmlLogo > 2 && !this.loadingShowed)
-			{
-				this.loadingShowed = true;
-				Dialogue.Begin("Chargement  .  .  . ", 0.01, {x: 465 , y:490}, "white");
-			}
-			if(this.alphacountHtmlLogo > 2 && Dialogue.finished)
-				{ 
-					console.log(this.imageLoaded);
-					console.log(ImagesPath.length);
-					if(this.imageLoaded == ImagesPath.length)
-					{
-						 Scenes["HerosRoom"] = new HerosRoom();
-						 Application.LoadLevel("HerosRoom");
-					}
-					this.loadingShowed = false;
-				}
+			}	
 			if(!Dialogue.finished) 
 			{
+				ctx.drawImage(Images.dialogueBox, 0, 470);
 				Dialogue.Continue();
 			}
-
-			ctx.strokeStyle = "white";
-			ctx.strokeRect( canvas.width / 2 - 200, 500, 400, 20);
-			ctx.fillStyle = "white";
-			var portion = 400 / ImagesPath.length;
-			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
-
-			
 			this.LateUpdate();
 		}
 	};
