@@ -77,7 +77,7 @@ function SceneModel ()
 			ctx.fillRect(0,0, canvas.width, canvas.height);
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{
-				if(this.GameObjects[i].enable)
+				if(this.GameObjects[i].enabled)
 				{
 					this.GameObjects[i].Start();
 				}
