@@ -53,11 +53,12 @@ function SecondFloorCorridor ()
 	this.shadowAnimScale = {
 		x : 375,
 		y : 150,
-		w : 1,
-		h : 1,
-		speed : 0.2
+		w : 362,
+		h : 614,
+		speed : 10
 	};
 	this.shadowspawntimer = 0;
+	this.shadowcloseevelatortimer = 0;
 
 	this.Awake = function()
 	{
@@ -104,33 +105,57 @@ function SecondFloorCorridor ()
 						break;
 					case 1:
 						if(Dialogue.finished){
-							ctx.drawImage(Images.couloirOmbre, 375, 150);
+							ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
 							this.shadowspawntimer += Time.DeltaTime;
 							if(this.shadowspawntimer > 2)
 								this.corridorShadowTextProgression++;
 						}
 						break;
 					case 2:
-						ctx.drawImage(Images.couloirOmbre, 375, 150);
+						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
 						Dialogue.Begin("Hello...? [short] [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.corridorShadowTextProgression++;
 						break;
 					case 3:
-						ctx.drawImage(Images.couloirOmbre, 375, 150);
+						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
 						if(Dialogue.finished){
 							this.corridorShadowTextProgression++;
 						}
 						break;
 					case 4:
-						console.log(this.shadowAnimScale);
-						if(this.shadowAnimScale.w > 0.5){
-							this.shadowAnimScale.x += this.shadowAnimScale.speed * 2 * Time.DeltaTime;
-							this.shadowAnimScale.y += this.shadowAnimScale.speed * 2 * Time.DeltaTime;
-							this.shadowAnimScale.w -= this.shadowAnimScale.speed * Time.DeltaTime;
-							this.shadowAnimScale.h -= this.shadowAnimScale.speed * Time.DeltaTime;
+						if(this.shadowAnimScale.w > 200){
+							this.shadowAnimScale.x += this.shadowAnimScale.speed * 0.75 * Time.DeltaTime;
+							this.shadowAnimScale.y += this.shadowAnimScale.speed * 0.50 * Time.DeltaTime;
+							this.shadowAnimScale.w -= this.shadowAnimScale.speed * 2 * Time.DeltaTime;
+							this.shadowAnimScale.h -= this.shadowAnimScale.speed * 2 * Time.DeltaTime;
 	  						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
   						}
+  						else
+  							this.corridorShadowTextProgression++;
 						break;
+					case 5:
+						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
+						Dialogue.Begin("Hey! [short] WAIT! [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.corridorShadowTextProgression++;
+						break;
+					case 6:
+						if(this.shadowAnimScale.w > 75){
+							this.shadowAnimScale.x += this.shadowAnimScale.speed * 0.75 * Time.DeltaTime;
+							this.shadowAnimScale.y += this.shadowAnimScale.speed * 1.5 * Time.DeltaTime;
+							this.shadowAnimScale.w -= this.shadowAnimScale.speed * 2 * Time.DeltaTime;
+							this.shadowAnimScale.h -= this.shadowAnimScale.speed * 2 * Time.DeltaTime;
+	  						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
+  						}
+  						else{
+  							this.elevatorstate = false;
+  							this.shadowcloseevelatortimer += Time.DeltaTime;
+  							if(this.shadowcloseevelatortimer > 1)
+  						  		this.corridorShadowTextProgression++;
+  						}
+  						break;
+  					case 7:
+  						Dialogue.Begin("... [long]", 0.50, {x:30, y:570}, "white", "30px Georgia");
+  						break;
 				}
 			}
 
