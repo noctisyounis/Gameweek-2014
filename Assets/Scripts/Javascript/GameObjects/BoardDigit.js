@@ -125,40 +125,41 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function BoardCode ()
+function BoardDigit (id)
 {
-	this.name = "BoardCode";
+	this.name = "BoardDigit "+ id;
 	this.enabled = true;
-	this.physics = false;
-	this.renderer = false;
-	this.GameObjects = [];
+	this.physics = true;
+	this.renderer = true;
+	this.number = 0;
+	this.isClicked = false;
 
 	this.transform =
 	{
-		position: {x:0, y: 0},
+		position: {x:200*id, y: 200},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 0, y: 0}
+		scale: {x: 50, y: 200}
 	};
 
 	this.Physics = 
 	{
-		BoxCollider: false,
-		Clickable:   false,
+		BoxCollider: true,
+		Clickable:   true,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
-		RelativePosition: false,
+		RelativePosition: true,
  
  		BoxColliderSize: 
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
+			scale: {x: 50, y: 200}
 		}
 	};
 	this.Renderer = 
 	{
 		visible: false,
-		GizmosVisible: false,
+		GizmosVisible: true,
 		isSprite: false,
 		thit: this.name,
 		that: this.transform,
@@ -264,12 +265,7 @@ function BoardCode ()
 		if(!this.Started)
 		{
 			// DO START HERE
-			var i = 1;
-			while(i != 5){
-				this.GameObjects.push(new BoardDigit(i));
-				i++;
-			}
-//creer 4 gameobject digit
+
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -284,7 +280,7 @@ function BoardCode ()
 			{
 				if(this.Physics.BoxCollider)
 				{
-					for(var other in GameObjects)
+					for(var other in Application.LoadedLevel.GameObjects)
 					{
 						if(other.enabled && other.BoxCollider)
 						{
@@ -327,16 +323,15 @@ function BoardCode ()
 
 	this.LateUpdate = function ()
 	{
-		// boucle sur les 4 digit qu'on  creer plus haut Start()
-		for(var i = 0; i < this.GameObjects.length; i++)
-		{
-			if(this.GameObjects[i].enabled)
-			{
-				this.GameObjects[i].Start();
-			}
-		}	
+		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
+		ctx.font="50px Georgia";
+		ctx.fillStyle="yellow";
+		var originTextAlign = ctx.textAlign;
+		ctx.textAlign="center";
+		ctx.fillText(this.number,this.transform.position.x+this.transform.scale.x/2,this.transform.position.y+this.transform.scale.y/2);
+		ctx.textAlign = originTextAlign;
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -351,6 +346,14 @@ function BoardCode ()
 			Input.MouseDraging = true;
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
+		}
+		if(!this.isClicked && Input.MousePosition.y > this.Physics.BoxColliderSize.position.y && Input.MousePosition.y < this.Physics.BoxColliderSize.position.y + this.Physics.BoxColliderSize.scale.y/2){
+			this.isClicked = !this.isClicked;
+			this.number = this.number == 0 ? 9 : this.number -= 1;
+		}
+		else if(!this.isClicked){
+			this.isClicked = !this.isClicked;
+			this.number = this.number == 9 ? 0 : this.number += 1;
 		}
 	};
 	this.OnHovered = function()

@@ -62,7 +62,6 @@ function SceneNumericCode ()
 		{
 			//codez le start avant le changement de booleen
 			this.GameObjects.push(new BoardCode());
-			console.log("array = " +  this.GameObjects[0].enabled);
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
