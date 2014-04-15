@@ -12,14 +12,22 @@ var ImagesPath = [
 { name: "logoIsart", path: "GUI/isart_logo.png"},
 { name: "roomBackground", path: "Backgrounds/background_room1.jpg"},
 { name: "couloirBackground", path: "Backgrounds/couloir.jpg"},
+{ name: "couloirBackgroundNoElevator", path: "Backgrounds/couloir2.png"},
 { name: "ceilingBackground", path: "Backgrounds/ceiling.jpg"},
 { name: "ceilingSurgeon", path: "Backgrounds/ceiling_surgeons.png"},
+{ name: "couloirOmbre", path: "Backgrounds/shadow.png"},
+{ name: "ascenseurFerme", path: "Backgrounds/ascenseur_ferme.jpg"},
+{ name: "ascenseurOuvert", path: "Backgrounds/ascenseur_ouvert.jpg"},
 { name: "dialogueBox", path: "GUI/dialogue_box.png"},
 
 
 ];
 var Images = {};
-
+var Progression = {
+	OutOfHerosRoom : false,
+	SeenCorridorShadow : false,
+	GotElevatorKey : false
+};
 var Application = 
 {
 	LoadedLevel: null,
