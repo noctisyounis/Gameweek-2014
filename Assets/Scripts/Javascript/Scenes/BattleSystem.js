@@ -42,19 +42,17 @@
 
 
 
-function SceneLoader () 
+function SceneBattleSystem () 
 {
-	this.name = "Loader";
+	this.name = "Battle ";
 	this.Started = false;
 
 	this.GameObjects = [];
-	this.imageLoaded = 0;
-	var loadingShowed = false;
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
-
-
+		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
 
@@ -63,6 +61,7 @@ function SceneLoader ()
 		if(!this.Started)
 		{
 			//codez le start avant le changement de booleen
+			this.GameObjects.push(new CursorTarget());
 
 			this.Started = true;
 			Time.LevelLoaded();
@@ -70,8 +69,6 @@ function SceneLoader ()
 		}
 		this.Update();
 	};
-	this.alphacountIsartLogo = 0;
-	this.alphacountHtmlLogo = 0;
 
 	this.Update = function()
 	{
@@ -79,55 +76,17 @@ function SceneLoader ()
 		{
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
-			
-			if(Images.loaderBackground)
-			{
-				ctx.drawImage(Images.loaderBackground, 0, 0, canvas.width, canvas.height);
-			}
-			if(Images.logoIsart && Images.logoHtml5)
-			{
-				ctx.save();
 
-				this.alphacountIsartLogo += 200/*0.3 */* Time.DeltaTime;
-				ctx.globalAlpha = this.alphacountIsartLogo;
-				ctx.drawImage(Images.logoIsart, canvas. width / 2 - Images.logoHtml5.width /2 + 10,50);
-				if(this.alphacountIsartLogo > 1.5)
-				{
-					this.alphacountHtmlLogo += 200/*1*/ * Time.DeltaTime;
-					ctx.globalAlpha = this.alphacountHtmlLogo;
-					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,150);
-				}
-				ctx.restore();
-			}
-
-			if(this.alphacountHtmlLogo > 2 && !this.loadingShowed)
-			{
-				this.loadingShowed = true;
-				Dialogue.Begin("Chargement  .  .  . ", 0.01, {x: 465 , y:490}, "white");
-			}
-			if(this.alphacountHtmlLogo > 2 && Dialogue.finished)
-				{ 
-					console.log(this.imageLoaded);
-					console.log(ImagesPath.length);
-					if(this.imageLoaded == ImagesPath.length)
-					{
-						 Scenes["Battle"] = new SceneBattleSystem();
-						 Application.LoadLevel("Battle");
-					}
-					this.loadingShowed = false;
-				}
-			if(!Dialogue.finished) 
-			{
-				Dialogue.Continue();
-			}
-
-			ctx.strokeStyle = "white";
-			ctx.strokeRect( canvas.width / 2 - 200, 500, 400, 20);
 			ctx.fillStyle = "white";
-			var portion = 400 / ImagesPath.length;
-			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
-
-			
+			ctx.fillRect(0,500, canvas.width, 20);
+			for(var i = 0; i < this.GameObjects.length; i ++)
+			{
+				if(this.GameObjects[i].enabled)
+				{
+					this.GameObjects[i].Start();
+				}
+			}	
+			if(!Dialogue.finished) {Dialogue.Continue();}
 			this.LateUpdate();
 		}
 	};

@@ -75,11 +75,11 @@ function SceneModel ()
 		{
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
-			for(var GameObject in this.GameObjects)
+			for(var i = 0; i < this.GameObjects.length; i++)
 			{
-				if(GameObject.enable)
+				if(this.GameObjects[i].enable)
 				{
-					GameObject.Start();
+					this.GameObjects[i].Start();
 				}
 			}	
 			if(!Dialogue.finished) {Dialogue.Continue();}
