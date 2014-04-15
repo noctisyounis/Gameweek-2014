@@ -125,12 +125,15 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function CursorTarget ()
+function CursorTarget (background, ennemy, parent)
 {
 	this.name = "CursorTarget";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
+
+	this.background = background;
+	this.parent = parent;
 
 	this.transform =
 	{
@@ -217,7 +220,7 @@ function CursorTarget ()
 	}
 
 	this.ImpactObjects = [];
-	this.Monsters = [{x: 400, y: 300, w: 100, h: 400, speed: 10, Life: 5}];
+	this.Monsters = ennemy;
 
 	this.state = true;
 	this.reloadWeapon = 0;
@@ -327,7 +330,7 @@ function CursorTarget ()
 	this.LateUpdate = function ()
 	{
 		this.reloadWeapon -= 2 * Time.DeltaTime; // change by reload;
-
+		ctx.drawImage(this.background, 0,0);
 		// draw Monsters 
 		for(var i =0; i < this.Monsters.length; i++)
 		{
@@ -336,7 +339,7 @@ function CursorTarget ()
 			this.Monsters[i].y -= this.Monsters[i].speed / 2 * Time.DeltaTime;
 			this.Monsters[i].w += this.Monsters[i].speed * Time.DeltaTime;
 			this.Monsters[i].h += this.Monsters[i].speed * Time.DeltaTime;
-  			ctx.fillRect (this.Monsters[i].x, this.Monsters[i].y, this.Monsters[i].w, this.Monsters[i].h);
+  			ctx.drawImage (this.Monsters[i].sprite, this.Monsters[i].x, this.Monsters[i].y, this.Monsters[i].w, this.Monsters[i].h);
 		}
 
 		// Draw Bar 
@@ -414,6 +417,10 @@ function CursorTarget ()
 					if(this.Monsters[i].Life < 0)
 					{
 						this.Monsters.splice(i, 1);
+						if(this.Monsters.length < 1)
+						{
+							this.parent.GameObjects.splice(0,1);
+						}
 					}
 				}
 			}

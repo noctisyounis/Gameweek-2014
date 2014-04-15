@@ -40,7 +40,7 @@
 *	To load your scene, use this instruction: "Application.LoadLevel(LevelName)".
 */
 
-function HerosRoom () 
+function SceneHerosRoom () 
 {
 	this.name = "HerosRoom";
 	this.Started = false;
@@ -120,7 +120,7 @@ function HerosRoom ()
 				this.DialogueStep = 2;
 			}
 
-			if(this.SurgeonAssistVisible) ctx.drawImage(Images.ceilingSurgeon, 0, 0);
+			if(this.SurgeonAssistVisible && this.FadeInSurgeonAssist < 10) ctx.drawImage(Images.ceilingSurgeon, 0, 0);
 			
 			// Fade In Main Surgeon
 			if(this.DialogueStep == 2 && Dialogue.finished) 
@@ -138,19 +138,37 @@ function HerosRoom ()
 				} 
 			}
 
-			if(this.surgeonMainVisible) ctx.drawImage(Images.surgeonMain, 0, 0);
+			if(this.surgeonMainVisible && this.FadeInSurgeonAssist < 10) ctx.drawImage(Images.surgeonMain, 0, 0);
 			
 			if(this.DialogueStep == 3)
 			{
-				Dialogue.Begin("Ce n'est pas un probleme. [short] On continue!", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Dialogue.Begin("Ce n'est pas un probleme. [short] On continue! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.DialogueStep = 4;
 			}
 
 			if(this.DialogueStep == 4 && Dialogue.finished)
 			{
-				this.GameObjects.push(new ButtonChoice("Se debattre", 150, 250));
-				this.GameObjects.push(new ButtonChoice("Ne rien faire", 550, 250));
+				this.GameObjects.push(new ButtonChoice(1, "Se debattre", 150, 250, this));
+				this.GameObjects.push(new ButtonChoice(2, "Ne rien faire", 550, 250, this));
 				this.DialogueStep = 5;
+			}
+
+			//WinBattle
+			if(this.Step == 10)
+			{
+				Dialogue.Begin("");
+				Dialogue.Begin("Quoi? [short] ils [short] . [short] . [short] . ont disparus! Je dois demander de l'aide...", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				this.Step = 11;
+			}
+
+			if(this.Step == 11 && Dialogue.Finished)
+			{
+
+			}
+
+			if(this.Step == 20)
+			{
+				//Lose
 			}
 
 			for(var i = 0; i < this.GameObjects.length; i++)
@@ -180,6 +198,34 @@ function HerosRoom ()
 			Debug.ShowStats();
 		}
 	};
+
+	this.ChoiceMade = function (idClicked)
+	{
+		if(idClicked == 1)
+		{
+			this.GameObjects = [];
+			this.GameObjects.push(
+				new CursorTarget(Images.ceilingBackground, [{sprite: Images.surgeonMain, x: 0, y: 0, w: canvas.width, h: canvas.height, speed: 10, Life: 5}], this));
+			//Combat;
+		}
+		else
+		{
+			//pasCombat;
+		}
+	}
+
+	this.BattleResult = function(goodResult)
+	{
+		if(goodResult)
+		{
+			this.GameObjects = [];
+			this.Step = 10;
+		}
+		else
+		{
+			this.Step = 20;
+		}
+	}
 
 	// lance l'awake a la creation de la scene
 	this.Awake();

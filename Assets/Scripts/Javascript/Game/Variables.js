@@ -22,7 +22,12 @@ var ImagesPath = [
 { name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 { name: "choiceButtonNormal", path: "GUI/button_choice_normal.png"},
 { name: "choiceButtonHover", path: "GUI/button_choice_Hover.png"},
-{ name: "choiceButtonClicked", path: "GUI/button_choice_pressed.png"}
+{ name: "choiceButtonClicked", path: "GUI/button_choice_pressed.png"},
+{ name: "intro1", path: "Backgrounds/intro1.png"},
+{ name: "intro2", path: "Backgrounds/intro2.png"},
+{ name: "intro3", path: "Backgrounds/intro3.png"},
+{ name: "intro4", path: "Backgrounds/intro4.png"},
+{ name: "intro5", path: "Backgrounds/intro5.png"},
 
 
 ];

@@ -125,12 +125,14 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function ButtonChoice (text, x, y)
+function ButtonChoice (id, text, x, y, parent)
 {
-	this.name = "ButtonChoice" + text;
+	this.name = "ButtonChoice " + text;
+	this.id = id;
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
+	this.parent = parent;
 
 	this.buttonMessage = text;
 
@@ -329,9 +331,12 @@ function ButtonChoice (text, x, y)
 
 	this.LateUpdate = function ()
 	{
-		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
+		
+		ctx.font = "30px Georgia";
+		ctx.fillStyle = "white";
+		ctx.fillText(text, this.transform.position.x + 70, this.transform.position.y + this.transform.scale.y /2);
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -349,6 +354,7 @@ function ButtonChoice (text, x, y)
 		}
 
 		this.Renderer.Material.source =  Images.choiceButtonClicked;
+		this.parent.ChoiceMade(this.id);
 
 	};
 	this.OnHovered = function()
