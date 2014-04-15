@@ -33,7 +33,7 @@ var Input =
 {
 	MouseClick: false,
 	MouseLongClick: false,
-	MouseReload: true,
+	MouseReload: 0,
 	MousePosition: {x: 0, y: 0},
 	MouseDraging: false,
 	DragedElement: null,
