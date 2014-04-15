@@ -125,19 +125,21 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function BoardDigit (id)
+function AndroidPanel ()
 {
-	this.name = "BoardDigit "+ id;
+	this.name = "AndroidPanel";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
-	this.number = 0;
+	this.GameObjects = [];
+	this.solution = [];
+	this.code = [];
 
 	this.transform =
 	{
-		position: {x:200*id, y: 200},
+		position: {x:canvas.width/2-300/2, y: canvas.height/2-300/2},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 50, y: 200}
+		scale: {x: 350, y: 350}
 	};
 
 	this.Physics = 
@@ -152,7 +154,7 @@ function BoardDigit (id)
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 50, y: 200}
+			scale: {x: 350, y: 350}
 		}
 	};
 	this.Renderer = 
@@ -264,7 +266,13 @@ function BoardDigit (id)
 		if(!this.Started)
 		{
 			// DO START HERE
-
+			var i = 1;
+			for(x = 1; x < 4; x++){
+				for(y = 1; y < 4; y++){
+					this.GameObjects.push(new AndroidButton(i,x,y,this.transform,this));
+					i++;
+				}
+			}
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -323,14 +331,30 @@ function BoardDigit (id)
 	this.LateUpdate = function ()
 	{
 		// GAMEOBJECT BEHAVIOR HERE !
+		for(var i = 0; i < this.GameObjects.length; i++)
+		{
+			if(this.GameObjects[i].enabled)
+			{
+				this.GameObjects[i].Start();
+			}
+		}
 		if(this.renderer)
 			this.Renderer.Draw();
-		ctx.font="50px Georgia";
-		ctx.fillStyle="yellow";
-		var originTextAlign = ctx.textAlign;
-		ctx.textAlign="center";
-		ctx.fillText(this.number,this.transform.position.x+this.transform.scale.x/2,this.transform.position.y+this.transform.scale.y/2);
-		ctx.textAlign = originTextAlign;
+		if(this.code.length > 0){
+			var originStrokeStyle = ctx.strokeStyle;
+			var originLineWidth = ctx.lineWidth;
+			ctx.beginPath();
+			ctx.moveTo(this.GameObjects[this.code[0]-1].transform.position.x+this.GameObjects[this.code[0]-1].transform.scale.x/2,this.GameObjects[this.code[0]-1].transform.position.y+this.GameObjects[this.code[0]-1].transform.scale.y/2);
+			for(i = 1; i < this.code.length; i++){
+				ctx.lineTo(this.GameObjects[this.code[i]-1].transform.position.x+this.GameObjects[this.code[i]-1].transform.scale.x/2,this.GameObjects[this.code[i]-1].transform.position.y+this.GameObjects[this.code[i]-1].transform.scale.y/2);
+			}
+			ctx.strokeStyle = "#00FFFF";
+			ctx.lineWidth = 5;
+			ctx.stroke();
+			ctx.strokeStyle = originStrokeStyle;
+			ctx.lineWidth = originLineWidth;
+		}
+
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -346,16 +370,15 @@ function BoardDigit (id)
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
-		console.log(Input.MouseClick + " " + Input.MouseLongClick + " " + Input.MouseReload);
-		if(Input.MouseClick && Input.MousePosition.y > this.Physics.BoxColliderSize.position.y && Input.MousePosition.y < this.Physics.BoxColliderSize.position.y + this.Physics.BoxColliderSize.scale.y/2){
-			this.number = this.number == 0 ? 9 : this.number -= 1;
+
+	};
+	this.OnHovered = function(){
+		if(Input.MouseLongClick){
+			console.log(this.code);
 		}
 		else{
-			this.number = this.number == 9 ? 0 : this.number += 1;
+			this.code = [];
 		}
-	};
-	this.OnHovered = function()
-	{
 	};
 
 	this.Awake();
