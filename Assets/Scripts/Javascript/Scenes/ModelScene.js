@@ -1,4 +1,4 @@
-/*	**** For create a new GameObject **** 
+/*	**** For create a new Scene **** 
 *
 *	@step 1							Copy the content of this file in a new .js document.
 *   ----------------------------------------------------------------------------------------------------------------------------
