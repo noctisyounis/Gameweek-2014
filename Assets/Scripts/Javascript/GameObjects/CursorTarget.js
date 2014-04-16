@@ -419,9 +419,10 @@ function CursorTarget (background, ennemy, parent)
 						this.Monsters.splice(i, 1);
 						if(this.Monsters.length < 1)
 						{
-							this.parent.GameObjects.splice(0,1);
+							this.parent.Step = 10;
 						}
 					}
+					if(this.Monsters.)
 				}
 			}
 			//if(this.treansform.position.x >)																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														

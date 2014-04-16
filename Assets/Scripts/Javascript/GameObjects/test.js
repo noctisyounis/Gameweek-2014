@@ -125,24 +125,24 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function GameObject ()
+function GameObjectTest ()
 {
 	this.name = "Model";
-	this.enabled = false;
-	this.physics = false;
-	this.renderer = false;
+	this.enabled = true;
+	this.physics = true;
+	this.renderer = true;
 
 	this.transform =
 	{
-		position: {x:0, y: 0},
+		position: {x:200, y: 600},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 0, y: 0}
+		scale: {x: 100, y: 100}
 	};
 
 	this.Physics = 
 	{
 		BoxCollider: false,
-		Clickable:   false,
+		Clickable:   true,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
@@ -156,16 +156,16 @@ function GameObject ()
 	};
 	this.Renderer = 
 	{
-		visible: false,
-		GizmosVisible: false,
-		isSprite: false,
+		visible: true,
+		GizmosVisible: true,
+		isSprite: true,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			source: "",
+			source: Images.intro1,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -192,9 +192,7 @@ function GameObject ()
 		Draw: function ()
 		{
 			if(this.isSprite)
-				if(this.Animation.animated)
-				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
-				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
+				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)

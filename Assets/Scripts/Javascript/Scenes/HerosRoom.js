@@ -120,7 +120,6 @@ function SceneHerosRoom ()
 				this.DialogueStep = 2;
 			}
 
-			if(this.SurgeonAssistVisible && this.FadeInSurgeonAssist < 10) ctx.drawImage(Images.ceilingSurgeon, 0, 0);
 			
 			// Fade In Main Surgeon
 			if(this.DialogueStep == 2 && Dialogue.finished) 
@@ -137,8 +136,6 @@ function SceneHerosRoom ()
 					this.DialogueStep = 3;
 				} 
 			}
-
-			if(this.surgeonMainVisible && this.FadeInSurgeonAssist < 10) ctx.drawImage(Images.surgeonMain, 0, 0);
 			
 			if(this.DialogueStep == 3)
 			{
@@ -153,22 +150,36 @@ function SceneHerosRoom ()
 				this.DialogueStep = 5;
 			}
 
+			if(this.SurgeonAssistVisible) ctx.drawImage(Images.ceilingSurgeon, 0, 0);
+			if(this.surgeonMainVisible) ctx.drawImage(Images.surgeonMain, 0, 0);
+
 			//WinBattle
 			if(this.Step == 10)
 			{
-				Dialogue.Begin("");
+				this.GameObjects = [];
+				this.SurgeonAssistVisible = false;
+				this.surgeonMainVisible = false;
 				Dialogue.Begin("Quoi? [short] ils [short] . [short] . [short] . ont disparus! Je dois demander de l'aide...", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.Step = 11;
 			}
 
-			if(this.Step == 11 && Dialogue.Finished)
+			if(this.Step == 11 && Dialogue.finished)
 			{
-
+				this.Step = 22;
 			}
-
 			if(this.Step == 20)
 			{
-				//Lose
+				Dialogue.Begin("Quoi? [short] ils [short] . [short] . [short] . ont disparus! Je dois demander de l'aide...", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				this.Step = 21;
+			}
+			if(this.Step == 21 && Dialogue.finished)
+			{
+				this.Step = 22;
+			}
+
+			if(this.Step == 22)
+			{
+				Application.LoadLevel("SecondFloorCorridor");
 			}
 
 			for(var i = 0; i < this.GameObjects.length; i++)
@@ -205,25 +216,12 @@ function SceneHerosRoom ()
 		{
 			this.GameObjects = [];
 			this.GameObjects.push(
-				new CursorTarget(Images.ceilingBackground, [{sprite: Images.surgeonMain, x: 0, y: 0, w: canvas.width, h: canvas.height, speed: 10, Life: 5}], this));
+				new CursorTarget(Images.ceilingBackground, [{sprite: Images.surgeonMain, x: 0, y: 0, w: 777, h: 728, speed: 10, Life: 5}], this));
 			//Combat;
 		}
 		else
 		{
 			//pasCombat;
-		}
-	}
-
-	this.BattleResult = function(goodResult)
-	{
-		if(goodResult)
-		{
-			this.GameObjects = [];
-			this.Step = 10;
-		}
-		else
-		{
-			this.Step = 20;
 		}
 	}
 
