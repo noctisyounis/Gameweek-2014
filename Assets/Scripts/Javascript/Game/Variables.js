@@ -4,13 +4,9 @@ var ctx = canvas.getContext("2d");
 var Scenes = {};
 
 var ImagesPath = [
-{ name: "loaderBackground", path: "GUI/background_loader.jpg"},
-{ name: "titleBackground", path: "GUI/background_title.jpg"},
-{ name: "titleForeground", path: "GUI/foreground_title.png"},
-{ name: "logoHtml5", path: "GUI/html5_logo.png"},
-{ name: "textHtml5", path: "GUI/html5_text.png"},
-{ name: "logoIsart", path: "GUI/isart_logo.png"},
+
 { name: "roomBackground", path: "Backgrounds/background_room1.jpg"},
+{ name: "roomBackground2", path: "Backgrounds/background_room2.jpg"},
 { name: "couloirBackground", path: "Backgrounds/couloir.jpg"},
 { name: "couloirBackgroundNoElevator", path: "Backgrounds/couloir2.png"},
 { name: "ceilingBackground", path: "Backgrounds/ceiling.jpg"},
@@ -21,16 +17,32 @@ var ImagesPath = [
 { name: "accueil1Background", path: "Backgrounds/background_accueil.jpg"},
 { name: "accueil2Background", path: "Backgrounds/background_accueil2.jpg"},
 { name: "toitBackground", path: "Backgrounds/background_roof.jpg"},
-{ name: "dialogueBox", path: "GUI/dialogue_box.png"},
-{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
-{ name: "choiceButtonNormal", path: "GUI/button_choice_normal.png"},
-{ name: "choiceButtonHover", path: "GUI/button_choice_Hover.png"},
-{ name: "choiceButtonClicked", path: "GUI/button_choice_pressed.png"},
+{ name: "coffreBackground", path: "Backgrounds/coffre_background.jpg"},
+{ name: "coffreBouton", path: "Backgrounds/coffre_bouton.png"},
+{ name: "contourOrdinateur", path: "Backgrounds/contour_ordinateur.png"},
+{ name: "cardio", path: "Backgrounds/cardio.png"},
 { name: "intro1", path: "Backgrounds/intro1.png"},
 { name: "intro2", path: "Backgrounds/intro2.png"},
 { name: "intro3", path: "Backgrounds/intro3.png"},
 { name: "intro4", path: "Backgrounds/intro4.png"},
 { name: "intro5", path: "Backgrounds/intro5.png"},
+
+{ name: "logoHtml5", path: "GUI/html5_logo.png"},
+{ name: "textHtml5", path: "GUI/html5_text.png"},
+{ name: "logoIsart", path: "GUI/isart_logo.png"},
+{ name: "dialogueBox", path: "GUI/dialogue_box.png"},
+{ name: "choiceButtonNormal", path: "GUI/button_choice_normal.png"},
+{ name: "choiceButtonHover", path: "GUI/button_choice_Hover.png"},
+{ name: "choiceButtonClicked", path: "GUI/button_choice_pressed.png"},
+{ name: "loaderBackground", path: "GUI/background_loader.jpg"},
+{ name: "titleBackground", path: "GUI/background_title.jpg"},
+{ name: "titleForeground", path: "GUI/foreground_title.png"},
+
+{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
+{ name: "monsterKid", path: "Enemies/monster_kid.png"},
+{ name: "monsterNurse", path: "Enemies/monster_nurse.png"},
+
+
 { name: "roomBed", path: "Objects/room_bed.png"},
 { name: "roomCloset", path: "Objects/room_closet.png"},
 { name: "roomCurtains1", path: "Objects/room_curtains1.png"},
@@ -45,6 +57,12 @@ var ImagesPath = [
 { name: "roomTele3", path: "Objects/room_tele3.png"},
 { name: "roomTele4", path: "Objects/room_tele4.png"},
 { name: "roomWallphone", path: "Objects/room_wallphone.png"},
+{ name: "roomChaise", path: "Objects/room_chair.png"},
+{ name: "couloirOxygene", path: "Objects/couloir_bouteille_oxygene.png"},
+{ name: "couloirExit", path: "Objects/couloir_exit.jpg"},
+{ name: "couloirExtincteur", path: "Objects/couloir_extincteur.png"},
+{ name: "couloirPlan", path: "Objects/couloir_plan.jpg"},
+{ name: "couloirPlan1", path: "Objects/couloir_plan1.png"},
 
 
 ];

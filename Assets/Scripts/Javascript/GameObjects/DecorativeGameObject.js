@@ -200,7 +200,6 @@ function DecorativeGameObject (transform, boxCollider, name, message, mymaterial
 
 		Draw: function ()
 		{
-			console.log(this.Material.source);
 			if(this.isSprite)
 				if(this.Animation.animated)
 				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
