@@ -114,7 +114,8 @@ function SceneLoader ()
 						 Scenes["Intro"] = new SceneIntro();
 						 Scenes["HerosRoom"] = new SceneHerosRoom();
 						 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
-						 Application.LoadLevel("SecondFloorCorridor");
+						 Scenes["SceneMap"] = new SceneMap();
+						 Application.LoadLevel("SceneMap");
 					}
 					this.loadingShowed = false;
 				}
