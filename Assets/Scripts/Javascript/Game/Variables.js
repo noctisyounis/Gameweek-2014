@@ -42,6 +42,10 @@ var ImagesPath = [
 { name: "map_salle4", path: "Map/Salle4.png"},
 { name: "map_salle5", path: "Map/Salle5.png"},
 { name: "map_salle6", path: "Map/Salle6.png"},
+{ name: "barBattleBackground", path: "GUI/barre_combat.jpg"},
+{ name: "barBattleHitZone", path: "GUI/barre_combat1.jpg"},
+{ name: "barBattleCriticalZone", path: "GUI/barre_combat2.jpg"},
+{ name: "barBattleCursor", path: "GUI/barre_combat3.jpg"}
 
 
 ];
@@ -65,6 +69,7 @@ var Application =
 		if(Scenes[SceneName] != undefined)
 		{
 			this.LoadedLevel = Scenes[SceneName];
+			this.LoadedLevel.OnLoadLevel();
 		}
 
 	}
