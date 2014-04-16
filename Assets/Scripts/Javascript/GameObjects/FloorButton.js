@@ -125,39 +125,41 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function FloorButton ()
+function FloorButton (number, parent)
 {
-	this.name = "FloorButton";
-	this.enabled = false;
-	this.physics = false;
-	this.renderer = false;
+	this.name = "FloorButton " + number;
+	this.enabled = true;
+	this.physics = true;
+	this.renderer = true;
+	this.number = number;
+	this.parent = parent;
 
 	this.transform =
 	{
-		position: {x:0, y: 0},
+		position: {x:200 + 250*number, y: 600},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 0, y: 0}
+		scale: {x: 100, y: 50}
 	};
 
 	this.Physics = 
 	{
-		BoxCollider: false,
-		Clickable:   false,
+		BoxCollider: true,
+		Clickable:   true,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
-		RelativePosition: false,
+		RelativePosition: true,
  
  		BoxColliderSize: 
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
+			scale: {x: 100, y: 50}
 		}
 	};
 	this.Renderer = 
 	{
 		visible: false,
-		GizmosVisible: false,
+		GizmosVisible: true,
 		isSprite: false,
 		thit: this.name,
 		that: this.transform,
@@ -343,6 +345,7 @@ function FloorButton ()
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
+		this.parent.floorDisplayed = this.number;
 	};
 	this.OnHovered = function()
 	{
