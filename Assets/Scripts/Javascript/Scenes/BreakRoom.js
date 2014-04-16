@@ -42,9 +42,9 @@
 
 
 
-function SceneTest () 
+function SceneBreakRoom () 
 {
-	this.name = "Test";
+	this.name = "BreakRoom";
 	this.Started = false;
 
 	this.GameObjects = [];
@@ -60,8 +60,49 @@ function SceneTest ()
 	{
 		if(!this.Started)
 		{
-			//codez le start avant le changement de booleen(Images)
-			this.GameObjects.push(new GameObjectTest());
+			//codez le start avant le changement de booleen
+
+			//Armoire
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 750, y: 105}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 282, y: 553}
+ 												},
+ 												{
+ 													position: {x: 750 + 60, y: 105 + 45}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 282 - 110, y:553 - 110}
+ 												},
+
+ 												"RoomCloset",
+ 												"Ah ! Voici la clé de l’ascenseur ! [medium]",
+ 												Images.roomCloset
+
+
+ 												));
+
+			//Rideaux
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 230, y: 200}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 364, y: 301}
+ 												},
+ 												{
+ 													position: {x: 230, y: 200}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 230, y: 200}
+ 												},
+
+ 												"RoomCurtains3",
+ 												"",
+ 												Images.roomCurtains3
+
+
+ 												));
+
+			//this.GameObjects.push(new RoomCurtains3(230,200,364,301));
+			//this.GameObjects.push(new RoomSofa2(260,350,429,234));
+			//this.GameObjects.push(new RoomTable(650,300,173,236));
 
 			this.Started = true;
 			Time.LevelLoaded();
@@ -76,17 +117,21 @@ function SceneTest ()
 		{
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
+			ctx.drawImage(Images.roomBackground, 0, 0, canvas.width, canvas.height);
 
-			//Faire un drawImage du background de la scene en question
-			ctx.drawImage(Images.ceilingBackground, 0, 0, canvas.width, canvas.height);
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{
 				if(this.GameObjects[i].enabled)
 				{
 					this.GameObjects[i].Start();
 				}
-			}	
-			if(!Dialogue.finished) {Dialogue.Continue();}
+			}
+
+			if(!Dialogue.finished) 
+			{
+				ctx.drawImage(Images.dialogueBox, 0, 470);
+				Dialogue.Continue();
+			}
 			this.LateUpdate();
 		}
 	};

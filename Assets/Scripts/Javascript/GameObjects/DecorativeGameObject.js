@@ -125,19 +125,33 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function GameObjectTest ()
+
+/*this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x,y}, 
+ 													rotation: {x,y}, 
+ 													scale{x,y}
+ 												},
+ 												{
+ 													position: {x,y}, 
+ 													rotation: {x,y}, 
+ 													scale{x,y}
+ 												},
+ 												"nameOfMyObject",
+ 												"sdkjnvhdfsmvbinhdfremik!",
+ 												Images.myImage
+
+
+ 												));
+*/
+
+function DecorativeGameObject (transform, boxCollider, name, message, mymaterial)
 {
-	this.name = "Model";
+	this.name = name;
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
 
-	this.transform =
-	{
-		position: {x:200, y: 600},
-		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 100, y: 100}
-	};
+	this.transform = transform;
 
 	this.Physics = 
 	{
@@ -147,17 +161,12 @@ function GameObjectTest ()
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
  
- 		BoxColliderSize: 
-		{
-			position: {x:0, y: 0},
-			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
-		}
+ 		BoxColliderSize: boxCollider
 	};
 	this.Renderer = 
 	{
 		visible: true,
-		GizmosVisible: true,
+		GizmosVisible: false,
 		isSprite: true,
 		thit: this.name,
 		that: this.transform,
@@ -165,7 +174,7 @@ function GameObjectTest ()
 
 		Material:
 		{
-			source: Images.intro1,
+			source: mymaterial,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -192,7 +201,9 @@ function GameObjectTest ()
 		Draw: function ()
 		{
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -249,12 +260,7 @@ function GameObjectTest ()
 			this.Physics.BoxColliderSize.position.y += this.transform.position.y;
 		}
 
-		if(this.Renderer.Material.src != "")
-		{
-			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.source.width / this.Renderer.Animation.current[2];
-			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.source.height;
-		}
-
+	
 		console.log(" %c System: GameObject " + this.name + " Created!", 'background: #222; color: #bada55');
 	};
 
@@ -343,6 +349,16 @@ function GameObjectTest ()
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
+
+		if(Input.MouseClick && Dialogue.finished)
+		{
+			//Interaction 
+			ctx.drawImage(Images.dialogueBox, 0, 470);
+			Dialogue.Begin(message, 0.1, {x:30, y:580}, "white", "30px Georgia");
+			Dialogue.Continue();
+
+		}
+
 	};
 	this.OnHovered = function()
 	{

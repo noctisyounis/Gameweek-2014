@@ -125,41 +125,39 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function ButtonLoadGame (slot)
+function RoomSofa2 (x, y, w, h)
 {
-	this.name = "ButtonLoadGame" + slot;
+	this.name = "RoomSofa2";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
-	this.slot = slot;
 
-	this.buttonDelete = new ButtonDeleteSave();
 	this.transform =
 	{
-		position: {x:170, y: 100 + (this.slot - 1) * 150},
+		position: {x: x, y: y},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 600, y: 150}
+		scale: {x: w, y: h}
 	};
 
 	this.Physics = 
 	{
 		BoxCollider: false,
-		Clickable:   true,
+		Clickable:   false,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:250, y: 120 + (this.slot  - 1 )* 150},
+			position: {x: x, y: y},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 450, y: 100}
+			scale: {x: w / 2, y: h / 2}
 		}
 	};
 	this.Renderer = 
 	{
 		visible: true,
-		GizmosVisible: true,
+		GizmosVisible: false,
 		isSprite: true,
 		thit: this.name,
 		that: this.transform,
@@ -167,7 +165,7 @@ function ButtonLoadGame (slot)
 
 		Material:
 		{
-			source: Images.choiceButtonNormal,
+			source: Images.roomSofa2,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -193,7 +191,6 @@ function ButtonLoadGame (slot)
 
 		Draw: function ()
 		{
-			
 			if(this.isSprite)
 				if(this.Animation.animated)
 				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
@@ -283,7 +280,7 @@ function ButtonLoadGame (slot)
 			{
 				if(this.Physics.BoxCollider)
 				{
-					for(var other in GameObjects)
+					for(var other in Application.LoadedLevel.GameObjects)
 					{
 						if(other.enabled && other.BoxCollider)
 						{
@@ -295,6 +292,7 @@ function ButtonLoadGame (slot)
 						}
 					}
 				}
+
 				if(this.Physics.Clickable)
 				{
 					if(Collision.PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
@@ -329,17 +327,9 @@ function ButtonLoadGame (slot)
 
 	this.LateUpdate = function ()
 	{
-
+		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
-		ctx.fillStyle = "grey";
-		ctx.fillStyle = "white";
-		ctx.font = "15px Georgia";
-		ctx.fillText("Slot", this.transform.position.x + 100, this.transform.position.y + 60);
-		ctx.font = "30px Georgia";
-		ctx.fillText(slot, this.transform.position.x + 105, this.transform.position.y + 95 );
-		ctx.font = "20px Georgia";
-		ctx.fillText("TAP HERE TO CREATE NEW SAVE FILE", this.transform.position.x + 135, this.transform.position.y + 80);
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -349,9 +339,6 @@ function ButtonLoadGame (slot)
 
 	this.OnClicked = function ()
 	{
-		Application.SaveLoaded = slot;
-		Scenes["intro"] = new SceneIntro();
-		Application.LoadLevel("intro");
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;
@@ -361,12 +348,11 @@ function ButtonLoadGame (slot)
 	};
 	this.OnHovered = function()
 	{
-		this.Renderer.Material.source = Images.choiceButtonHover;
 	};
+	
 	this.UnHovered = function()
 	{
-		this.Renderer.Material.source = Images.choiceButtonNormal;
-	}
+	};
 
 	this.Awake();
 }
