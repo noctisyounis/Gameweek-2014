@@ -325,12 +325,16 @@ function BoardDigit (id)
 		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
-		ctx.font="50px Georgia";
-		ctx.fillStyle="yellow";
+		var originFont = ctx.font;
+		var originFillStyle = ctx.fillStyle;
 		var originTextAlign = ctx.textAlign;
+		ctx.font="50px Georgia";
 		ctx.textAlign="center";
+		ctx.fillStyle="yellow";
 		ctx.fillText(this.number,this.transform.position.x+this.transform.scale.x/2,this.transform.position.y+this.transform.scale.y/2);
+		ctx.font = originFont;
 		ctx.textAlign = originTextAlign;
+		ctx.fillStyle = originFillStyle;
 	};
 
 	this.OnTriggerEnter = function (other)

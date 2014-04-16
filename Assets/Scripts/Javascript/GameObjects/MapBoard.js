@@ -128,9 +128,49 @@
 function MapBoard ()
 {
 	this.name = "MapBoard";
-	this.enabled = false;
+	this.enabled = true;
 	this.physics = false;
 	this.renderer = false;
+	this.gameObjects = [];
+	this.floorDisplayed = 2;
+
+	this.mapText = {
+		titre : {text : "Plan de l'Hôpital", x : canvas.width/2, y : 70},
+		RDC : {
+			floor : {text :"Rez de chaussée", x : canvas.width/2, y : 560},
+			reception : {text :"Accueil", x : 380, y : 240},
+			elevator : {text :"Ascenseur", x : 905, y : 320},
+			stairs : {text :"Escaliers", x : 85, y : 320},
+			waitingRoom : {text :"Salle d'attente", x : 260, y : 450},
+			archives : {text: "Archives", x : 500, y : 450},
+			operatingTheaterA : {text : "Bloc opératoire A", x : 735, y : 190},
+			operatingTheaterB : {text : "Bloc opératoire B", x : 735, y : 450},
+		},
+		premier : {
+			floor : {text :"Premier Etage", x : canvas.width/2, y : 560},
+			corridor : {text :"Couloir", x : 500, y : 320},
+			elevator : {text :"Ascenseur", x : 905, y : 320},
+			stairs : {text :"Escaliers", x : 85, y : 320},
+			room101 : {text :"Chambre 101", x : 260, y : 190},
+			room102 : {text :"Chambre 102", x : 260, y : 450},
+			room103 : {text :"Chambre 103", x : 500, y : 190},
+			room104 : {text :"Chambre 104", x : 500, y : 450},
+			room105 : {text :"Chambre 105", x : 735, y : 190},
+			room106 : {text :"Chambre 106", x : 735, y : 450}
+		},
+		second : {
+			floor : {text :"Second Etage", x : canvas.width/2, y : 560},
+			characterRoom : {text :"Ma chambre", x : 260, y : 190},
+			room202 : {text :"Chambre 202", x : 260, y : 450},
+			room203 : {text :"Chambre 203", x : 735, y : 190},
+			room204 : {text :"Chambre 204", x : 735, y : 450},
+			corridor : {text :"Couloir", x : 500, y : 320},
+			elevator : {text :"Ascenseur", x : 905, y : 320},
+			stairs : {text :"Escaliers", x : 85, y : 320},
+			restingArea : {text :"Salle de repos", x : 500, y : 450},
+			office : {text : "Bureau", x : 500, y : 190}
+		}
+	};
 
 	this.transform =
 	{
@@ -263,7 +303,17 @@ function MapBoard ()
 		if(!this.Started)
 		{
 			// DO START HERE
-
+			var i = 0;
+			while (i < 3){
+				this.gameObjects.push(new FloorButton(i, this));
+				i++;
+			}
+			this.gameObjects.push(new RoomObject(
+				{position: {x:140,y:110}, rotation: {x:0,y:0}, scale: {x:240,y:155}},
+				{x :240,y:155},
+				"characterRoom",
+				"Intro",
+				"secondFloor"));
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -324,10 +374,70 @@ function MapBoard ()
 	};
 
 	this.LateUpdate = function ()
-	{
+	{	
+
+		var originalTextAlign = ctx.textAlign;
+		var originalFont = ctx.font;
+		ctx.fillStyle = "black";
+		ctx.textAlign = "center";
+		ctx.font = "25px Georgia";
 		// GAMEOBJECT BEHAVIOR HERE !
+		switch(this.floorDisplayed){
+			case 0:
+				ctx.drawImage(Images.map_planRDC,0,0);
+				ctx.fillText(this.mapText.RDC.floor.text, this.mapText.RDC.floor.x, this.mapText.RDC.floor.y);
+				ctx.font = "15px Georgia";
+				ctx.fillText(this.mapText.RDC.elevator.text, this.mapText.RDC.elevator.x, this.mapText.RDC.elevator.y);
+				ctx.fillText(this.mapText.RDC.stairs.text, this.mapText.RDC.stairs.x, this.mapText.RDC.stairs.y);
+				ctx.fillText(this.mapText.RDC.reception.text, this.mapText.RDC.reception.x, this.mapText.RDC.reception.y);
+				ctx.fillText(this.mapText.RDC.waitingRoom.text, this.mapText.RDC.waitingRoom.x, this.mapText.RDC.waitingRoom.y);
+				ctx.fillText(this.mapText.RDC.archives.text, this.mapText.RDC.archives.x, this.mapText.RDC.archives.y);
+				ctx.fillText(this.mapText.RDC.operatingTheaterA.text, this.mapText.RDC.operatingTheaterA.x, this.mapText.RDC.operatingTheaterA.y);
+				ctx.fillText(this.mapText.RDC.operatingTheaterB.text, this.mapText.RDC.operatingTheaterB.x, this.mapText.RDC.operatingTheaterB.y);
+				break;
+			case 1:
+				ctx.drawImage(Images.map_planE1,0,0);
+				ctx.fillText(this.mapText.premier.floor.text, this.mapText.premier.floor.x, this.mapText.premier.floor.y);
+				ctx.font = "15px Georgia";
+				ctx.fillText(this.mapText.premier.elevator.text, this.mapText.premier.elevator.x, this.mapText.premier.elevator.y);
+				ctx.fillText(this.mapText.premier.stairs.text, this.mapText.premier.stairs.x, this.mapText.premier.stairs.y);
+				ctx.fillText(this.mapText.premier.corridor.text, this.mapText.premier.corridor.x, this.mapText.premier.corridor.y);
+				ctx.fillText(this.mapText.premier.room101.text, this.mapText.premier.room101.x, this.mapText.premier.room101.y);
+				ctx.fillText(this.mapText.premier.room102.text, this.mapText.premier.room102.x, this.mapText.premier.room102.y);
+				ctx.fillText(this.mapText.premier.room103.text, this.mapText.premier.room103.x, this.mapText.premier.room103.y);
+				ctx.fillText(this.mapText.premier.room104.text, this.mapText.premier.room104.x, this.mapText.premier.room104.y);
+				ctx.fillText(this.mapText.premier.room105.text, this.mapText.premier.room105.x, this.mapText.premier.room105.y);
+				ctx.fillText(this.mapText.premier.room106.text, this.mapText.premier.room106.x, this.mapText.premier.room106.y);
+				break;
+			case 2:
+				ctx.drawImage(Images.map_planE2,0,0);
+				ctx.fillText(this.mapText.second.floor.text, this.mapText.second.floor.x, this.mapText.second.floor.y);
+				ctx.font = "15px Georgia";
+				ctx.fillText(this.mapText.second.elevator.text, this.mapText.second.elevator.x, this.mapText.second.elevator.y);
+				ctx.fillText(this.mapText.second.stairs.text, this.mapText.second.stairs.x, this.mapText.second.stairs.y);
+				ctx.fillText(this.mapText.second.corridor.text, this.mapText.second.corridor.x, this.mapText.second.corridor.y);
+				ctx.fillText(this.mapText.second.characterRoom.text, this.mapText.second.characterRoom.x, this.mapText.second.characterRoom.y);
+				ctx.fillText(this.mapText.second.room202.text, this.mapText.second.room202.x, this.mapText.second.room202.y);
+				ctx.fillText(this.mapText.second.room203.text, this.mapText.second.room203.x, this.mapText.second.room203.y);
+				ctx.fillText(this.mapText.second.room204.text, this.mapText.second.room204.x, this.mapText.second.room204.y);
+				ctx.fillText(this.mapText.second.restingArea.text, this.mapText.second.restingArea.x, this.mapText.second.restingArea.y);
+				ctx.fillText(this.mapText.second.office.text, this.mapText.second.office.x, this.mapText.second.office.y);
+				break;
+		}
+		ctx.font = "50px Georgia";
+		ctx.fillText(this.mapText.titre.text, this.mapText.titre.x, this.mapText.titre.y);
+		ctx.font = originalFont;
+		ctx.textAlign = originalTextAlign;
 		if(this.renderer)
 			this.Renderer.Draw();
+
+		for(var i = 0; i < this.gameObjects.length; i++)
+		{
+			if(this.gameObjects[i].enabled)
+			{
+				this.gameObjects[i].Start();
+			}
+		}
 	};
 
 	this.OnTriggerEnter = function (other)

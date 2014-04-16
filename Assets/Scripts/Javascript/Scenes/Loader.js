@@ -121,11 +121,10 @@ function SceneLoader ()
 					 Scenes["Room204"] = new SceneRoom204();
 					 Scenes["Reception"] = new SceneReception();
 					 Scenes["Roof"] = new SceneRoof();
-					 Application.LoadLevel("Office");	
+					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
+					 Scenes["SceneMap"] = new SceneMap();
+					 Application.LoadLevel("SceneMap");	
 				}
-
-				this.loadingShowed = false;
-			
 			}
 			if(!Dialogue.finished) 
 			{
