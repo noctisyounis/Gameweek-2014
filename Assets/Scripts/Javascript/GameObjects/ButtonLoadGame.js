@@ -136,9 +136,9 @@ function ButtonLoadGame (slot)
 	this.buttonDelete = new ButtonDeleteSave();
 	this.transform =
 	{
-		position: {x:250, y: 80 + (this.slot - 1) * 150},
+		position: {x:170, y: 100 + (this.slot - 1) * 150},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 450, y: 100}
+		scale: {x: 600, y: 150}
 	};
 
 	this.Physics = 
@@ -151,7 +151,7 @@ function ButtonLoadGame (slot)
  
  		BoxColliderSize: 
 		{
-			position: {x:250, y: 80 + (this.slot  - 1 )* 150},
+			position: {x:250, y: 120 + (this.slot  - 1 )* 150},
 			rotation: {x:0, y: 0}, // obselete
 			scale: {x: 450, y: 100}
 		}
@@ -160,14 +160,14 @@ function ButtonLoadGame (slot)
 	{
 		visible: true,
 		GizmosVisible: true,
-		isSprite: false,
+		isSprite: true,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			source: "",
+			source: Images.choiceButtonNormal,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -193,8 +193,11 @@ function ButtonLoadGame (slot)
 
 		Draw: function ()
 		{
+			
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -292,13 +295,16 @@ function ButtonLoadGame (slot)
 						}
 					}
 				}
-
 				if(this.Physics.Clickable)
 				{
 					if(Collision.PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
 					{
 						if(!Input.MouseClick) this.OnHovered();
 						if(Input.MouseClick)  this.OnClicked();
+					}
+					else
+					{
+						this.UnHovered();
 					}
 				}
 			}
@@ -323,18 +329,17 @@ function ButtonLoadGame (slot)
 
 	this.LateUpdate = function ()
 	{
-		ctx.fillStyle = "grey";
-		ctx.RoundedBox(this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y, 45);
-		ctx.fillStyle = "white";
-		ctx.font = "15px Georgia";
-		ctx.fillText("Slot", this.transform.position.x + 20, this.transform.position.y + 30);
-		ctx.font = "30px Georgia";
-		ctx.fillText(slot, this.transform.position.x + 23, this.transform.position.y + 65 );
-		ctx.font = "20px Georgia";
-		ctx.fillText("TAP HERE TO CREATE NEW SAVE FILE", this.transform.position.x + 65	, this.transform.position.y + 60);
 
 		if(this.renderer)
 			this.Renderer.Draw();
+		ctx.fillStyle = "grey";
+		ctx.fillStyle = "white";
+		ctx.font = "15px Georgia";
+		ctx.fillText("Slot", this.transform.position.x + 100, this.transform.position.y + 60);
+		ctx.font = "30px Georgia";
+		ctx.fillText(slot, this.transform.position.x + 105, this.transform.position.y + 95 );
+		ctx.font = "20px Georgia";
+		ctx.fillText("TAP HERE TO CREATE NEW SAVE FILE", this.transform.position.x + 135, this.transform.position.y + 80);
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -356,7 +361,12 @@ function ButtonLoadGame (slot)
 	};
 	this.OnHovered = function()
 	{
+		this.Renderer.Material.source = Images.choiceButtonHover;
 	};
+	this.UnHovered = function()
+	{
+		this.Renderer.Material.source = Images.choiceButtonNormal;
+	}
 
 	this.Awake();
 }

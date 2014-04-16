@@ -167,15 +167,6 @@ function SceneHerosRoom ()
 			{
 				this.Step = 22;
 			}
-			if(this.Step == 20)
-			{
-				Dialogue.Begin("Quoi? [short] ils [short] . [short] . [short] . ont disparus! Je dois demander de l'aide...", 0.1, {x:30, y:580}, "white", "30px Georgia");
-				this.Step = 21;
-			}
-			if(this.Step == 21 && Dialogue.finished)
-			{
-				this.Step = 22;
-			}
 
 			if(this.Step == 22)
 			{
@@ -221,7 +212,7 @@ function SceneHerosRoom ()
 		}
 		else
 		{
-			//pasCombat;
+			this.Step = 10;//pasCombat;
 		}
 	}
 

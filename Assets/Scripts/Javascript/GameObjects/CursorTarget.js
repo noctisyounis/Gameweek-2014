@@ -422,7 +422,7 @@ function CursorTarget (background, ennemy, parent)
 							this.parent.Step = 10;
 						}
 					}
-					if(this.Monsters.)
+					//if(this.Monsters.)
 				}
 			}
 			//if(this.treansform.position.x >)																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														

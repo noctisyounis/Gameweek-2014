@@ -113,7 +113,9 @@ function SceneLoader ()
 					{
 						 Scenes["Intro"] = new SceneIntro();
 						 Scenes["HerosRoom"] = new SceneHerosRoom();
-						 Application.LoadLevel("Intro");
+						 Scenes["title"] = new SceneTitle();
+						 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
+						 Application.LoadLevel("HerosRoom");
 					}	
 					this.loadingShowed = false;
 				}

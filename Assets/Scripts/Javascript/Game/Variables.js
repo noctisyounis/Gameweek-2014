@@ -5,7 +5,6 @@ var Scenes = {};
 
 var ImagesPath = [
 { name: "loaderBackground", path: "GUI/background_loader.jpg"},
-{ name: "titleBackground", path: "GUI/background_title.jpg"},
 { name: "titleForeground", path: "GUI/foreground_title.png"},
 { name: "logoHtml5", path: "GUI/html5_logo.png"},
 { name: "textHtml5", path: "GUI/html5_text.png"},
@@ -28,6 +27,8 @@ var ImagesPath = [
 { name: "intro3", path: "Backgrounds/intro3.png"},
 { name: "intro4", path: "Backgrounds/intro4.png"},
 { name: "intro5", path: "Backgrounds/intro5.png"},
+{ name: "titleBackground", path: "Backgrounds/menu.jpg"},
+{ name: "titleLoadBackground", path: "Backgrounds/menu1.jpg"},
 
 
 ];
