@@ -1,4 +1,4 @@
-/*	**** For create a new GameObject **** 
+/*	**** For create a new Scene **** 
 *
 *	@step 1							Copy the content of this file in a new .js document.
 *   ----------------------------------------------------------------------------------------------------------------------------
@@ -42,19 +42,17 @@
 
 
 
-function SceneLoader () 
+function SceneBreakRoom () 
 {
-	this.name = "Loader";
+	this.name = "BreakRoom";
 	this.Started = false;
 
 	this.GameObjects = [];
-	this.imageLoaded = 0;
-	var loadingShowed = false;
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
-
-
+		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
 
@@ -64,14 +62,54 @@ function SceneLoader ()
 		{
 			//codez le start avant le changement de booleen
 
+			//Armoire
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 750, y: 105}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 282, y: 553}
+ 												},
+ 												{
+ 													position: {x: 750 + 60, y: 105 + 45}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 282 - 110, y:553 - 110}
+ 												},
+
+ 												"RoomCloset",
+ 												"Ah ! Voici la clé de l’ascenseur ! [medium]",
+ 												Images.roomCloset
+
+
+ 												));
+
+			//Rideaux
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 230, y: 200}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 364, y: 301}
+ 												},
+ 												{
+ 													position: {x: 230, y: 200}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 230, y: 200}
+ 												},
+
+ 												"RoomCurtains3",
+ 												"",
+ 												Images.roomCurtains3
+
+
+ 												));
+
+			//this.GameObjects.push(new RoomCurtains3(230,200,364,301));
+			//this.GameObjects.push(new RoomSofa2(260,350,429,234));
+			//this.GameObjects.push(new RoomTable(650,300,173,236));
+
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
 		}
 		this.Update();
 	};
-	this.alphacountIsartLogo = 0;
-	this.alphacountHtmlLogo = 0;
 
 	this.Update = function()
 	{
@@ -79,76 +117,21 @@ function SceneLoader ()
 		{
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
-			
-			if(Images.loaderBackground)
-			{
-				ctx.drawImage(Images.loaderBackground, 0, 0, canvas.width, canvas.height);
-			}
-			if(Images.logoIsart && Images.logoHtml5)
-			{
-				ctx.save();
+			ctx.drawImage(Images.roomBackground, 0, 0, canvas.width, canvas.height);
 
-				this.alphacountIsartLogo += 200/*0.3 */* Time.DeltaTime;
-				ctx.globalAlpha = this.alphacountIsartLogo;
-				ctx.drawImage(Images.logoIsart, canvas. width / 2 - Images.logoHtml5.width /2 + 10,50);
-				if(this.alphacountIsartLogo > 1.5)
+			for(var i = 0; i < this.GameObjects.length; i++)
+			{
+				if(this.GameObjects[i].enabled)
 				{
-					this.alphacountHtmlLogo += 200/*1*/ * Time.DeltaTime;
-					ctx.globalAlpha = this.alphacountHtmlLogo;
-					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,150);
+					this.GameObjects[i].Start();
 				}
-				ctx.restore();
 			}
 
-			if(this.alphacountHtmlLogo > 2 && !this.loadingShowed)
-			{
-				this.loadingShowed = true;
-				Dialogue.Begin("Chargement  .  .  . ", 0.01, {x: 465 , y:490}, "white");
-			}
-			if(this.alphacountHtmlLogo > 2 && Dialogue.finished)
-				{ 
-					console.log(this.imageLoaded);
-					console.log(ImagesPath.length);
-					if(this.imageLoaded == ImagesPath.length)
-					{
-						 Scenes["Intro"] = new SceneIntro();
-						 Scenes["HerosRoom"] = new SceneHerosRoom();
-						 Scenes["title"] = new SceneTitle();
-						 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
-						 Application.LoadLevel("title");	
-					}
-
-					this.loadingShowed = false;
-			{ 
-				console.log(this.imageLoaded);
-				console.log(ImagesPath.length);
-				if(this.imageLoaded == ImagesPath.length)
-				{
-					 Scenes["Intro"] = new SceneIntro();
-					 Scenes["HerosRoom"] = new SceneHerosRoom();
-					 Scenes["BreakRoom"] = new SceneBreakRoom();
-					 Application.LoadLevel("BreakRoom");
-				}
-					 Scenes["title"] = new SceneTitle();
-					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
-					 Application.LoadLevel("HerosRoom");	
-				}
-
-				this.loadingShowed = false;
-			}
-				
 			if(!Dialogue.finished) 
 			{
+				ctx.drawImage(Images.dialogueBox, 0, 470);
 				Dialogue.Continue();
 			}
-
-			ctx.strokeStyle = "white";
-			ctx.strokeRect( canvas.width / 2 - 200, 500, 400, 20);
-			ctx.fillStyle = "white";
-			var portion = 400 / ImagesPath.length;
-			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
-
-			
 			this.LateUpdate();
 		}
 	};
