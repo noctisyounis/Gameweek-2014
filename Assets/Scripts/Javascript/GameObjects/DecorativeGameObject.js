@@ -166,7 +166,7 @@ function DecorativeGameObject (transform, boxCollider, name, message, mymaterial
 	this.Renderer = 
 	{
 		visible: true,
-		GizmosVisible: false,
+		GizmosVisible: true,
 		isSprite: true,
 		thit: this.name,
 		that: this.transform,
@@ -278,6 +278,9 @@ function DecorativeGameObject (transform, boxCollider, name, message, mymaterial
 
 	this.Update = function()
 	{
+		if(this.renderer)
+			this.Renderer.Draw();
+
 		if(!Application.GamePaused && this.enabled)
 		{
 			if(this.physics)
@@ -332,8 +335,6 @@ function DecorativeGameObject (transform, boxCollider, name, message, mymaterial
 	this.LateUpdate = function ()
 	{
 		// GAMEOBJECT BEHAVIOR HERE !
-		if(this.renderer)
-			this.Renderer.Draw();
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -361,7 +362,12 @@ function DecorativeGameObject (transform, boxCollider, name, message, mymaterial
 
 	};
 	this.OnHovered = function()
-	{
+	{	
+		ctx.fillStyle = "grey";
+		ctx.RoundedBox(Input.MousePosition.x, Input.MousePosition.y, 100, 30, 5);
+		ctx.fillStyle = "white";
+		ctx.font ="12px Georgia";
+		ctx.fillText(this.name, Input.MousePosition.x + 20, Input.MousePosition.y + 15);
 	};
 	
 	this.UnHovered = function()

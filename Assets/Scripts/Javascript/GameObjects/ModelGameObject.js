@@ -143,6 +143,7 @@ function GameObject ()
 	{
 		BoxCollider: false,
 		Clickable:   false,
+		ShowVignetWithNameOnHover: false,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
@@ -346,8 +347,16 @@ function GameObject ()
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
 	};
+
 	this.OnHovered = function()
-	{
+	{	
+		if(this.Physics.ShowVignetWithNameOnHover)
+		{
+			ctx.fillStyle = "grey";
+			ctx.RoundedBox(Input.MousePosition.x, Input.MousePosition.y, 100, 30, 5);
+			ctx.fillStyle = "white";
+			ctx.fillText(this.name, Input.MousePosition.x + 20, Input.MousePosition.y + 13);
+		}
 	};
 	
 	this.UnHovered = function()

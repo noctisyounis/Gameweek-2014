@@ -1,4 +1,4 @@
-/*	**** For create a new GameObject **** 
+/*	**** For create a new Scene **** 
 *
 *	@step 1							Copy the content of this file in a new .js document.
 *   ----------------------------------------------------------------------------------------------------------------------------
@@ -42,27 +42,60 @@
 
 
 
-function SceneLoader () 
+function SceneReception () 
 {
-	this.name = "Loader";
+	this.name = "Accueil";
 	this.Started = false;
 
 	this.GameObjects = [];
-	this.imageLoaded = 0;
-	var loadingShowed = false;
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
-
-
+		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
-
 	this.Start = function()
 	{
 		if(!this.Started)
 		{
 			//codez le start avant le changement de booleen
+
+			this.GameObjects.push(new DecorativeGameObject({
+											position: {x: 60, y: 150}, 
+											rotation: {x: 0, y: 0}, 
+											scale: {x: Images.monsterNurse.width, y: Images.monsterNurse.height}
+										},
+										{
+											position: {x: 0, y: 0}, 
+											rotation: {x: 0, y: 0}, 
+											scale: {x: 0, y:0}
+										},
+
+										"Policier",
+										"Le lit de la chambre 204, il a l'air d'avoir servi récemment. [medium]",
+										Images.monsterNurse
+
+
+										));
+		this.GameObjects.push(new DecorativeGameObject({
+								position: {x: 310, y: 290}, 
+								rotation: {x: 0, y: 0}, 
+								scale: {x: Images.monsterNurse.width, y: Images.monsterNurse.height}
+							},
+							{
+								position: {x: 0, y: 0}, 
+								rotation: {x: 0, y: 0}, 
+								scale: {x: 0, y:0}
+							},
+
+							"Gendarme",
+							"Le lit de la chambre 204, il a l'air d'avoir servi récemment. [medium]",
+							Images.monsterNurse
+
+
+							));
+
 
 			this.Started = true;
 			Time.LevelLoaded();
@@ -70,75 +103,30 @@ function SceneLoader ()
 		}
 		this.Update();
 	};
-	this.alphacountIsartLogo = 0;
-	this.alphacountHtmlLogo = 0;
+
+	this.OnLoadLevel = function()
+	{
+
+	};
 
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
 		{
 			ctx.fillStyle = "black";
-			ctx.fillRect(0,0, canvas.width, canvas.height);
-			
-			if(Images.loaderBackground)
+			ctx.drawImage(Images.accueil1Background,0,0, canvas.width, canvas.height);
+			for(var i = 0; i < this.GameObjects.length; i++)
 			{
-				ctx.drawImage(Images.loaderBackground, 0, 0, canvas.width, canvas.height);
-			}
-			if(Images.logoIsart && Images.logoHtml5)
-			{
-				ctx.save();
-
-				this.alphacountIsartLogo += 200/*0.3 */* Time.DeltaTime;
-				ctx.globalAlpha = this.alphacountIsartLogo;
-				ctx.drawImage(Images.logoIsart, canvas. width / 2 - Images.logoHtml5.width /2 + 10,50);
-				if(this.alphacountIsartLogo > 1.5)
+				if(this.GameObjects[i].enabled)
 				{
-					this.alphacountHtmlLogo += 200/*1*/ * Time.DeltaTime;
-					ctx.globalAlpha = this.alphacountHtmlLogo;
-					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,150);
+					this.GameObjects[i].Start();
 				}
-				ctx.restore();
-			}
-
-			if(this.alphacountHtmlLogo > 2 && !this.loadingShowed)
-			{
-				this.loadingShowed = true;
-				Dialogue.Begin("Chargement  .  .  . ", 0.01, {x: 465 , y:490}, "white");
-			}
-			if(this.alphacountHtmlLogo > 2 && Dialogue.finished)
-			{ 
-				console.log(this.imageLoaded);
-				console.log(ImagesPath.length);
-				if(this.imageLoaded == ImagesPath.length)
-				{
-					console.log("intro");
-					 Scenes["Intro"] = new SceneIntro();
-					 Scenes["HerosRoom"] = new SceneHerosRoom();
-					 Scenes["title"] = new SceneTitle();
-					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
-					 Scenes["Office"] = new SceneOffice();
-					 Scenes["Room104"] = new SceneRoom104();
-					 Scenes["Room204"] = new SceneRoom204();
-					 Scenes["Reception"] = new SceneReception();
-					 Scenes["Roof"] = new SceneRoof();
-					 Application.LoadLevel("Office");	
-				}
-
-				this.loadingShowed = false;
-			
-			}
+			}	
 			if(!Dialogue.finished) 
 			{
+				ctx.drawImage(Images.dialogueBox, 0, 470);
 				Dialogue.Continue();
 			}
-
-			ctx.strokeStyle = "white";
-			ctx.strokeRect( canvas.width / 2 - 200, 500, 400, 20);
-			ctx.fillStyle = "white";
-			var portion = 400 / ImagesPath.length;
-			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
-
-			
 			this.LateUpdate();
 		}
 	};

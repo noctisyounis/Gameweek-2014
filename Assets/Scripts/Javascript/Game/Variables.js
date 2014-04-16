@@ -65,7 +65,7 @@ var ImagesPath = [
 
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},
-	{ name: "monsterNurse", path: "Enemies/monster_nurse.png"},
+	{ name: "monsterNurse", path: "Objects/room_medicalstuff.png"},
 
 
 	{ name: "roomBed", path: "Objects/room_bed.png"},
@@ -88,6 +88,10 @@ var ImagesPath = [
 	{ name: "couloirExtincteur", path: "Objects/couloir_extincteur.png"},
 	{ name: "couloirPlan", path: "Objects/couloir_plan.jpg"},
 	{ name: "couloirPlan1", path: "Objects/couloir_plan1.png"},
+	{ name: "desk", path: "Objects/desk.png"},
+	{ name: "computer", path: "Objects/computer.png"},
+	{ name: "papers", path: "Objects/papers.png"},
+
 
 
 ];
