@@ -47,7 +47,7 @@ function SecondFloorCorridor ()
 	this.name = "SecondFloorCorridor";
 	this.Started = false;
 	this.elevatorstate = true;
-	this.corridorShadowTextProgression = 12;
+	this.corridorShadowTextProgression = 0;
 	this.GameObjects = [];
 
 	this.shadowAnimScale = {

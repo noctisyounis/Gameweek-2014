@@ -92,8 +92,8 @@ function SceneIntro ()
 			if(this.Step > 0) ctx.drawImage(Images.intro1, 100 + 25, 50);
 
 			if(this.Step == 1)
-			{
-				Dialogue.Begin("[medium] L'hopital à appeller, [medium] ils on trouvé un donneur a l'instant... [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+			{ 
+				Dialogue.Begin("[medium] L'hôpital a appelé, [medium] ils ont trouvé un donneur... [medium]", 0.1, {x:100, y:580}, "white", "30px Georgia");
 				this.Step = 2;
 			}
 			if(this.Step == 2 && Dialogue.finished)
@@ -107,7 +107,7 @@ function SceneIntro ()
 
 			if(this.Step == 3)
 			{
-				Dialogue.Begin("[medium] Bonjour Monsieur. Signez par votre nom la decharge [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Dialogue.Begin("[medium] “Bonjour monsieur. Pouvez-vous remplir ce formulaire s’il vous plaît ?” [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.Step = 4;
 			}
 			// Draw Intro 3
@@ -125,7 +125,7 @@ function SceneIntro ()
 			// Draw Intro 4 && 5
 			if(this.Step == 5)
 			{
-				Dialogue.Begin("Bien, vous aurez une chambre pour votre sortie du bloc operatoire [long]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Dialogue.Begin("Bien, [short] votre chambre sera prête quand vous sortirez du bloc opératoire. [medium] [long]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.Step = 6;
 			}
 			if(this.Step == 6)

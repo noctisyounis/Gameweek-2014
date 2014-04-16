@@ -69,7 +69,7 @@ var Application =
 		if(Scenes[SceneName] != undefined)
 		{
 			this.LoadedLevel = Scenes[SceneName];
-			this.LoadedLevel.OnLoadLevel();
+			//this.LoadedLevel.OnLoadLevel();
 		}
 
 	}
