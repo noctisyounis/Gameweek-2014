@@ -113,8 +113,13 @@ function SceneLoader ()
 					{
 						 Scenes["Test"] = new SceneTest();
 						 Scenes["HerosRoom"] = new SceneHerosRoom();
+<<<<<<< HEAD
 						 Application.LoadLevel("Test");
 					}
+=======
+						 Application.LoadLevel("Intro");
+					}	
+>>>>>>> 12e703cb07a0cc12f06e6f2b212947d827e13a91
 					this.loadingShowed = false;
 				}
 			if(!Dialogue.finished) 

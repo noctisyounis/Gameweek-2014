@@ -130,20 +130,23 @@ function SceneIntro ()
 			}
 			if(this.Step == 6)
 			{
+				if(this.fifthIntroPosition > 495) 
+				{
+						this.fifthIntroPosition -= 8;
+						ctx.drawImage(Images.intro5, this.fifthIntroPosition, 270);
+				}
+				else this.Step = 7;
 				if(this.offsetX > 0) this.offsetX -= 4;
 				if(this.offsetY > 0) this.offsetY -= 2;
 				ctx.drawImage(Images.intro4, 125 + this.offsetY, 240, 435 - this.offsetX, 229);
 
-				if(this.fifthIntroPosition > 495) this.fifthIntroPosition -= 8;
-				else this.Step = 7;
 
-				ctx.drawImage(Images.intro5, this.fifthIntroPosition, 270);
 
 			}
 			if(this.Step > 6)
 			{
-				ctx.drawImage(Images.intro4, 125, 240, 435, 229);
 				ctx.drawImage(Images.intro5, 495, 270);
+				ctx.drawImage(Images.intro4, 125, 240, 435, 229);
 			} 
 			
 			if(this.Step == 7)
