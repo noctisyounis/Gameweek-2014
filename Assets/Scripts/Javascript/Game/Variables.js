@@ -29,6 +29,19 @@ var ImagesPath = [
 { name: "intro5", path: "Backgrounds/intro5.png"},
 { name: "titleBackground", path: "Backgrounds/menu.jpg"},
 { name: "titleLoadBackground", path: "Backgrounds/menu1.jpg"},
+{ name: "map_planRDC", path: "Map/Plan_RDC.png"},
+{ name: "map_planE1", path: "Map/Plan_E1.png"},
+{ name: "map_planE2", path: "Map/Plan_E2.png"},
+{ name: "map_accueil", path: "Map/Accueil.png"},
+{ name: "map_ascenseur", path: "Map/Ascenseur.png"},
+{ name: "map_couloir", path: "Map/Couloir.png"},
+{ name: "map_Escalier", path: "Map/Escalier.png"},
+{ name: "map_salle1", path: "Map/Salle1.png"},
+{ name: "map_salle2", path: "Map/Salle2.png"},
+{ name: "map_salle3", path: "Map/Salle3.png"},
+{ name: "map_salle4", path: "Map/Salle4.png"},
+{ name: "map_salle5", path: "Map/Salle5.png"},
+{ name: "map_salle6", path: "Map/Salle6.png"},
 
 
 ];
@@ -37,6 +50,9 @@ var Progression = {
 	OutOfHerosRoom : false,
 	SeenCorridorShadow : false,
 	GotElevatorKey : false
+};
+var RoomVisited = {
+
 };
 var Application = 
 {
