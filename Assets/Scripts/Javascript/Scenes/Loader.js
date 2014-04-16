@@ -111,9 +111,9 @@ function SceneLoader ()
 					console.log(ImagesPath.length);
 					if(this.imageLoaded == ImagesPath.length)
 					{
-						 Scenes["Intro"] = new SceneIntro();
+						 Scenes["Test"] = new SceneTest();
 						 Scenes["HerosRoom"] = new SceneHerosRoom();
-						 Application.LoadLevel("HerosRoom");
+						 Application.LoadLevel("Test");
 					}
 					this.loadingShowed = false;
 				}
