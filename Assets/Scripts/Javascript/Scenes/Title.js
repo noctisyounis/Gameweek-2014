@@ -75,15 +75,11 @@ function SceneTitle ()
 		}
 		this.Update();
 	};
-
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
 		{
-			ctx.drawImage(Images.titleBackground, 0,0);
-			//if(!Dialogue.finished) {Dialogue.Continue();}
-
-			ctx.drawImage(Images.titleForeground,0,0);
+			ctx.drawImage(this.PlayPressed ? Images.titleLoadBackground : Images.titleBackground, 0,0);
 
 			if(!this.PlayPressed)
 			{

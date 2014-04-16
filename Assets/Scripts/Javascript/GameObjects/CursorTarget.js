@@ -343,23 +343,20 @@ function CursorTarget (background, ennemy, parent)
 		}
 
 		// Draw Bar 
-		ctx.fillStyle = "white";
-		ctx.fillRect(0,500, canvas.width, 20);
+		ctx.drawImage(Images.barBattleBackground,0,500, canvas.width, 20);
 
 		// Draw Cursor
-		ctx.fillStyle = "grey";
-		ctx.fillRect(this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
+		ctx.drawImage(Images.barBattleCursor,this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
 		var newX = this.state ?  this.transform.position.x + (700 * Time.DeltaTime) : this.transform.position.x - (700 * Time.DeltaTime);
 		this.SetPosition(newX, this.transform.position.y);
 		
 		// Draw Monsters Target
 		for(var i =0; i < this.Monsters.length; i++)
 		{
-			ctx.fillStyle = "red";
-			ctx.fillRect (this.Monsters[i].x, 503, this.Monsters[i].w, 10);
+			ctx.drawImage(Images.barBattleHitZone, this.Monsters[i].x, 503, this.Monsters[i].w, 11);
+			
 			//CriticalZone
-			ctx.fillStyle = "blue";
-  			ctx.fillRect (this.Monsters[i].x + this.Monsters[i].w /2 - 5, 503, 20, 10);
+  			ctx.drawImage (Images.barBattleCriticalZone,this.Monsters[i].x + this.Monsters[i].w /2 - 5, 503, 20, 10);
 		}
 
 		// Draw Imact bar

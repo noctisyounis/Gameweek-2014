@@ -106,18 +106,24 @@ function SceneLoader ()
 				Dialogue.Begin("Chargement  .  .  . ", 0.01, {x: 465 , y:490}, "white");
 			}
 			if(this.alphacountHtmlLogo > 2 && Dialogue.finished)
-				{ 
-					console.log(this.imageLoaded);
-					console.log(ImagesPath.length);
-					if(this.imageLoaded == ImagesPath.length)
-					{
-						 Scenes["Intro"] = new SceneIntro();
-						 Scenes["HerosRoom"] = new SceneHerosRoom();
-						 Scenes["BreakRoom"] = new SceneBreakRoom();
-						 Application.LoadLevel("BreakRoom");
-					}
-					this.loadingShowed = false;
+			{ 
+				console.log(this.imageLoaded);
+				console.log(ImagesPath.length);
+				if(this.imageLoaded == ImagesPath.length)
+				{
+					 Scenes["Intro"] = new SceneIntro();
+					 Scenes["HerosRoom"] = new SceneHerosRoom();
+					 Scenes["BreakRoom"] = new SceneBreakRoom();
+					 Application.LoadLevel("BreakRoom");
 				}
+					 Scenes["title"] = new SceneTitle();
+					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
+					 Application.LoadLevel("HerosRoom");	
+				}
+
+				this.loadingShowed = false;
+			}
+				
 			if(!Dialogue.finished) 
 			{
 				Dialogue.Continue();

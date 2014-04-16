@@ -42,9 +42,9 @@
 
 
 
-function SceneModel () 
+function SceneMap () 
 {
-	this.name = "Model";
+	this.name = "SceneMap";
 	this.Started = false;
 
 	this.GameObjects = [];
@@ -55,6 +55,7 @@ function SceneModel ()
 		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
+
 	this.Start = function()
 	{
 		if(!this.Started)
@@ -66,11 +67,6 @@ function SceneModel ()
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
 		}
 		this.Update();
-	};
-
-	this.OnLoadLevel = function()
-	{
-
 	};
 
 	this.Update = function()
