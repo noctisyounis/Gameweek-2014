@@ -125,50 +125,47 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function CursorTarget (background, ennemy, parent)
+function RoomSofa2 (x, y, w, h)
 {
-	this.name = "CursorTarget";
+	this.name = "RoomSofa2";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
 
-	this.background = background;
-	this.parent = parent;
-
 	this.transform =
 	{
-		position: {x:0 , y: 500},
+		position: {x: x, y: y},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 10, y: 15}
+		scale: {x: w, y: h}
 	};
 
 	this.Physics = 
 	{
 		BoxCollider: false,
-		Clickable:   true,
+		Clickable:   false,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:0, y: 0},
+			position: {x: x, y: y},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: canvas.width, y: 530}
+			scale: {x: w / 2, y: h / 2}
 		}
 	};
 	this.Renderer = 
 	{
-		visible: false,
-		GizmosVisible: true,
-		isSprite: false,
+		visible: true,
+		GizmosVisible: false,
+		isSprite: true,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			source: "",
+			source: Images.roomSofa2,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -195,7 +192,9 @@ function CursorTarget (background, ennemy, parent)
 		Draw: function ()
 		{
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -219,11 +218,6 @@ function CursorTarget (background, ennemy, parent)
 		}
 	}
 
-	this.ImpactObjects = [];
-	this.Monsters = ennemy;
-
-	this.state = true;
-	this.reloadWeapon = 0;
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;
@@ -286,7 +280,7 @@ function CursorTarget (background, ennemy, parent)
 			{
 				if(this.Physics.BoxCollider)
 				{
-					for(var other in GameObjects)
+					for(var other in Application.LoadedLevel.GameObjects)
 					{
 						if(other.enabled && other.BoxCollider)
 						{
@@ -305,6 +299,10 @@ function CursorTarget (background, ennemy, parent)
 					{
 						if(!Input.MouseClick) this.OnHovered();
 						if(Input.MouseClick)  this.OnClicked();
+					}
+					else
+					{
+						this.UnHovered();
 					}
 				}
 			}
@@ -329,57 +327,10 @@ function CursorTarget (background, ennemy, parent)
 
 	this.LateUpdate = function ()
 	{
-		this.reloadWeapon -= 2 * Time.DeltaTime; // change by reload;
-		ctx.drawImage(this.background, 0,0);
-		// draw Monsters 
-		for(var i =0; i < this.Monsters.length; i++)
-		{
-			ctx.fillStyle = "green";
-			this.Monsters[i].x -= this.Monsters[i].speed / 2 * Time.DeltaTime;
-			this.Monsters[i].y -= this.Monsters[i].speed / 2 * Time.DeltaTime;
-			this.Monsters[i].w += this.Monsters[i].speed * Time.DeltaTime;
-			this.Monsters[i].h += this.Monsters[i].speed * Time.DeltaTime;
-  			ctx.drawImage (this.Monsters[i].sprite, this.Monsters[i].x, this.Monsters[i].y, this.Monsters[i].w, this.Monsters[i].h);
-		}
-
-		// Draw Bar 
-		ctx.fillStyle = "white";
-		ctx.fillRect(0,500, canvas.width, 20);
-
-		// Draw Cursor
-		ctx.fillStyle = "grey";
-		ctx.fillRect(this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
-		var newX = this.state ?  this.transform.position.x + (700 * Time.DeltaTime) : this.transform.position.x - (700 * Time.DeltaTime);
-		this.SetPosition(newX, this.transform.position.y);
-		
-		// Draw Monsters Target
-		for(var i =0; i < this.Monsters.length; i++)
-		{
-			ctx.fillStyle = "red";
-			ctx.fillRect (this.Monsters[i].x, 503, this.Monsters[i].w, 10);
-			//CriticalZone
-			ctx.fillStyle = "blue";
-  			ctx.fillRect (this.Monsters[i].x + this.Monsters[i].w /2 - 5, 503, 20, 10);
-		}
-
-		// Draw Imact bar
-		for(var i = 0; i < this.ImpactObjects.length; i++)
-		{
-			this.ImpactObjects[i].h -= 30 * Time.DeltaTime;
-			ctx.fillStyle = "grey";
-			ctx.fillRect(this.ImpactObjects[i].x, this.ImpactObjects[i].y, this.ImpactObjects[i].w, this.ImpactObjects[i].h);
-			if(this.ImpactObjects[i].h < 0)
-			{
-				this.ImpactObjects.splice(i, 1);
-			}
-		}
-		
-		if(this.transform.position.x > canvas.width) this.state = false;
-		if(this.transform.position.x < 0) this.state = true;
-
+		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
-	}; 
+	};
 
 	this.OnTriggerEnter = function (other)
 	{
@@ -388,46 +339,6 @@ function CursorTarget (background, ennemy, parent)
 
 	this.OnClicked = function ()
 	{
-		if(this.reloadWeapon < 0)
-		{
-			this.reloadWeapon = 2;/* change by weapon reloadvalue */ ;	
-			this.ImpactObjects.push({x: this.transform.position.x, y: 500, w: 5,h: 30});
-			// If touch enemies	
-			for(var i = 0; i < this.Monsters.length; i++)
-			{
-				if(this.transform.position.x > this.Monsters[i].x && this.transform.position.x < this.Monsters[i].x + this.Monsters[i].w)
-				{
-					if(this.transform.position.x > this.Monsters[i].x + this.Monsters[i].w /2 - 5 && this.transform.position.x < this.Monsters[i].x + this.Monsters[i].w /2 + 5)
-					{
-						this.Monsters[i].Life -= 2;
-						this.Monsters[i].x += 35;
-						this.Monsters[i].y += 35;
-						this.Monsters[i].w -= 35;
-						this.Monsters[i].h -= 35;
-					}
-					else 
-					{
-						this.Monsters[i].Life -= 1;
-						this.Monsters[i].x += 15;
-						this.Monsters[i].y += 15;
-						this.Monsters[i].w -= 15;
-						this.Monsters[i].h -= 15;
-					}
-
-					if(this.Monsters[i].Life < 0)
-					{
-						this.Monsters.splice(i, 1);
-						if(this.Monsters.length < 1)
-						{
-							this.parent.Step = 10;
-						}
-					}
-					//if(this.Monsters.)
-				}
-			}
-			//if(this.treansform.position.x >)																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														
-		}
-
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;
@@ -436,6 +347,10 @@ function CursorTarget (background, ennemy, parent)
 		}
 	};
 	this.OnHovered = function()
+	{
+	};
+	
+	this.UnHovered = function()
 	{
 	};
 

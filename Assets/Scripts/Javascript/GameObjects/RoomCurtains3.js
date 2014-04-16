@@ -125,39 +125,39 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function GameObjectTest ()
+function RoomCurtains3 (x, y, w, h)
 {
-	this.name = "Model";
+	this.name = "RoomCurtains3";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
 
 	this.transform =
 	{
-		position: {x:200, y: 600},
+		position: {x: x, y: y},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 100, y: 100}
+		scale: {x: w, y: h}
 	};
 
 	this.Physics = 
 	{
 		BoxCollider: false,
-		Clickable:   true,
+		Clickable:   false,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
-		RelativePosition: false,
+		RelativePosition: true,
  
  		BoxColliderSize: 
 		{
-			position: {x:0, y: 0},
+			position: {x: x, y: y},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
+			scale: {x: w, y: h}
 		}
 	};
 	this.Renderer = 
 	{
 		visible: true,
-		GizmosVisible: true,
+		GizmosVisible: false,
 		isSprite: true,
 		thit: this.name,
 		that: this.transform,
@@ -165,7 +165,7 @@ function GameObjectTest ()
 
 		Material:
 		{
-			source: Images.intro1,
+			source: Images.roomCurtains3,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -192,7 +192,9 @@ function GameObjectTest ()
 		Draw: function ()
 		{
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
