@@ -154,7 +154,7 @@ function RoomObject (transform, cScale, name, scenetoload, floor, conditions)
 	this.Renderer = 
 	{
 		visible: false,
-		GizmosVisible: true,
+		GizmosVisible: false,
 		isSprite: false,
 		thit: this.name,
 		that: this.transform,
