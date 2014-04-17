@@ -42,9 +42,9 @@
 
 
 
-function SceneMap () 
+function SceneOffice () 
 {
-	this.name = "SceneMap";
+	this.name = "Bureau";
 	this.Started = false;
 
 	this.GameObjects = [];
@@ -55,13 +55,46 @@ function SceneMap ()
 		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
-
 	this.Start = function()
 	{
 		if(!this.Started)
 		{
-			//codez le start avant le changement de booleen
-			this.GameObjects.push(new MapBoard());
+			this.GameObjects.push(new DecorativeGameObject({
+											position: {x: 600, y: 360}, 
+											rotation: {x: 0, y: 0}, 
+											scale: {x: Images.roomCurtains2.width, y: Images.roomCurtains2.height}
+										},
+										{
+											position: {x: 627, y: 450}, 
+											rotation: {x: 0, y: 0}, 
+											scale: {x: 300, y: 170}
+										},
+
+										"Bureau",
+										"Le bois du bureau commence à ternir. [medium]",
+										Images.desk
+
+
+										));
+
+			this.GameObjects.push(new DecorativeGameObject({
+										position: {x: 600, y: 270}, 
+										rotation: {x: 0, y: 0}, 
+										scale: {x: 350, y: 200}
+									},
+									{
+										position: {x: 630, y: 310}, 
+										rotation: {x: 0, y: 0}, 
+										scale: {x: 225, y: 140}
+									},
+
+									"Ordinateur",
+									"Ca doit etre l'ordinateur du medecin. [medium]",
+									Images.computer
+
+
+									));
+
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
@@ -69,12 +102,16 @@ function SceneMap ()
 		this.Update();
 	};
 
+	this.OnLoadLevel = function()
+	{
+
+	};
+
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
 		{
-			ctx.fillStyle = "black";
-			ctx.fillRect(0,0, canvas.width, canvas.height);
+			ctx.drawImage(Images.roomBackground, 0, 0, canvas.width, canvas.height);
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{
 				if(this.GameObjects[i].enabled)
@@ -82,7 +119,11 @@ function SceneMap ()
 					this.GameObjects[i].Start();
 				}
 			}	
-			if(!Dialogue.finished) {Dialogue.Continue();}
+			if(!Dialogue.finished) 
+			{
+				ctx.drawImage(Images.dialogueBox, 0, 470);
+				Dialogue.Continue();
+			}
 			this.LateUpdate();
 		}
 	};

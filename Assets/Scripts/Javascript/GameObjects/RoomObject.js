@@ -124,22 +124,17 @@
 *
 *	Add NameOfYourGameObject.Start() in your scene.
 */
-
-function FloorButton (number, parent)
+function RoomObject (transform, cScale, name, scenetoload, floor, conditions)
 {
-	this.name = "FloorButton " + number;
+	this.name = name;
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
-	this.number = number;
-	this.parent = parent;
+	this.colliderScale = cScale;
+	this.clickConditions = conditions;
+	this.floor = floor;
 
-	this.transform =
-	{
-		position: {x:200 + 250*number, y: 600},
-		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 100, y: 50}
-	};
+	this.transform = transform;
 
 	this.Physics = 
 	{
@@ -149,11 +144,11 @@ function FloorButton (number, parent)
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: true,
  
- 		BoxColliderSize: 
-		{
-			position: {x:0, y: 0},
+ 		BoxColliderSize:
+ 		{
+ 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 100, y: 50}
+			scale: {x: this.colliderScale.x, y: this.colliderScale.y}
 		}
 	};
 	this.Renderer = 
@@ -194,7 +189,9 @@ function FloorButton (number, parent)
 		Draw: function ()
 		{
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -345,7 +342,8 @@ function FloorButton (number, parent)
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
-		this.parent.floorDisplayed = this.number;
+		//Si toutes les conditions == true
+		Application.LoadLevel(scenetoload);
 	};
 	this.OnHovered = function()
 	{

@@ -3,6 +3,11 @@ function mouseDown(event)
 	Input.MouseClick = true;
 	Input.MouseLongClick = true;
 	Input.MouseReload = 1;
+
+	if(!Dialogue.finished)
+	{
+		Dialogue.Interupt();
+	}
 }
 function mouseUp(event)
 {

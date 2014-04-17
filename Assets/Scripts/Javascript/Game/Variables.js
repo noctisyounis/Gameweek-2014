@@ -65,7 +65,7 @@ var ImagesPath = [
 
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},
-	{ name: "monsterNurse", path: "Enemies/monster_nurse.png"},
+	{ name: "monsterNurse", path: "Objects/room_medicalstuff.png"},
 
 
 	{ name: "roomBed", path: "Objects/room_bed.png"},
@@ -88,6 +88,10 @@ var ImagesPath = [
 	{ name: "couloirExtincteur", path: "Objects/couloir_extincteur.png"},
 	{ name: "couloirPlan", path: "Objects/couloir_plan.jpg"},
 	{ name: "couloirPlan1", path: "Objects/couloir_plan1.png"},
+	{ name: "desk", path: "Objects/desk.png"},
+	{ name: "computer", path: "Objects/computer.png"},
+	{ name: "papers", path: "Objects/papers.png"},
+
 
 
 ];
@@ -99,7 +103,38 @@ var Progression = {
 	GotElevatorKey : false
 };
 var RoomVisited = {
-
+	RDC : {
+		floor : false,
+		reception : false,
+		waitingRoom : false,
+		archives : false,
+		operatingTheaterA : false,
+		operatingTheaterB : false,
+	},
+	premier : {
+		floor : false,
+		corridor : false,
+		elevator : false,
+		stairs : false,
+		room101 : false,
+		room102 : false,
+		room103 : false,
+		room104 : false,
+		room105 : false,
+		room106 : false
+	},
+	second : {
+		floor : false,
+		characterRoom : false,
+		room202 : false,
+		room203 : false,
+		room204 : false,
+		corridor : false,
+		elevator : false,
+		stairs : false,
+		restingArea : false,
+		office : false
+	}
 };
 var Application = 
 {
