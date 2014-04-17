@@ -219,6 +219,11 @@ function Coffre ()
 		}
 	}
 
+	this.OnLoadLevel = function()
+	{
+
+	};
+
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;

@@ -220,6 +220,11 @@ function BoardCode ()
 		}
 	}
 
+	this.OnLoadLevel = function()
+	{
+
+	};
+
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;
