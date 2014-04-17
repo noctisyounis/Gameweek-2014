@@ -132,6 +132,7 @@ function SceneLoader ()
 					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
 					 Scenes["SceneMap"] = new SceneMap();
 					 Scenes["NumericCode"] = new SceneNumericCode();
+					 Scenes["BoardCode"] = new BoardCode();
 					 Application.LoadLevel("Room104");
 				}
 			}

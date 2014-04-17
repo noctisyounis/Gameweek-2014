@@ -114,6 +114,7 @@ var Progression = {
 	OutOfHerosRoom : false,
 	SeenCorridorShadow : false,
 	GotElevatorKey : false
+	
 };
 var RoomVisited = {
 	RDC : {
