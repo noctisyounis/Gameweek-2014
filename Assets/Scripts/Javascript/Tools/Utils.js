@@ -23,6 +23,7 @@ Random =
 * @param2 	{float}:   radius.
 * @return struture: {x: float, y: float}.
 
+
 * @method InScreen (): Choose randomly a screen point.
 * @return {structure}: {x:float, y:float}.
 
@@ -300,7 +301,6 @@ Dialogue =
 	{
 		if(this.interrupted)
 		{
-			console.log("lol");
 			this.interrupted = false;
 			this.finished = true;
 		}
@@ -321,7 +321,6 @@ Dialogue =
 					this.words.splice(0,1);
 				}
 			}
-			console.log("Sentence skipped!");
 			this.finished = false;
 			this.interrupted = true;
 		}

@@ -47,7 +47,7 @@ function SecondFloorCorridor ()
 	this.name = "SecondFloorCorridor";
 	this.Started = false;
 	this.elevatorstate = true;
-	this.corridorShadowTextProgression = 0;
+	this.step = 0;
 	this.GameObjects = [];
 
 	this.shadowAnimScale = {
@@ -77,6 +77,7 @@ function SecondFloorCorridor ()
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
 		}
+		RoomVisited.second.corridor = true;
 		this.Update();
 	};
 
@@ -98,28 +99,28 @@ function SecondFloorCorridor ()
 			ctx.drawImage(Images.couloirBackgroundNoElevator, 0, 0);
 
 			if(!Progression.SeenCorridorShadow){
-				switch(this.corridorShadowTextProgression){
+				switch(this.step){
 					case 0:
 						Dialogue.Begin("Qu’est-ce que . . . [long]", 0.10, {x:30, y:570}, "white", "30px Georgia");
-						this.corridorShadowTextProgression++;
+						this.step++;
 						break;
 					case 1:
 						if(Dialogue.finished){
 							ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
 							this.shadowspawntimer += Time.DeltaTime;
 							if(this.shadowspawntimer > 2)
-								this.corridorShadowTextProgression++;
+								this.step++;
 						}
 						break;
 					case 2:
 						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
 						Dialogue.Begin("“Excusez-moi ?” [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
-						this.corridorShadowTextProgression++;
+						this.step++;
 						break;
 					case 3:
 						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
 						if(Dialogue.finished){
-							this.corridorShadowTextProgression++;
+							this.step++;
 						}
 						break;
 					case 4:
@@ -131,12 +132,12 @@ function SecondFloorCorridor ()
 	  						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
   						}
   						else
-  							this.corridorShadowTextProgression++;
+  							this.step++;
 						break;
 					case 5:
 						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
-						Dialogue.Begin("“S’il vous p [short] . [short] . [short] . [short]”", 0.10, {x:30, y:570}, "white", "30px Georgia");
-						this.corridorShadowTextProgression++;
+						Dialogue.Begin("“S’il vous p [short] . [short] . [short] . [short] ”", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
 						break;
 					case 6:
 						if(this.shadowAnimScale.w > 75){
@@ -150,45 +151,64 @@ function SecondFloorCorridor ()
   							this.elevatorstate = false;
   							this.shadowcloseevelatortimer += Time.DeltaTime;
   							if(this.shadowcloseevelatortimer > 1 && Dialogue.finished)
-  						  		this.corridorShadowTextProgression++;
+  						  		this.step++;
   						}
   						break;
   					case 7:
   						if(Dialogue.finished){
   						  	Dialogue.Begin("Bon... il n’a pas du m’entendre. [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
-  							this.corridorShadowTextProgression++;
+  							this.step++;
   						}
   						break;
   					case 8:
   						if(Dialogue.finished){
     						Dialogue.Begin("Au moins je sais où il va, je vais attendre que l'ascenseur remonte. [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
-  							this.corridorShadowTextProgression++;
+  							this.step++;
   						}
   						break;
   					case 9:
   						if(Dialogue.finished){
   							this.elevatorstate = true;
-  							this.corridorShadowTextProgression++;
+  							this.step++;
   						}
   						break;
   					case 10:
   						if(Dialogue.finished){
     						Dialogue.Begin("C’est bien ma veine, c’est un ascenseur de service. [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
-  							this.corridorShadowTextProgression++;
+  							this.step++;
   						}
   						break;
     				case 11:
   						if(Dialogue.finished){
     						Dialogue.Begin("Vu qu’il faut une clé, je vais prendre les escaliers. [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
-  							this.corridorShadowTextProgression++;
+  							this.step++;
   						}
   						break;
   					case 12:
     					if(Dialogue.finished){
     						Dialogue.Begin("Quelle galère [short] . [short] . [short] . [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
-  							this.corridorShadowTextProgression++;
+  							this.step++;
+  							Progression.SeenCorridorShadow = true;
   						}
   						break;
+				}
+			}
+			else if(Progression.HasBattleRoom104Nurse && !Progression.RouteAHasSeenBirthdayCard){
+				switch(this.step){
+					case 0:
+						Dialogue.Begin("Me revoilà au second étage... Bloquons vite l’accès à la cage d’escalier !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							Dialogue.Begin("Cette chaise devrait faire l’affaire.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+					case 2:
+						if(Dialogue.finished){
+							Dialogue.Begin("Vu que j’ai le passe-partout, je vais essayer de fouiller le bureau.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
 				}
 			}
 

@@ -62,6 +62,8 @@ var ImagesPath = [
 	{ name: "logoHtml5", path: "GUI/html5_logo.png"},
 	{ name: "textHtml5", path: "GUI/html5_text.png"},
 	{ name: "logoIsart", path: "GUI/isart_logo.png"},
+	{ name: "mapGUI", path: "GUI/map.png"},
+	{ name: "backGUI", path: "GUI/retour.png"},
 
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},
@@ -124,7 +126,9 @@ var Progression = {
 	RouteAGotPassePartout : false,
 	//Branche B only. Si le joueur a le passe partout
 	RouteBGotPassePartout : false,
-	//Si le joueur a gagné contre l'infirmiere de la salle de repos
+	//Si le joueur a combattu l'infirmiere de la chambre 104
+	HasBattleRoom104Nurse : true,
+	//Si le joueur a gagné contre l'infirmiere de la chambre 104
 	WonAgainstRoom104Nurse : false,
 	//Branche A only. Si le joueur a regardé la carte d'anniversaire
 	RouteAHasSeenBirthdayCard : false,
@@ -135,6 +139,10 @@ var Progression = {
 	//Branche B only. Si le joueur a récupéré la note
 	RouteBGotNote : false
 };
+var GUI= {
+	Availaible: true,
+	Obj : null,
+}
 var RoomVisited = {
 	RDC : {
 		floor : false,
@@ -175,6 +183,7 @@ var Application =
 	LoadedLevel: null,
 	GamePaused: false,
 	DebugMode: true,
+	LastRoom: null,
 	
 	LoadLevel: function (SceneName)
 	{

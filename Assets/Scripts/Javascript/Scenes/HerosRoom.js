@@ -206,13 +206,22 @@ function SceneHerosRoom ()
 		if(idClicked == 1)
 		{
 			this.GameObjects = [];
+			Progression.PassveRoute = false;
 			this.GameObjects.push(
 				new CursorTarget(Images.ceilingBackground, [{sprite: Images.surgeonMain, x: 0, y: 0, w: 777, h: 728, speed: 10, Life: 5}], this));
 			//Combat;
 		}
 		else
 		{
-			this.Step = 10;//pasCombat;
+			Progression.PassveRoute = true;
+			this.Step = 10; //pasCombat;
+		}
+	}
+	this.BattleResult = function(str)
+	{
+		if(str = "Win")
+		{
+			this.Step = 10;
 		}
 	}
 
