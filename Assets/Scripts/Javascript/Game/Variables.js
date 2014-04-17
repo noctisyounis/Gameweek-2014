@@ -120,7 +120,6 @@ var Progression = {
 	OutOfHerosRoom : false,
 	//Si le joueur a passe l'ombre du couloir du second
 	SeenCorridorShadow : false,
-	GotElevatorKey : false
 	//Si le joueur a recupere la cle de l'acsenseur
 	GotElevatorKey : false,
 	//Branche A only. Si le joueur a le passe partout
