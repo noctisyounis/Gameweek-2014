@@ -364,7 +364,7 @@ function DecorativeGameObject (transform, boxCollider, name, message, mymaterial
 	this.OnHovered = function()
 	{	
 		ctx.fillStyle = "grey";
-		ctx.RoundedBox(Input.MousePosition.x, Input.MousePosition.y, 100, 30, 5);
+		ctx.RoundedBox(Input.MousePosition.x, Input.MousePosition.y, 120, 30, 5);
 		ctx.fillStyle = "white";
 		ctx.font ="12px Georgia";
 		ctx.fillText(this.name, Input.MousePosition.x + 20, Input.MousePosition.y + 15);

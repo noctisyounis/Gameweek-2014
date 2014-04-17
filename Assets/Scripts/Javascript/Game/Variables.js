@@ -28,6 +28,7 @@ var ImagesPath = [
 	{ name: "intro5", path: "Backgrounds/intro5.png"},
 	{ name: "titleBackground", path: "Backgrounds/menu.jpg"},
 	{ name: "titleLoadBackground", path: "Backgrounds/menu1.jpg"},
+	{ name: "titleCreditBackground", path: "Backgrounds/credits.jpg"},
 
 	{ name: "map_planRDC", path: "Map/Plan_RDC.png"},
 	{ name: "map_planE1", path: "Map/Plan_E1.png"},
@@ -140,7 +141,7 @@ var Progression = {
 	RouteBGotNote : false
 };
 var GUI= {
-	Availaible: true,
+	Availaible: false,
 	Obj : null,
 }
 var RoomVisited = {

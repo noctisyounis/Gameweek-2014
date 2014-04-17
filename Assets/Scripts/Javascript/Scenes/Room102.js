@@ -151,7 +151,7 @@ function SceneRoom102 ()
  												},
 
  												"Armoire",
- 												"Rien dans cette armoire.[medium]",
+ 												"Rien dans cette armoire. [medium]",
  												Images.roomCloset
 
 
