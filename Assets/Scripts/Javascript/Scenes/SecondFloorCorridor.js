@@ -202,7 +202,7 @@ function SecondFloorCorridor ()
   						break;
 				}
 			}
-			else if(Progression.HasBattleRoom104Nurse && !Progression.RouteAHasSeenBirthdayCard){
+			else if(Progression.HasBattleRoom104Nurse && !Progression.RouteAHasSeenBirthdayCard && Progression.PassiveRoute){
 				switch(this.step){
 					case 0:
 						GUI.Availaible = false;
@@ -229,7 +229,7 @@ function SecondFloorCorridor ()
 						break;
 				}
 			}
-			else if(Progression.RouteAHasComputerAccess && !Progression.RouteAHasBattleThingsAfterPC){
+			else if(Progression.RouteAHasComputerAccess && !Progression.RouteAHasBattleThingsAfterPC && Progression.PassiveRoute){
 				switch(this.step){
 					case 0:
 						GUI.Availaible = false;
@@ -251,11 +251,94 @@ function SecondFloorCorridor ()
 						this.nurseAnimScale.x -= this.nurseAnimScale.speed / 2 * Time.DeltaTime;
 						this.nurseAnimScale.y -= this.nurseAnimScale.speed / 2 * Time.DeltaTime;
 						this.nurseAnimScale.w += this.nurseAnimScale.speed * Time.DeltaTime;
-						this.nurseAnimScale.h += this.nurseAnimScale.speed * Time.DeltaTime;
+						this.nurseAnimScale.h += this.nurseAnimScale.speed / 2 * Time.DeltaTime;
 						ctx.drawImage (Images.monsterNurse, this.nurseAnimScale.x, this.nurseAnimScale.y, this.nurseAnimScale.w, this.nurseAnimScale.h);
 						break;
 					case 3:
-						//Combat en cours
+						break;
+					case 4:
+						this.GameObjects = [];
+						if(Progression.RouteAWonAgainstThingsAfterPC)
+							Dialogue.Begin("Un… Un de moins ! Vite, barrons-nous d’ici !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						else if(!Progression.RouteAWonAgainstThingsAfterPC)
+							Dialogue.Begin("C’était moins une ! Faut vraiment que je me casse d’ici !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 5:
+						if(Dialogue.finished){
+							Progression.RouteAHasBattleThingsAfterPC = true;
+							GUI.Availaible = true;
+							this.step++;
+						}
+						break;
+				}
+			}
+			else if(Progression.HasBattleRoom104Nurse && !Progression.RouteBGotNote && !Progression.PassiveRoute){
+				switch(this.step){
+					case 0:
+						GUI.Availaible = false;
+						Dialogue.Begin("Il faut que je trouve comment ouvrir ces fichues portes.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							Dialogue.Begin("Le personnel doit bien avoir de quoi ouvrir. [short] . [short] . [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 2:
+						if(Dialogue.finished){
+							Dialogue.Begin("Je vais aller fouiller la salle de repos.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 3:
+						if(Dialogue.finished){
+							GUI.Availaible = true;
+							this.step++;
+						}
+						break;
+				}
+			}
+			else if(Progression.RouteBGotNote && !Progression.RouteBGotPassePartout && !Progression.PassiveRoute){
+				switch(this.step){
+					case 0:
+						GUI.Availaible = false;
+						Dialogue.Begin("Personne pour le moment. Allons dans la la chambre 204.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							GUI.Availaible = true;
+							this.step++;
+						}
+						break;
+				}
+			}
+			else if(Progression.RouteBGotNote && Progression.RouteBGotPassePartout && !Progression.PassiveRoute){
+				switch(this.step){
+					case 0:
+						GUI.Availaible = false;
+						Dialogue.Begin("“AAAH ! Fous moi la paix bordel !”", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							Dialogue.Begin("Un truc à lui jeter, vite ! L’extincteur !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}	
+						break;
+					case 2:
+						if(Dialogue.finished){
+							Dialogue.Begin("La porte ! Faut que je me tire !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 3:
+						if(Dialogue.finished){
+							GUI.Availaible = true;
+							this.step++;
+						}
 						break;
 				}
 			}
@@ -289,12 +372,14 @@ function SecondFloorCorridor ()
 
 	this.BattleResult = function(str)
 	{
-		if(str = "Win")
+		if(str == "Win")
 		{
-			
+			Progression.RouteAWonAgainstThingsAfterPC = true;
+			this.step++;
 		}
-		else{
-
+		else if (str == "Loose"){
+			Progression.RouteAWonAgainstThingsAfterPC = false;
+			this.step++;
 		}
 	}
 
