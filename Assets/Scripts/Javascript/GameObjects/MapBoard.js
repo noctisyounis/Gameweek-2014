@@ -656,6 +656,7 @@ function MapBoard ()
 		ctx.fillText(this.mapText.titre.text, this.mapText.titre.x, this.mapText.titre.y);
 		ctx.font = originalFont;
 		ctx.textAlign = originalTextAlign;
+
 		if(this.renderer)
 			this.Renderer.Draw();
 
@@ -677,6 +678,8 @@ function MapBoard ()
 				this.gameObjects[i].Start();
 			}
 		}
+
+
 	};
 
 	this.OnTriggerEnter = function (other)
