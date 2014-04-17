@@ -1,4 +1,4 @@
-/*	**** For create a new GameObject **** 
+/*	**** For create a new Scene **** 
 *
 *	@step 1							Copy the content of this file in a new .js document.
 *   ----------------------------------------------------------------------------------------------------------------------------
@@ -42,22 +42,19 @@
 
 
 
-function SceneLoader () 
+function FirstFloorCorridor () 
 {
-	this.name = "Loader";
+	this.name = "Couloir 1er";
 	this.Started = false;
 
 	this.GameObjects = [];
-	this.imageLoaded = 0;
-	var loadingShowed = false;
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
-
-
+		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
-
 	this.Start = function()
 	{
 		if(!this.Started)
@@ -70,85 +67,65 @@ function SceneLoader ()
 		}
 		this.Update();
 	};
-	this.alphacountIsartLogo = 0;
-	this.alphacountHtmlLogo = 0;
 
+	this.OnLoadLevel = function()
+	{
+
+	};
+
+	this.Step = 1;
+	this.alphaShadow = 2;
+	this.AlphaPosition = 400;
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
 		{
-			ctx.fillStyle = "black";
-			ctx.fillRect(0,0, canvas.width, canvas.height);
-			
-			if(Images.loaderBackground)
+			ctx.drawImage(Images.ascenseurFerme, 448, 274);
+			ctx.drawImage(Images.couloirBackgroundNoElevator, 0, 0);
+			for(var i = 0; i < this.GameObjects.length; i++)
 			{
-				ctx.drawImage(Images.loaderBackground, 0, 0, canvas.width, canvas.height);
-			}
-			if(Images.logoIsart && Images.logoHtml5)
-			{
-				ctx.save();
-
-				this.alphacountIsartLogo += 200/*0.3 */* Time.DeltaTime;
-				ctx.globalAlpha = this.alphacountIsartLogo;
-				ctx.drawImage(Images.logoIsart, canvas. width / 2 - Images.logoHtml5.width /2 + 10,50);
-				if(this.alphacountIsartLogo > 1.5)
+				if(this.GameObjects[i].enabled)
 				{
-					this.alphacountHtmlLogo += 200/*1*/ * Time.DeltaTime;
-					ctx.globalAlpha = this.alphacountHtmlLogo;
-					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,150);
+					this.GameObjects[i].Start();
 				}
-				ctx.restore();
-			}
+			}	
 
-			if(this.alphacountHtmlLogo > 2 && !this.loadingShowed)
-			{
-				this.loadingShowed = true;
-				Dialogue.Begin("Chargement  .  .  . ", 0.01, {x: 465 , y:490}, "white");
-			}
-			if(this.alphacountHtmlLogo > 2 && Dialogue.finished)
-			{ 
-				console.log(this.imageLoaded);
-				console.log(ImagesPath.length);
-				if(this.imageLoaded == ImagesPath.length)
-				{
-					 Scenes["Intro"] = new SceneIntro();
-					 Scenes["HerosRoom"] = new SceneHerosRoom();
-					 Scenes["title"] = new SceneTitle();
-					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
-					 Scenes["BreakRoom"] = new SceneBreakRoom();
-					 Scenes["Room101"] = new SceneRoom101();
-					 Scenes["Room102"] = new SceneRoom102();
-					 Scenes["Room103"] = new SceneRoom103();
-					 Scenes["Room105"] = new SceneRoom105();
-					 Scenes["Room106"] = new SceneRoom106();
-					 Scenes["Room202"] = new SceneRoom202();
-					 Scenes["Room203"] = new SceneRoom203();
-					 Scenes["Office"] = new SceneOffice();
-					 Scenes["Room104"] = new SceneRoom104();
-					 Scenes["Room204"] = new SceneRoom204();
-					 Scenes["Reception"] = new SceneReception();
-					 Scenes["Roof"] = new SceneRoof();
-					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
-					 Scenes["FirstFloorCorridor"] = new FirstFloorCorridor();
-					 Scenes["SceneMap"] = new SceneMap();
-					 GUI.Obj = new ButtonMap();
+		if(this.Step == 1)
+		{
+			this.AlphaPosition -=  10 * Time.DeltaTime;
+			ctx.drawImage(Images.couloirOmbre, this.AlphaPosition, 277, 130, 200);
 
-					 Application.LoadLevel("HerosRoom");
+			if(this.AlphaPosition < 356) this.Step = 2;
 
-				}
-			}
-			if(!Dialogue.finished) 
-			{
-				Dialogue.Continue();
-			}
+		}
+		if(this.Step == 2)
+		{
+			this.alphaShadow -= Time.DeltaTime; 
 
-			ctx.strokeStyle = "white";
-			ctx.strokeRect( canvas.width / 2 - 200, 500, 400, 20);
-			ctx.fillStyle = "white";
-			var portion = 400 / ImagesPath.length;
-			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
+			var alphaOri = ctx.globalAlpha;
+			ctx.globalAlpha = this.alphaShadow;
+			ctx.drawImage(Images.couloirOmbre, 356, 277, 130, 200);
+			ctx.globalAlpha = alphaOri;
 
-			
+			if(this.alphaShadow <= 0.1) this.Step = 3;
+		}
+
+		if(this.Step == 3)
+		{
+			Dialogue.Begin("Il est rentré dans cette chambre! [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
+			this.Step = 4;
+		}
+		if(this.Step == 4)
+		{
+			if(Dialogue.finished)
+				this.Step = 5
+		}
+		if(this.Step == 5)
+		{
+			Application.LoadLevel("Room104");
+		}
+
+			if(!Dialogue.finished) {Dialogue.Continue();}
 			this.LateUpdate();
 		}
 	};

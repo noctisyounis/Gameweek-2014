@@ -135,7 +135,7 @@ function SecondFloorCorridor ()
 						break;
 					case 5:
 						ctx.drawImage(Images.couloirOmbre, this.shadowAnimScale.x, this.shadowAnimScale.y, this.shadowAnimScale.w, this.shadowAnimScale.h);
-						Dialogue.Begin("“S’il vous p [short] . [short] . [short] . [short]”", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						Dialogue.Begin("“S’il vous p [short] . [short] . [short] . [short] ”", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.corridorShadowTextProgression++;
 						break;
 					case 6:
