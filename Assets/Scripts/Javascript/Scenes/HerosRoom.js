@@ -208,7 +208,7 @@ function SceneHerosRoom ()
 			this.GameObjects = [];
 			Progression.PassveRoute = false;
 			this.GameObjects.push(
-				new CursorTarget(Images.ceilingBackground, [{sprite: Images.surgeonMain, x: 0, y: 0, w: 777, h: 728, speed: 10, Life: 5}], this));
+				new CursorTarget(Images.ceilingBackground, [{sprite: Images.surgeonMain, x: 0, y: 0, w: 777, h: 728, speed: 10, Life: 5} ], this));
 			//Combat;
 		}
 		else
@@ -219,9 +219,13 @@ function SceneHerosRoom ()
 	}
 	this.BattleResult = function(str)
 	{
-		if(str = "Win")
+		if(str == "Win")
 		{
 			this.Step = 10;
+		}
+		else if (str == "Loose")
+		{
+			// boo 
 		}
 	}
 
