@@ -42,9 +42,9 @@
 
 
 
-function SceneBreakRoom () 
+function SceneRoom102 () 
 {
-	this.name = "BreakRoom";
+	this.name = "Room102";
 	this.Started = false;
 
 	this.GameObjects = [];
@@ -62,6 +62,82 @@ function SceneBreakRoom ()
 		{
 			//codez le start avant le changement de booleen
 
+			//Rideaux
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 250, y: 200}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 364 - 60, y: 301 - 60}
+ 												},
+ 												{
+ 													position: {x: 230 + 30, y: 200 + 5}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 364 - 70, y: 301 - 95}
+ 												},
+
+ 												"Rideaux",
+ 												"Rien de pertinent ici. [short]",
+ 												Images.roomCurtains1
+
+
+ 												));
+
+			//Porte Perfusion
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 120, y: 120}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 100, y: 521}
+ 												},
+ 												{
+ 													position: {x: 120, y: 120}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 100, y: 521}
+ 												},
+
+ 												"Porte-perfusion",
+ 												"Je dois me dépêcher. [short]",
+ 												Images.roomMedicalstuff
+
+
+ 												));
+
+			//Lit
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: -100, y: 420}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 548, y: 294}
+ 												},
+ 												{
+ 													position: {x: -100, y: 420 + 20}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 568 - 38, y: 314 - 55}
+ 												},
+
+ 												"Lit",
+ 												"Rien sous la couette. [short]",
+ 												Images.roomBed
+
+
+ 												));
+
+			//Télé
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 640, y: 150}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 203, y: 168}
+ 												},
+ 												{
+ 													position: {x: 640 + 35, y: 150 + 22}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 203 - 65, y: 168 - 60}
+ 												},
+
+ 												"Télévision",
+ 												"La télé est éteinte. [short]",
+ 												Images.roomTele4
+
+
+ 												));
+
 			//Armoire
 			this.GameObjects.push(new DecorativeGameObject({
  													position: {x: 750, y: 105}, 
@@ -75,68 +151,12 @@ function SceneBreakRoom ()
  												},
 
  												"Armoire",
- 												"Ah ! Voici la clé de l’ascenseur ! [medium]",
+ 												"Rien dans cette armoire.[medium]",
  												Images.roomCloset
 
 
  												));
 
-			//Rideaux
-			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 230, y: 200}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 364, y: 301}
- 												},
- 												{
- 													position: {x: 230 + 30, y: 200+ 10}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 364 - 35, y: 301 - 135}
- 												},
-
- 												"Rideaux",
- 												"Rien de pertinent ici. [short]",
- 												Images.roomCurtains3
-
-
- 												));
-
-			//Canapé
-			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 260, y: 350}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 429, y: 234}
- 												},
- 												{
- 													position: {x: 220 + 40, y: 350 + 28}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 429 - 43, y: 234 - 80}
- 												},
-
- 												"Canapé",
- 												"Pas de temps à perdre ! [short]",
- 												Images.roomSofa2
-
-
- 												));
-
-			//Table de chevée
-			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 650, y: 300}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 173, y: 236}
- 												},
- 												{
- 													position: {x: 650 + 30, y: 300 + 23}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 173 - 65, y: 236 - 53}
- 												},
-
- 												"Table de chevée",
- 												"Il n'y a rien pour moi là-dedans. [short]",
- 												Images.roomTable
-
-
- 												));
 
 			this.Started = true;
 			Time.LevelLoaded();
