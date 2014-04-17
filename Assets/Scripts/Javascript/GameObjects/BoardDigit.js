@@ -350,7 +350,6 @@ function BoardDigit (id)
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
-		console.log(Input.MouseClick + " " + Input.MouseLongClick + " " + Input.MouseReload);
 		if(Input.MouseClick && Input.MousePosition.y > this.Physics.BoxColliderSize.position.y && Input.MousePosition.y < this.Physics.BoxColliderSize.position.y + this.Physics.BoxColliderSize.scale.y/2){
 			this.number = this.number == 0 ? 9 : this.number -= 1;
 		}

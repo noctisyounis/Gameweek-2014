@@ -83,14 +83,14 @@ function SceneBreakRoom ()
 
 			//Rideaux
 			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 230, y: 200}, 
+ 													position: {x: 250, y: 200}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 364, y: 301}
+ 													scale: {x: 364 - 50, y: 301 - 50}
  												},
  												{
- 													position: {x: 230 + 30, y: 200+ 10}, 
+ 													position: {x: 230 + 30, y: 200 + 5}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 364 - 35, y: 301 - 135}
+ 													scale: {x: 364 - 70, y: 301 - 95}
  												},
 
  												"Rideaux",
@@ -107,9 +107,9 @@ function SceneBreakRoom ()
  													scale: {x: 429, y: 234}
  												},
  												{
- 													position: {x: 220 + 40, y: 350 + 28}, 
+ 													position: {x: 220 + 80, y: 350 + 28}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 429 - 43, y: 234 - 80}
+ 													scale: {x: 429 - 80, y: 234 - 80}
  												},
 
  												"Canapé",
@@ -137,6 +137,9 @@ function SceneBreakRoom ()
 
 
  												));
+
+			//Clé
+			this.GameObjects.push(new Key());
 
 			this.Started = true;
 			Time.LevelLoaded();
@@ -181,6 +184,12 @@ function SceneBreakRoom ()
 			Debug.ShowStats();
 		}
 	};
+
+	this.DestroyKey = function (key)
+	{
+		var o = this.GameObjects.indexOf(key);
+		this.GameObjects.splice(o, 1);
+	}
 
 	// lance l'awake a la creation de la scene
 	this.Awake();
