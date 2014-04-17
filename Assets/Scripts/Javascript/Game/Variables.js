@@ -29,6 +29,7 @@ var ImagesPath = [
 	{ name: "titleBackground", path: "Backgrounds/menu.jpg"},
 	{ name: "titleLoadBackground", path: "Backgrounds/menu1.jpg"},
 	{ name: "titleCreditBackground", path: "Backgrounds/credits.jpg"},
+	{ name: "tutoBattle", path: "Backgrounds/combat_tuto.jpg"},
 
 	{ name: "map_planRDC", path: "Map/Plan_RDC.jpg"},
 	{ name: "map_planE1", path: "Map/Plan_E1.jpg"},
