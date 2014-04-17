@@ -67,9 +67,9 @@ function SceneRoom104 ()
 													scale: {x: Images.roomCurtains2.width, y: Images.roomCurtains2.height}
 												},
 												{
-													position: {x: 680, y: 350}, 
+													position: {x: 230, y: 190}, 
 													rotation: {x: 0, y: 0}, 
-													scale: {x: Images.roomTable.width - 60, y: Images.roomTable.height - 60}
+													scale: {x: Images.roomCurtains2.width, y: Images.roomCurtains2.height - 100}
 												},
 
 												"Rideau",
