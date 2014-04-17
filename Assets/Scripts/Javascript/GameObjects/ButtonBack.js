@@ -125,51 +125,48 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function BoardCode ()
+function ButtonBack ()
 {
-	this.name = "BoardCode";
+	this.name = "ButtonBack";
 	this.enabled = true;
-	this.physics = false;
-	this.renderer = false;
-	this.GameObjects = [];
-	this.solution = [6,3,5,9];
-	this.code = [];
-	this.winText = false;
+	this.physics = true;
+	this.renderer = true;
 
 	this.transform =
 	{
-		position: {x:0, y: 0},
-		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 0, y: 0}
+		position: {x: canvas.width - 60, y: 10},
+		rotation: {x: 0, y: 0}, // obselete
+		scale: {x: 50, y: 50}
 	};
 
 	this.Physics = 
 	{
-		BoxCollider: false,
-		Clickable:   false,
+		BoxCollider: true,
+		Clickable:   true,
+		ShowVignetWithNameOnHover: false,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:0, y: 0},
-			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
+			position: {x: canvas.width - 60, y: 10},
+			rotation: {x: 0, y: 0}, // obselete
+			scale: {x: 50, y: 50}
 		}
 	};
 	this.Renderer = 
 	{
-		visible: false,
+		visible: true,
 		GizmosVisible: false,
-		isSprite: false,
+		isSprite: true,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			source: "",
+			source: Images.backGUI,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -196,7 +193,9 @@ function BoardCode ()
 		Draw: function ()
 		{
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -219,11 +218,6 @@ function BoardCode ()
 			}
 		}
 	}
-
-	this.OnLoadLevel = function()
-	{
-
-	};
 
 	this.SetActive = function (newState)
 	{
@@ -272,16 +266,7 @@ function BoardCode ()
 		if(!this.Started)
 		{
 			// DO START HERE
-			var i = 1;
-			while(i != 5)
-			{
-				this.GameObjects.push(new BoardDigit(i));
-				i++;
-			}
 
-			this.GameObjects.push(new ButtonBack());
-
-			//creer 4 gameobject digit
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -296,7 +281,7 @@ function BoardCode ()
 			{
 				if(this.Physics.BoxCollider)
 				{
-					for(var other in GameObjects)
+					for(var other in Application.LoadedLevel.GameObjects)
 					{
 						if(other.enabled && other.BoxCollider)
 						{
@@ -315,6 +300,10 @@ function BoardCode ()
 					{
 						if(!Input.MouseClick) this.OnHovered();
 						if(Input.MouseClick)  this.OnClicked();
+					}
+					else
+					{
+						this.UnHovered();
 					}
 				}
 			}
@@ -339,33 +328,9 @@ function BoardCode ()
 
 	this.LateUpdate = function ()
 	{
-		this.code = [];
-		// boucle sur les 4 digit qu'on  creer plus haut Start()
-		ctx.fillStyle = "black";
-		ctx.drawImage(Images.coffreBackground,0,0);
-		for(var i = 0; i < this.GameObjects.length; i++)
-		{
-			if(this.GameObjects[i].enabled)
-			{
-				this.GameObjects[i].Start();
-			}
-			this.code.push(this.GameObjects[i].number);
-		}
+		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
-		var i = 0
-		while(i < 4){
-			if(this.code[i] != this.solution[i])
-				return;
-			i++;
-		}
-		
-		Progression.RouteAGotPassePartout = true;
-		Scenes.Room104.Step = 1;
-		Application.LoadLevel("Room104");
-		
-		
-
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -381,8 +346,26 @@ function BoardCode ()
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
+
+		if(Input.MouseClick && Dialogue.finished)
+		{
+			//Interaction
+			Application.LoadLevel("Room104");
+		}
 	};
+
 	this.OnHovered = function()
+	{	
+		if(this.Physics.ShowVignetWithNameOnHover)
+		{
+			ctx.fillStyle = "grey";
+			ctx.RoundedBox(Input.MousePosition.x, Input.MousePosition.y, 100, 30, 5);
+			ctx.fillStyle = "white";
+			ctx.fillText(this.name, Input.MousePosition.x + 20, Input.MousePosition.y + 13);
+		}
+	};
+	
+	this.UnHovered = function()
 	{
 	};
 

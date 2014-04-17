@@ -62,22 +62,22 @@ function SceneRoom104 ()
 			//codez le start avant le changement de booleen
 
 			this.GameObjects.push(new DecorativeGameObject({
-											position: {x: 230, y: 190}, 
-											rotation: {x: 0, y: 0}, 
-											scale: {x: Images.roomCurtains2.width, y: Images.roomCurtains2.height}
-										},
-										{
-											position: {x: 680, y: 350}, 
-											rotation: {x: 0, y: 0}, 
-											scale: {x: Images.roomTable.width - 60, y: Images.roomTable.height - 60}
-										},
+													position: {x: 230, y: 190}, 
+													rotation: {x: 0, y: 0}, 
+													scale: {x: Images.roomCurtains2.width, y: Images.roomCurtains2.height}
+												},
+												{
+													position: {x: 680, y: 350}, 
+													rotation: {x: 0, y: 0}, 
+													scale: {x: Images.roomTable.width - 60, y: Images.roomTable.height - 60}
+												},
 
-										"Rideau",
-										"La fenetre est férmé. [medium]",
-										Images.roomCurtains2
+												"Rideau",
+												"La fenêtre est fermée. [medium]",
+												Images.roomCurtains2
 
 
-										));
+												));
 
 			this.GameObjects.push(new Coffre());
 
@@ -118,22 +118,22 @@ function SceneRoom104 ()
  												));
 
 			this.GameObjects.push(new DecorativeGameObject({
-											position: {x: 500, y: 500}, 
-											rotation: {x: 0, y: 0}, 
-											scale: {x: Images.papers.width, y: Images.papers.height}
-										},
-										{
-											position: {x: 500, y: 500}, 
-											rotation: {x: 0, y: 0}, 
-											scale: {x: Images.papers.width, y: Images.papers.height}
-										},
+													position: {x: 500, y: 500}, 
+													rotation: {x: 0, y: 0}, 
+													scale: {x: Images.papers.width, y: Images.papers.height}
+												},
+												{
+													position: {x: 500, y: 500}, 
+													rotation: {x: 0, y: 0}, 
+													scale: {x: Images.papers.width, y: Images.papers.height}
+												},
 
-										"Papiers",
-										"*код безопасности 6359.* [long]",
-										Images.papers
+												"Papiers",
+												"*код безопасности 6359.* [long]",
+												Images.papers
 
 
-										));
+												));
 
 			this.Started = true;
 			Time.LevelLoaded();
