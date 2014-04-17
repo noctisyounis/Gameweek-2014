@@ -4,7 +4,7 @@ function mouseDown(event)
 	Input.MouseLongClick = true;
 	Input.MouseReload = 1;
 
-	if(!Dialogue.finished)
+	if(!Dialogue.finished || Dialogue.interrupted)
 	{
 		Dialogue.Interupt();
 	}

@@ -123,7 +123,7 @@ function SceneLoader ()
 					 Scenes["Roof"] = new SceneRoof();
 					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
 					 Scenes["SceneMap"] = new SceneMap();
-					 Application.LoadLevel("SceneMap");	
+					 Application.LoadLevel("Intro");	
 				}
 			}
 			if(!Dialogue.finished) 
