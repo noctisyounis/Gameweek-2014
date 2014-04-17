@@ -35,7 +35,7 @@ var ImagesPath = [
 	{ name: "map_accueil", path: "Map/Accueil.png"},
 	{ name: "map_ascenseur", path: "Map/Ascenseur.png"},
 	{ name: "map_couloir", path: "Map/Couloir.png"},
-	{ name: "map_Escalier", path: "Map/Escalier.png"},
+	{ name: "map_escalier", path: "Map/Escalier.png"},
 	{ name: "map_salle1", path: "Map/Salle1.png"},
 	{ name: "map_salle2", path: "Map/Salle2.png"},
 	{ name: "map_salle3", path: "Map/Salle3.png"},
@@ -123,6 +123,7 @@ var RoomVisited = {
 		archives : false,
 		operatingTheaterA : false,
 		operatingTheaterB : false,
+		stairs : false
 	},
 	premier : {
 		floor : false,
