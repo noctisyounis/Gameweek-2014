@@ -135,7 +135,7 @@ function SceneLoader ()
 					 Scenes["BoardCode"] = new BoardCode();
 					 GUI.Obj = new ButtonMap();
 
-					 Application.LoadLevel("SceneMap");
+					 Application.LoadLevel("Room104");
 
 				}
 			}
