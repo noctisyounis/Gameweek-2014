@@ -349,8 +349,7 @@ function Coffre ()
 
 		if(Input.MouseClick && Dialogue.finished)
 		{
-			//Interaction 
-			Dialogue.Begin("Ce coffre doit contenir quelque chose d'utile. [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+			//Interaction
 			Application.LoadLevel("BoardCode");
 		}
 	};

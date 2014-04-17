@@ -131,11 +131,9 @@ function SceneLoader ()
 					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
 					 Scenes["FirstFloorCorridor"] = new FirstFloorCorridor();
 					 Scenes["SceneMap"] = new SceneMap();
+					 Scenes["NumericCode"] = new SceneNumericCode();
 					 GUI.Obj = new ButtonMap();
-					 Application.LoadLevel("title");
-
-
-					
+					 Application.LoadLevel("SceneMap");
 				}
 			}
 			if(!Dialogue.finished) 
