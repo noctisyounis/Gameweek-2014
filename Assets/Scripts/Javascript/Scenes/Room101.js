@@ -75,7 +75,7 @@ function SceneRoom101 ()
  												},
 
  												"Rideaux",
- 												"Rien d'interessant. [short]",
+ 												"Il y a de la buée sur la vitre. [short]",
  												Images.roomCurtains2
 
 
@@ -132,7 +132,7 @@ function SceneRoom101 ()
  												},
 
  												"Télévision",
- 												"Il n'y a aucune chaîne... [short]",
+ 												"Il n'y a aucun signal... [short]",
  												Images.roomTele1
 
 
@@ -181,6 +181,11 @@ function SceneRoom101 ()
 		{
 			Debug.ShowStats();
 		}
+	};
+
+	this.OnLoadLevel = function()
+	{
+
 	};
 
 	// lance l'awake a la creation de la scene

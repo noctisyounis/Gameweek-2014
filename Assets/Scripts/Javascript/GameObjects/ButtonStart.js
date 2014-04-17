@@ -134,9 +134,9 @@ function ButtonStart ()
 
 	this.transform =
 	{
-		position: {x:460, y: 550},
+		position: {x:635, y: 333},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 70, y: 50}
+		scale: {x: 240, y: 60}
 	};
 
 	this.Physics = 
@@ -149,9 +149,9 @@ function ButtonStart ()
  
  		BoxColliderSize: 
 		{
-			position: {x:460, y: 550},
+			position: {x: 635, y: 333},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 70, y: 50}
+			scale: {x: 240, y: 60}
 		}
 	};
 	this.Renderer = 
@@ -319,13 +319,7 @@ function ButtonStart ()
 	};
 
 	this.LateUpdate = function ()
-	{
-		ctx.fillStyle = "white";
-		ctx.font = "30px Georgia";
-		ctx.textBaseline="top"; 
-		ctx.fillText(this.textButton, this.transform.position.x, this.transform.position.y);
-		ctx.textBaseline = "bottom";
-		
+	{	
 		if(this.renderer)
 			this.Renderer.Draw();
 	};

@@ -120,7 +120,7 @@ function SceneTitle ()
 						this.GameObjectsTitle[i].Start();
 					}
 				}
-				ctx.drawImage(Images.mouse, 465,380)
+				ctx.drawImage(Images.mouse, 730,160);
 			}		
 			this.LateUpdate();
 		}

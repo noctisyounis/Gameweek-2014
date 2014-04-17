@@ -113,7 +113,7 @@ function SceneRoom102 ()
  												},
 
  												"Lit",
- 												"Rien sous la couette. [short]",
+ 												"Des traces de sang séché sur le lit... [short]",
  												Images.roomBed
 
 
@@ -132,7 +132,7 @@ function SceneRoom102 ()
  												},
 
  												"Télévision",
- 												"La télé est éteinte. [short]",
+ 												"La télé est poussiéreuse. [short]",
  												Images.roomTele4
 
 
@@ -151,7 +151,7 @@ function SceneRoom102 ()
  												},
 
  												"Armoire",
- 												"Rien dans cette armoire. [medium]",
+ 												"Raah, férmé. [medium]",
  												Images.roomCloset
 
 
@@ -200,6 +200,11 @@ function SceneRoom102 ()
 		{
 			Debug.ShowStats();
 		}
+	};
+
+	this.OnLoadLevel = function()
+	{
+
 	};
 
 	// lance l'awake a la creation de la scene

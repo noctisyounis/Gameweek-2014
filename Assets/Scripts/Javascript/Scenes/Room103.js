@@ -83,12 +83,12 @@ function SceneRoom103 ()
 
 			//Chaise
 			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 300, y: 400}, 
+ 													position: {x: 450, y: 400}, 
  													rotation: {x: 0, y: 0}, 
  													scale: {x: 176, y: 191}
  												},
  												{
- 													position: {x: 300 + 20, y: 400 + 15}, 
+ 													position: {x: 450 + 20, y: 400 + 15}, 
  													rotation: {x: 0, y: 0}, 
  													scale: {x: 176 - 60, y: 191 - 35}
  												},
@@ -132,7 +132,7 @@ function SceneRoom103 ()
  												},
 
  												"Porte-perfusion",
- 												"Je dois me dépêcher. [short]",
+ 												"La dose est a plus de 9000 ml! [short]",
  												Images.roomMedicalstuff
 
 
@@ -151,7 +151,7 @@ function SceneRoom103 ()
  												},
 
  												"Lit",
- 												"Ce n'est pas le moment de se reposer ! [short]",
+ 												"Ce n'est pas le moment de se reposer! [short]",
  												Images.roomBed
 
 
@@ -170,7 +170,7 @@ function SceneRoom103 ()
  												},
 
  												"Télévision",
- 												"J'ai d'autre chose à faire ! [short]",
+ 												"J'ai d'autre choses à faire! [short]",
  												Images.roomTele3
 
 
@@ -219,6 +219,11 @@ function SceneRoom103 ()
 		{
 			Debug.ShowStats();
 		}
+	};
+
+	this.OnLoadLevel = function()
+	{
+
 	};
 
 	// lance l'awake a la creation de la scene
