@@ -98,7 +98,12 @@ var ImagesPath = [
 	{ name: "painting", path: "Objects/room_painting.png"},
 	{ name: "poster", path: "Objects/room_poster.png"},
 	{ name: "rollingChair", path: "Objects/room_rollingchair.png"},
-
+	{ name: "coffreFort", path: "Objects/coffre_fort.png"},
+	{ name: "haricotMedical", path: "Objects/couloir_haricot_medical.png"},
+	{ name: "feuilles", path: "Objects/bureau_feuilles.png"},
+	{ name: "feuilles", path: "Objects/bureau_feuilles.png"},
+	{ name: "trash", path: "Objects/couloir_poubelle.png"},
+	{ name: "lampe", path: "Objects/bureau_lampe.png"},
 
 
 

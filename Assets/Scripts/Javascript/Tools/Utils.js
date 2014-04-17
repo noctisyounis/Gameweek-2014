@@ -226,7 +226,7 @@ Dialogue =
 	interval: 0, shortInterval: 1, mediumInterval: 2, longInterval: 3,
 
 	//Dont touch these variables
-	words: [], letters: [], intervalCountdown: 0, destination: "", position: {x:0, y:0}, finished: true, defaultColor: "white",	font: "10px Georgia",
+	words: [], letters: [], intervalCountdown: 0, destination: "", position: {x:0, y:0}, finished: true, interrupted: false, defaultColor: "white",	font: "10px Georgia",
 
 	InitDialogue: function()
 	{
@@ -283,7 +283,10 @@ Dialogue =
 							}
 							else 
 							{
-								this.finished = true;
+								if(!this.interrupted)
+								{
+									this.finished = true;
+								}
 							}
 							return;
 					}
@@ -295,24 +298,33 @@ Dialogue =
 
 	Interupt: function()
 	{
-		while(this.letters.length > 0)
+		if(this.interrupted)
 		{
-			this.destination += this.letters[0];
-			this.letters.splice(0,1);
+			console.log("lol");
+			this.interrupted = false;
+			this.finished = true;
 		}
-
-		while(this.words.length > 0)
+		else if(!this.interrupted)
 		{
-			if(this.words[0] == "[short]" || this.words[0] == "[medium]" || this.words[0] == "[long]") this.words.splice(0,1);
-			else
+			while(this.letters.length > 0)
 			{
-				this.destination += " " + this.words[0];
-				this.words.splice(0,1);
-				console.log("words " + this.words.length);
+				this.destination += this.letters[0];
+				this.letters.splice(0,1);
 			}
+
+			while(this.words.length > 0)
+			{
+				if(this.words[0] == "[short]" || this.words[0] == "[medium]" || this.words[0] == "[long]") this.words.splice(0,1);
+				else
+				{
+					this.destination += " " + this.words[0];
+					this.words.splice(0,1);
+				}
+			}
+			console.log("Sentence skipped!");
+			this.finished = false;
+			this.interrupted = true;
 		}
-		console.log("Sentence skipped!");
-		finished = true;
     },
      
     Write: function(str, x, y, color)
