@@ -91,6 +91,14 @@ var ImagesPath = [
 	{ name: "desk", path: "Objects/desk.png"},
 	{ name: "computer", path: "Objects/computer.png"},
 	{ name: "papers", path: "Objects/papers.png"},
+	{ name: "chairDoctor", path: "Objects/room_chairdoctor.png"},
+	{ name: "keyboard", path: "Objects/room_keyboard.png"},
+	{ name: "library", path: "Objects/room_library.png"},
+	{ name: "meds", path: "Objects/room_meds.png"},
+	{ name: "painting", path: "Objects/room_painting.png"},
+	{ name: "poster", path: "Objects/room_poster.png"},
+	{ name: "rollingChair", path: "Objects/room_rollingchair.png"},
+
 
 
 

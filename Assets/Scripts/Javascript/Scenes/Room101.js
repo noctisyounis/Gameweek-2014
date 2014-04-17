@@ -42,9 +42,9 @@
 
 
 
-function SceneBreakRoom () 
+function SceneRoom101 () 
 {
-	this.name = "BreakRoom";
+	this.name = "Room101";
 	this.Started = false;
 
 	this.GameObjects = [];
@@ -62,81 +62,82 @@ function SceneBreakRoom ()
 		{
 			//codez le start avant le changement de booleen
 
-			//Armoire
-			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 750, y: 105}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 282, y: 553}
- 												},
- 												{
- 													position: {x: 750 + 60, y: 105 + 45}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 282 - 110, y:553 - 110}
- 												},
-
- 												"Armoire",
- 												"Ah ! Voici la clé de l’ascenseur ! [medium]",
- 												Images.roomCloset
-
-
- 												));
-
 			//Rideaux
 			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 230, y: 200}, 
+ 													position: {x: 250, y: 200}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 364, y: 301}
+ 													scale: {x: 364 - 60, y: 301 - 60}
  												},
  												{
- 													position: {x: 230 + 30, y: 200+ 10}, 
+ 													position: {x: 230 + 30, y: 200 + 5}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 364 - 35, y: 301 - 135}
+ 													scale: {x: 364 - 70, y: 301 - 95}
  												},
 
  												"Rideaux",
  												"Rien de pertinent ici. [short]",
- 												Images.roomCurtains3
+ 												Images.roomCurtains2
 
 
  												));
 
-			//Canapé
+			//Porte Perfusion
 			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 260, y: 350}, 
+ 													position: {x: 100, y: 120}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 429, y: 234}
+ 													scale: {x: 90, y: 511}
  												},
  												{
- 													position: {x: 220 + 40, y: 350 + 28}, 
+ 													position: {x: 100, y: 120}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 429 - 43, y: 234 - 80}
+ 													scale: {x: 100, y: 521}
  												},
 
- 												"Canapé",
- 												"Pas de temps à perdre ! [short]",
- 												Images.roomSofa2
+ 												"Porte-perfusion",
+ 												"Je dois me dépêcher. [short]",
+ 												Images.roomMedicalstuff
 
 
  												));
 
-			//Table de chevée
+			//Lit
 			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 650, y: 300}, 
+ 													position: {x: -100, y: 420}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 173, y: 236}
+ 													scale: {x: 548, y: 94}
  												},
  												{
- 													position: {x: 650 + 30, y: 300 + 23}, 
+ 													position: {x: -100, y: 420 + 20}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 173 - 65, y: 236 - 53}
+ 													scale: {x: 568 - 38, y: 314 - 55}
  												},
 
- 												"Table de chevée",
- 												"Il n'y a rien pour moi là-dedans. [short]",
- 												Images.roomTable
+ 												"Lit",
+ 												"Rien sous la couette. [short]",
+ 												Images.roomBed
 
 
  												));
+
+			//Télé
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 640, y: 150}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 203, y: 168}
+ 												},
+ 												{
+ 													position: {x: 640 + 35, y: 150 + 22}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 203 - 65, y: 168 - 60}
+ 												},
+
+ 												"Télévision",
+ 												"Il n'y a aucune chaîne... [short]",
+ 												Images.roomTele1
+
+
+ 												));
+
 
 			this.Started = true;
 			Time.LevelLoaded();
@@ -151,7 +152,7 @@ function SceneBreakRoom ()
 		{
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
-			ctx.drawImage(Images.roomBackground, 0, 0, canvas.width, canvas.height);
+			ctx.drawImage(Images.roomBackground2, 0, 0, canvas.width, canvas.height);
 
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{

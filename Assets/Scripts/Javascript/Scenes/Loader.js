@@ -116,6 +116,14 @@ function SceneLoader ()
 					 Scenes["HerosRoom"] = new SceneHerosRoom();
 					 Scenes["title"] = new SceneTitle();
 					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
+					 Scenes["BreakRoom"] = new SceneBreakRoom();
+					 Scenes["Room101"] = new SceneRoom101();
+					 Scenes["Room102"] = new SceneRoom102();
+					 Scenes["Room103"] = new SceneRoom103();
+					 Scenes["Room105"] = new SceneRoom105();
+					 Scenes["Room106"] = new SceneRoom106();
+					 Scenes["Room202"] = new SceneRoom202();
+					 Scenes["Room203"] = new SceneRoom203();
 					 Scenes["Office"] = new SceneOffice();
 					 Scenes["Room104"] = new SceneRoom104();
 					 Scenes["Room204"] = new SceneRoom204();
@@ -123,7 +131,9 @@ function SceneLoader ()
 					 Scenes["Roof"] = new SceneRoof();
 					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
 					 Scenes["SceneMap"] = new SceneMap();
-					 Application.LoadLevel("Intro");	
+
+					 Application.LoadLevel("SceneMap");
+
 				}
 			}
 			if(!Dialogue.finished) 
