@@ -44,7 +44,7 @@
 
 function SecondFloorCorridor () 
 {
-	this.name = "SecondFloorCorridor";
+	this.name = "Couloir 2nd";
 	this.Started = false;
 	this.elevatorstate = true;
 	this.step = 0;
@@ -55,6 +55,14 @@ function SecondFloorCorridor ()
 		y : 150,
 		w : 362,
 		h : 614,
+		speed : 10
+	};
+
+	this.nurseAnimScale = {
+		x : canvas.width/2-50,
+		y : 300,
+		w : 100,
+		h : 250,
 		speed : 10
 	};
 	this.shadowspawntimer = 0;
@@ -85,13 +93,7 @@ function SecondFloorCorridor ()
 	{
 		if(!Application.GamePaused)
 		{
-			for(var i = 0; i < this.GameObjects.length; i++)
-			{
-				if(this.GameObjects[i].enabled)
-				{
-					this.GameObjects[i].Start();
-				}
-			}
+		
 			if(this.elevatorstate)
 				ctx.drawImage(Images.ascenseurOuvert, 448, 274);
 			else
@@ -101,6 +103,7 @@ function SecondFloorCorridor ()
 			if(!Progression.SeenCorridorShadow){
 				switch(this.step){
 					case 0:
+						GUI.Availaible = false;
 						Dialogue.Begin("Qu’est-ce que . . . [long]", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.step++;
 						break;
@@ -191,11 +194,18 @@ function SecondFloorCorridor ()
   							Progression.SeenCorridorShadow = true;
   						}
   						break;
+    				case 13:
+    					if(Dialogue.finished){
+    						GUI.Availaible = true;
+  							this.step++;
+  						}
+  						break;
 				}
 			}
 			else if(Progression.HasBattleRoom104Nurse && !Progression.RouteAHasSeenBirthdayCard){
 				switch(this.step){
 					case 0:
+						GUI.Availaible = false;
 						Dialogue.Begin("Me revoilà au second étage... Bloquons vite l’accès à la cage d’escalier !", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.step++;
 						break;
@@ -204,11 +214,56 @@ function SecondFloorCorridor ()
 							Dialogue.Begin("Cette chaise devrait faire l’affaire.", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
+						break;
 					case 2:
 						if(Dialogue.finished){
 							Dialogue.Begin("Vu que j’ai le passe-partout, je vais essayer de fouiller le bureau.", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
+						break;
+					case 3:
+						if(Dialogue.finished){
+							GUI.Availaible = true;
+							this.step++;
+						}
+						break;
+				}
+			}
+			else if(Progression.RouteAHasComputerAccess && !Progression.RouteAHasBattleThingsAfterPC){
+				switch(this.step){
+					case 0:
+						GUI.Availaible = false;
+						Dialogue.Begin("L’ascenseur ! [short] Il n’est pas barricadé !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							Dialogue.Begin("“Êtes-vous réel ? N’approchez pas ! J’ai dit reculez !”", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 2:
+						if(Dialogue.finished){
+							this.GameObjects.push(
+								new CursorTarget(Images.couloirBackground, [{sprite: Images.monsterNurse, x: this.nurseAnimScale.x, y: this.nurseAnimScale.y, w: this.nurseAnimScale.w, h: this.nurseAnimScale.h, speed: 10, Life: 10}], this));
+							this.step++;
+						}
+						this.nurseAnimScale.x -= this.nurseAnimScale.speed / 2 * Time.DeltaTime;
+						this.nurseAnimScale.y -= this.nurseAnimScale.speed / 2 * Time.DeltaTime;
+						this.nurseAnimScale.w += this.nurseAnimScale.speed * Time.DeltaTime;
+						this.nurseAnimScale.h += this.nurseAnimScale.speed * Time.DeltaTime;
+						ctx.drawImage (Images.monsterNurse, this.nurseAnimScale.x, this.nurseAnimScale.y, this.nurseAnimScale.w, this.nurseAnimScale.h);
+						break;
+					case 3:
+						//Combat en cours
+						break;
+				}
+			}
+			for(var i = 0; i < this.GameObjects.length; i++)
+			{
+				if(this.GameObjects[i].enabled)
+				{
+					this.GameObjects[i].Start();
 				}
 			}
 
@@ -231,6 +286,21 @@ function SecondFloorCorridor ()
 			Debug.ShowStats();
 		}
 	};
+
+	this.BattleResult = function(str)
+	{
+		if(str = "Win")
+		{
+			
+		}
+		else{
+
+		}
+	}
+
+	this.OnLoadLevel = function(){
+		this.step = 0;
+	}
 
 	// lance l'awake a la creation de la scene
 	this.Awake();

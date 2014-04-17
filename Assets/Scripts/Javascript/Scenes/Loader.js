@@ -134,7 +134,9 @@ function SceneLoader ()
 					 Scenes["NumericCode"] = new SceneNumericCode();
 					 Scenes["BoardCode"] = new BoardCode();
 					 GUI.Obj = new ButtonMap();
+
 					 Application.LoadLevel("SceneMap");
+
 				}
 			}
 			if(!Dialogue.finished) 
@@ -164,6 +166,11 @@ function SceneLoader ()
 			Debug.ShowStats();
 		}
 	};
+	
+	this.OnLoadLevel = function(){
+		
+	}
+
 
 	// lance l'awake a la creation de la scene
 	this.Awake();

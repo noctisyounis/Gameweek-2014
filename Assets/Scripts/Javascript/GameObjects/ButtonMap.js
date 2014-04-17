@@ -351,7 +351,6 @@ function ButtonMap ()
 		if(Application.LoadedLevel == Scenes["SceneMap"])
 		{
 			Application.LoadedLevel = Application.LastRoom;
-			console.log(Application.LoadedLevel);
 		}
 		else
 		{

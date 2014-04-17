@@ -71,7 +71,7 @@ var ImagesPath = [
 
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},
-	{ name: "monsterNurse", path: "Objects/room_medicalstuff.png"},
+	{ name: "monsterNurse", path: "Enemies/monster_nurse.png"},
 
 
 	{ name: "roomBed", path: "Objects/room_bed.png"},
@@ -111,8 +111,6 @@ var ImagesPath = [
 	{ name: "trash", path: "Objects/couloir_poubelle.png"},
 	{ name: "lampe", path: "Objects/bureau_lampe.png"},
 
-
-
 ];
 
 var Images = {};
@@ -131,13 +129,15 @@ var Progression = {
 	//Branche B only. Si le joueur a le passe partout
 	RouteBGotPassePartout : false,
 	//Si le joueur a combattu l'infirmiere de la chambre 104
-	HasBattleRoom104Nurse : true,
+	HasBattleRoom104Nurse : false,
 	//Si le joueur a gagné contre l'infirmiere de la chambre 104
 	WonAgainstRoom104Nurse : false,
 	//Branche A only. Si le joueur a regardé la carte d'anniversaire
 	RouteAHasSeenBirthdayCard : false,
 	//Branche A only. Si le joueur a eu acces a l'ordinateur
-	RouteAHasComputerAccess : false,
+	RouteAHasComputerAccess : true,
+	//Branche A only. Si le joueur a combattu les hallu après le pc
+	RouteAHasBattleThingsAfterPC : false,
 	//Branche A only. Résultat du combat dans le couloir du second après le pc
 	RouteAWonAgainstThingsAfterPC : false,
 	//Branche B only. Si le joueur a récupéré la note
@@ -194,7 +194,7 @@ var Application =
 		if(Scenes[SceneName] != undefined)
 		{
 			this.LoadedLevel = Scenes[SceneName];
-			//this.LoadedLevel.OnLoadLevel();
+			this.LoadedLevel.OnLoadLevel();
 		}
 
 	}
