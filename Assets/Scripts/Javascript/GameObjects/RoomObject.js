@@ -343,7 +343,8 @@ function RoomObject (transform, cScale, name, scenetoload, floor, conditions)
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
 		//Si toutes les conditions == true
-		Application.LoadLevel(scenetoload);
+		if(scenetoload != "" && this.clickConditions.indexOf(false) == -1)
+			Application.LoadLevel(scenetoload);
 	};
 	this.OnHovered = function()
 	{
