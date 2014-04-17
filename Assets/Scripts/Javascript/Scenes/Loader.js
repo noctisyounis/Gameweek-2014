@@ -133,7 +133,7 @@ function SceneLoader ()
 					 Scenes["SceneMap"] = new SceneMap();
 					 Scenes["NumericCode"] = new SceneNumericCode();
 					 GUI.Obj = new ButtonMap();
-					 Application.LoadLevel("SceneMap");
+					 Application.LoadLevel("SecondFloorCorridor");
 				}
 			}
 			if(!Dialogue.finished) 
@@ -163,6 +163,11 @@ function SceneLoader ()
 			Debug.ShowStats();
 		}
 	};
+	
+	this.OnLoadLevel = function(){
+		
+	}
+
 
 	// lance l'awake a la creation de la scene
 	this.Awake();
