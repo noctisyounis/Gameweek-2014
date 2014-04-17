@@ -158,7 +158,7 @@ function Coffre ()
 	this.Renderer = 
 	{
 		visible: true,
-		GizmosVisible: false,
+		GizmosVisible: true,
 		isSprite: true,
 		thit: this.name,
 		that: this.transform,

@@ -129,7 +129,7 @@ function SceneRoom104 ()
 										},
 
 										"Papiers",
-										"防伪码是 6359. [long]",
+										"*код безопасности 6359.* [long]",
 										Images.papers
 
 
