@@ -50,6 +50,7 @@ function SceneHerosRoom ()
 	this.FadeOutWhiteScreen = 1;
 	this.FadeInSurgeonAssist = 0;
 	this.SurgeonAssistVisible = false;
+	this.TutoFade = 0;
 	this.SurgeonMain = false;
 
 	this.FadeInSurgeonMain = 0;
@@ -173,13 +174,36 @@ function SceneHerosRoom ()
 				Application.LoadLevel("SecondFloorCorridor");
 			}
 
+			if(this.Step == 100)
+			{
+				this.GameObjects = [];
+				this.TutoFade += Time.DeltaTime;
+				var alphaOri = ctx.globalAlpha;
+				ctx.globalAlpha = this.TutoFade;
+				ctx.drawImage(Images.tutoBattle, 0, 0);
+				ctx.globalAlpha = alphaOri;
+				console.log(this.TutoFade);
+				if(this.TutoFade > 1 && Input.MouseClick)
+				{
+					this.Step = 101;
+				} 
+			}
+
+			if(this.Step == 101)
+			{
+				Progression.PassveRoute = false;
+				this.GameObjects.push(
+				new CursorTarget(Images.ceilingBackground, [{sprite: Images.surgeonMain, x: 0, y: 0, w: 777, h: 728, speed: 10, Life: 5} ], this));
+				this.Step++;
+			}
+
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{
 				if(this.GameObjects[i].enabled)
 				{
 					this.GameObjects[i].Start();
 				}
-			}	
+			}
 			if(!Dialogue.finished) 
 			{
 				ctx.drawImage(Images.dialogueBox, 0, 470);
@@ -205,10 +229,7 @@ function SceneHerosRoom ()
 	{
 		if(idClicked == 1)
 		{
-			this.GameObjects = [];
-			Progression.PassveRoute = false;
-			this.GameObjects.push(
-				new CursorTarget(Images.ceilingBackground, [{sprite: Images.surgeonMain, x: 0, y: 0, w: 777, h: 728, speed: 10, Life: 5} ], this));
+			this.Step = 100;
 			//Combat;
 		}
 		else
