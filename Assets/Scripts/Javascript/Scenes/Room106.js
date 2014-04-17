@@ -44,7 +44,7 @@
 
 function SceneRoom106 () 
 {
-	this.name = "Room106";
+	this.name = "Chambre 106";
 	this.Started = false;
 
 	this.GameObjects = [];
@@ -93,8 +93,8 @@ function SceneRoom106 ()
  													scale: {x: 217 - 90, y: 234 - 80}
  												},
 
- 												"Canapé",
- 												"Ce n'est pas le moment de se reposer ! [short]",
+ 												"Fauteuil",
+ 												"J'ai presque le même à la maison! [short]",
  												Images.roomSofa
 
 
@@ -113,7 +113,7 @@ function SceneRoom106 ()
  												},
 
  												"Table de chevet",
- 												"Il n'y a rien pour moi là-dedans. [short]",
+ 												"Il n'y a rien que des magasines peoples. [short]",
  												Images.roomTable
 
 
@@ -132,7 +132,7 @@ function SceneRoom106 ()
  												},
 
  												"Porte-perfusion",
- 												"Je dois me dépêcher. [short]",
+ 												"Ce cocktail de medicament détruirait un éléphant. [short]",
  												Images.roomMedicalstuff
 
 
@@ -151,7 +151,7 @@ function SceneRoom106 ()
  												},
 
  												"Lit",
- 												"Ce n'est pas le moment de se reposer ! [short]",
+ 												"Pourquoi personne n'est la? [short]",
  												Images.roomBed
 
 
@@ -170,7 +170,7 @@ function SceneRoom106 ()
  												},
 
  												"Télévision",
- 												"Tout à l'air normal ici. Je ne dois pas relâcher mon attention. [short]",
+ 												"Le gresillement est hypnotisant... [short]",
  												Images.roomTele1
 
 
@@ -214,11 +214,21 @@ function SceneRoom106 ()
 		if(!Application.GamePaused)
 		{
 			//Codez la GUI ici pour que la pause soit prise en compte
+			ctx.fillStyle = "rgba(122,122,122, 0.4)";
+			ctx.RoundedBox(0, 0, 125, 30, 20);
+			ctx.fillStyle = "white";
+			ctx.font = "15px Georgia";
+			ctx.fillText(Application.LoadedLevel.name, 20, 23);
 		}
 		if(Application.DebugMode)
 		{
 			Debug.ShowStats();
 		}
+	};
+
+	this.OnLoadLevel = function()
+	{
+		GUI.Availaible = true;
 	};
 
 	// lance l'awake a la creation de la scene
