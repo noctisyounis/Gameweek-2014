@@ -117,14 +117,16 @@ var Progression = {
 	//Si le joueur a quitte sa chambre (intro)
 	OutOfHerosRoom : false,
 	//Si le joueur a passe l'ombre du couloir du second
-	SeenCorridorShadow : false,
+	SeenCorridorShadow : true,
 	//Si le joueur a recupere la cle de l'acsenseur
 	GotElevatorKey : false,
 	//Branche A only. Si le joueur a le passe partout
 	RouteAGotPassePartout : false,
 	//Branche B only. Si le joueur a le passe partout
 	RouteBGotPassePartout : false,
-	//Si le joueur a gagné contre l'infirmiere de la salle de repos
+	//Si le joueur a combattu l'infirmiere de la chambre 104
+	HasBattleRoom104Nurse : true,
+	//Si le joueur a gagné contre l'infirmiere de la chambre 104
 	WonAgainstRoom104Nurse : false,
 	//Branche A only. Si le joueur a regardé la carte d'anniversaire
 	RouteAHasSeenBirthdayCard : false,
@@ -134,7 +136,6 @@ var Progression = {
 	RouteAWonAgainstThingsAfterPC : false,
 	//Branche B only. Si le joueur a récupéré la note
 	RouteBGotNote : false
-
 };
 var RoomVisited = {
 	RDC : {
