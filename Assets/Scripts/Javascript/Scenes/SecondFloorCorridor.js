@@ -191,12 +191,12 @@ function SecondFloorCorridor ()
     					if(Dialogue.finished){
     						Dialogue.Begin("Quelle galère [short] . [short] . [short] . [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
   							this.step++;
-  							Progression.SeenCorridorShadow = true;
   						}
   						break;
     				case 13:
     					if(Dialogue.finished){
     						GUI.Availaible = true;
+    						Progression.SeenCorridorShadow = true;
   							this.step++;
   						}
   						break;
