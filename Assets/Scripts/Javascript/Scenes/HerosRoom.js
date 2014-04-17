@@ -229,6 +229,11 @@ function SceneHerosRoom ()
 		}
 	}
 
+	this.OnLoadLevel = function()
+	{
+
+	};
+
 	// lance l'awake a la creation de la scene
 	this.Awake();
 }

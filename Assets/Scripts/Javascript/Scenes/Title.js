@@ -120,6 +120,7 @@ function SceneTitle ()
 						this.GameObjectsTitle[i].Start();
 					}
 				}
+				ctx.drawImage(Images.mouse, 465,380)
 			}		
 			this.LateUpdate();
 		}
@@ -136,6 +137,11 @@ function SceneTitle ()
 			Debug.ShowStats();
 		}
 	};
+
+	this.OnLoadLevel = function()
+	{
+		
+	}
 
 	// lance l'awake a la creation de la scene
 	this.Awake();

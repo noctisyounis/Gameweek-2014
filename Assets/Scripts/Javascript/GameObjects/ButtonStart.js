@@ -134,7 +134,7 @@ function ButtonStart ()
 
 	this.transform =
 	{
-		position: {x:470, y: 550},
+		position: {x:460, y: 550},
 		rotation: {x:0, y: 0}, // obselete
 		scale: {x: 70, y: 50}
 	};
@@ -149,7 +149,7 @@ function ButtonStart ()
  
  		BoxColliderSize: 
 		{
-			position: {x:470, y: 550},
+			position: {x:460, y: 550},
 			rotation: {x:0, y: 0}, // obselete
 			scale: {x: 70, y: 50}
 		}
@@ -338,7 +338,7 @@ function ButtonStart ()
 	this.OnClicked = function ()
 	{
 		console.log("clicked");
-		Scenes["title"].PlayPressed = true;
+		Application.LoadLevel("Intro");
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;

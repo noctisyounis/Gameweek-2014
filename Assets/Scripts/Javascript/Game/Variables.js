@@ -68,6 +68,7 @@ var ImagesPath = [
 	{ name: "logoIsart", path: "GUI/isart_logo.png"},
 	{ name: "mapGUI", path: "GUI/map.png"},
 	{ name: "backGUI", path: "GUI/retour.png"},
+	{ name: "mouse", path:"GUI/souris.png"},
 
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},
