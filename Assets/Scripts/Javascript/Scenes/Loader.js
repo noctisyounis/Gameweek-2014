@@ -132,9 +132,10 @@ function SceneLoader ()
 					 Scenes["FirstFloorCorridor"] = new FirstFloorCorridor();
 					 Scenes["SceneMap"] = new SceneMap();
 					 GUI.Obj = new ButtonMap();
-
 					 Application.LoadLevel("HerosRoom");
 
+
+					
 				}
 			}
 			if(!Dialogue.finished) 

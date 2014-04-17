@@ -79,6 +79,8 @@ function SceneRoom104 ()
 
 										));
 
+			this.GameObjects.push(new Coffre());
+
 			this.GameObjects.push(new DecorativeGameObject({
  													position: {x: 40, y: 380}, 
  													rotation: {x: 0, y: 0}, 
@@ -96,6 +98,7 @@ function SceneRoom104 ()
 
 
  												));
+
 			this.GameObjects.push(new DecorativeGameObject({
  													position: {x: 650, y: 320}, 
  													rotation: {x: 0, y: 0}, 
@@ -108,11 +111,12 @@ function SceneRoom104 ()
  												},
 
  												"Table de nuit",
- 												"Le bouquet est en train de fané! [medium]",
+ 												"Le bouquet est en train de faner! [medium]",
  												Images.roomTable
 
 
  												));
+			
 			
 
 			this.Started = true;

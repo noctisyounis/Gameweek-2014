@@ -135,7 +135,7 @@ function BoardDigit (id)
 
 	this.transform =
 	{
-		position: {x:200*id, y: 200},
+		position: {x: 235 + 170 * (id-1), y: 270},
 		rotation: {x:0, y: 0}, // obselete
 		scale: {x: 50, y: 200}
 	};
@@ -158,7 +158,7 @@ function BoardDigit (id)
 	this.Renderer = 
 	{
 		visible: false,
-		GizmosVisible: true,
+		GizmosVisible: false,
 		isSprite: false,
 		thit: this.name,
 		that: this.transform,
@@ -323,11 +323,13 @@ function BoardDigit (id)
 	this.LateUpdate = function ()
 	{
 		// GAMEOBJECT BEHAVIOR HERE !
+
 		if(this.renderer)
 			this.Renderer.Draw();
 		var originFont = ctx.font;
 		var originFillStyle = ctx.fillStyle;
 		var originTextAlign = ctx.textAlign;
+
 		ctx.font="50px Georgia";
 		ctx.textAlign="center";
 		ctx.fillStyle="yellow";
@@ -350,7 +352,6 @@ function BoardDigit (id)
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
-		console.log(Input.MouseClick + " " + Input.MouseLongClick + " " + Input.MouseReload);
 		if(Input.MouseClick && Input.MousePosition.y > this.Physics.BoxColliderSize.position.y && Input.MousePosition.y < this.Physics.BoxColliderSize.position.y + this.Physics.BoxColliderSize.scale.y/2){
 			this.number = this.number == 0 ? 9 : this.number -= 1;
 		}
