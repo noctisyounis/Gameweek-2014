@@ -138,7 +138,7 @@ function FloorButton (number, parent)
 	{
 		position: {x:200 + 250*number, y: 600},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 100, y: 50}
+		scale: {x: 100, y: 100}
 	};
 
 	this.Physics = 
@@ -153,14 +153,14 @@ function FloorButton (number, parent)
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 100, y: 50}
+			scale: {x: 100, y: 100}
 		}
 	};
 	this.Renderer = 
 	{
-		visible: false,
+		visible: true,
 		GizmosVisible: true,
-		isSprite: false,
+		isSprite: true,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
@@ -168,7 +168,6 @@ function FloorButton (number, parent)
 		Material:
 		{
 			source: "",
-
 			//DontTouch bellow 
 			SizeFrame:
 			{
@@ -194,8 +193,9 @@ function FloorButton (number, parent)
 		Draw: function ()
 		{
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
-			if(Application.DebugMode)
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
 				{
@@ -239,6 +239,12 @@ function FloorButton (number, parent)
 
 	this.Awake = function()
 	{
+		console.log(number);
+		if(number == 0) this.Renderer.Material.source = Images.ElevatorButton0;
+		else if(number == 1) this.Renderer.Material.source = Images.ElevatorButton1;
+		else if(number == 2) this.Renderer.Material.source = Images.ElevatorButton2;
+
+
 		this.Physics.BoxColliderOriginal = this.Physics.BoxColliderSize;
 		if(this.physics && this.ColliderIsSameSizeAsTransform)
 		{
@@ -251,11 +257,6 @@ function FloorButton (number, parent)
 			this.Physics.BoxColliderSize.position.y += this.transform.position.y;
 		}
 
-		if(this.Renderer.Material.src != "")
-		{
-			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.source.width / this.Renderer.Animation.current[2];
-			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.source.height;
-		}
 
 		console.log(" %c System: GameObject " + this.name + " Created!", 'background: #222; color: #bada55');
 	};

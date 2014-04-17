@@ -30,9 +30,9 @@ var ImagesPath = [
 	{ name: "titleLoadBackground", path: "Backgrounds/menu1.jpg"},
 	{ name: "titleCreditBackground", path: "Backgrounds/credits.jpg"},
 
-	{ name: "map_planRDC", path: "Map/Plan_RDC.png"},
-	{ name: "map_planE1", path: "Map/Plan_E1.png"},
-	{ name: "map_planE2", path: "Map/Plan_E2.png"},
+	{ name: "map_planRDC", path: "Map/Plan_RDC.jpg"},
+	{ name: "map_planE1", path: "Map/Plan_E1.jpg"},
+	{ name: "map_planE2", path: "Map/Plan_E2.jpg"},
 	{ name: "map_accueil", path: "Map/Accueil.png"},
 	{ name: "map_ascenseur", path: "Map/Ascenseur.png"},
 	{ name: "map_couloir", path: "Map/Couloir.png"},
@@ -43,6 +43,9 @@ var ImagesPath = [
 	{ name: "map_salle4", path: "Map/Salle4.png"},
 	{ name: "map_salle5", path: "Map/Salle5.png"},
 	{ name: "map_salle6", path: "Map/Salle6.png"},
+	{ name: "ElevatorButton0", path: "Map/button_rdc.png"},
+	{ name: "ElevatorButton1", path: "Map/button_1.png"},
+	{ name: "ElevatorButton2", path: "Map/button_2.png"},
 
 	{ name: "barBattleBackground", path: "GUI/barre_combat.jpg"},
 	{ name: "barBattleHitZone", path: "GUI/barre_combat1.jpg"},
