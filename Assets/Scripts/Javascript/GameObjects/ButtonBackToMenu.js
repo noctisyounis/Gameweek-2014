@@ -342,6 +342,7 @@ function ButtonBackToMenu ()
 	{
 		console.log("clicked");
 		Scenes["title"].PlayPressed = false;
+		Scenes["title"].CreditsPressed = false;
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;

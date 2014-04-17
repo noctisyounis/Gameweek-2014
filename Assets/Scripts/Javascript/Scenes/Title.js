@@ -49,7 +49,9 @@ function SceneTitle ()
 
 	this.GameObjectsTitle = [];
 	this.GameObjectsLoad = [];
+	this.GameObjectsCredits = [];
 	this.PlayPressed = false;
+	this.CreditPressed = false;
 
 	this.Awake = function()
 	{
@@ -63,7 +65,11 @@ function SceneTitle ()
 		if(!this.Started)
 		{
 			this.GameObjectsTitle.push(new ButtonStart());
+			this.GameObjectsTitle.push(new ButtonCredit());
+
 			this.GameObjectsLoad.push(new ButtonBackToMenu());
+			this.GameObjectsCredits.push(new ButtonBackToMenu());
+
 			for(var i = 0; i != 3; i++)
 			{
 				this.GameObjectsLoad.push(new ButtonLoadGame(i + 1));
@@ -80,24 +86,38 @@ function SceneTitle ()
 		if(!Application.GamePaused)
 		{
 			ctx.drawImage(this.PlayPressed ? Images.titleLoadBackground : Images.titleBackground, 0,0);
-
-			if(!this.PlayPressed)
+			if(this.CreditsPressed)
 			{
-				for(var i = 0; i < this.GameObjectsTitle.length; i++)
-				{
-					if(this.GameObjectsTitle[i].enabled)
-					{
-						this.GameObjectsTitle[i].Start();
-					}
-				}
+				ctx.drawImage(Images.titleCreditBackground, 0, 0);
 			}
-			else
+
+			if(this.PlayPressed)
 			{
 				for(var i = 0; i < this.GameObjectsLoad.length; i++)
 				{
 					if(this.GameObjectsLoad[i].enabled)
 					{
 						this.GameObjectsLoad[i].Start();
+					}
+				}
+			}
+			else if(this.CreditsPressed)
+			{
+				for(var i = 0; i < this.GameObjectsCredits.length; i++)
+				{
+					if(this.GameObjectsCredits[i].enabled)
+					{
+						this.GameObjectsCredits[i].Start();
+					}
+				}
+			}
+			else
+			{
+				for(var i = 0; i < this.GameObjectsTitle.length; i++)
+				{
+					if(this.GameObjectsTitle[i].enabled)
+					{
+						this.GameObjectsTitle[i].Start();
 					}
 				}
 			}		

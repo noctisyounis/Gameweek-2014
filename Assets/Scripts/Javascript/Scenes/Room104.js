@@ -116,8 +116,24 @@ function SceneRoom104 ()
 
 
  												));
-			
-			
+
+			this.GameObjects.push(new DecorativeGameObject({
+											position: {x: 500, y: 500}, 
+											rotation: {x: 0, y: 0}, 
+											scale: {x: Images.papers.width, y: Images.papers.height}
+										},
+										{
+											position: {x: 500, y: 500}, 
+											rotation: {x: 0, y: 0}, 
+											scale: {x: Images.papers.width, y: Images.papers.height}
+										},
+
+										"Papiers",
+										"*код безопасности 6359.* [long]",
+										Images.papers
+
+
+										));
 
 			this.Started = true;
 			Time.LevelLoaded();
@@ -142,7 +158,15 @@ function SceneRoom104 ()
 				{
 					this.GameObjects[i].Start();
 				}
-			}	
+			}
+
+			if (Progression.RouteAGotPassePartout == true && this.Step == 1)
+			{
+				Dialogue.Begin("Bingo ! Maintenant que j'ai le passe-partout, sortons d’ici ! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				this.Step = 2;
+			}
+
+
 			if(!Dialogue.finished) 
 			{
 				ctx.drawImage(Images.dialogueBox, 0, 470);

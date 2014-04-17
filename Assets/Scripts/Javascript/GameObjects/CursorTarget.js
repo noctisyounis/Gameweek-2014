@@ -345,10 +345,7 @@ function CursorTarget (background, ennemy, parent)
 		// Draw Bar 
 		ctx.drawImage(Images.barBattleBackground,0,500, canvas.width, 20);
 
-		// Draw Cursor
-		ctx.drawImage(Images.barBattleCursor,this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
-		var newX = this.state ?  this.transform.position.x + (700 * Time.DeltaTime) : this.transform.position.x - (700 * Time.DeltaTime);
-		this.SetPosition(newX, this.transform.position.y);
+		
 		
 		// Draw Monsters Target
 		for(var i =0; i < this.Monsters.length; i++)
@@ -370,6 +367,11 @@ function CursorTarget (background, ennemy, parent)
 				this.ImpactObjects.splice(i, 1);
 			}
 		}
+
+		// Draw Cursor
+		ctx.drawImage(Images.barBattleCursor,this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
+		var newX = this.state ?  this.transform.position.x + (700 * Time.DeltaTime) : this.transform.position.x - (700 * Time.DeltaTime);
+		this.SetPosition(newX, this.transform.position.y);
 		
 		if(this.transform.position.x > canvas.width) this.state = false;
 		if(this.transform.position.x < 0) this.state = true;

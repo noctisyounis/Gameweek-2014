@@ -75,7 +75,7 @@ function SceneRoom101 ()
  												},
 
  												"Rideaux",
- 												"Rien de pertinent ici. [short]",
+ 												"Rien d'interessant. [short]",
  												Images.roomCurtains2
 
 
@@ -94,7 +94,7 @@ function SceneRoom101 ()
  												},
 
  												"Porte-perfusion",
- 												"Je dois me dépêcher. [short]",
+ 												"La perfusion goûte sur le sol. [short]",
  												Images.roomMedicalstuff
 
 
@@ -104,7 +104,7 @@ function SceneRoom101 ()
 			this.GameObjects.push(new DecorativeGameObject({
  													position: {x: -100, y: 420}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: 548, y: 94}
+ 													scale: {x: 548, y: 314}
  												},
  												{
  													position: {x: -100, y: 420 + 20}, 

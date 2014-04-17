@@ -352,8 +352,9 @@ function BoardCode ()
 			i++;
 		}
 		
+		Progression.RouteAGotPassePartout = true;
+		Scenes.Room104.Step = 1;
 		Application.LoadLevel("Room104");
-		//Dialogue.Begin("Bingo ! Maintenant que j'ai le passe-partout, sortons d’ici ! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 		
 		
 

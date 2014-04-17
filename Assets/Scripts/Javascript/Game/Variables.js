@@ -28,6 +28,7 @@ var ImagesPath = [
 	{ name: "intro5", path: "Backgrounds/intro5.png"},
 	{ name: "titleBackground", path: "Backgrounds/menu.jpg"},
 	{ name: "titleLoadBackground", path: "Backgrounds/menu1.jpg"},
+	{ name: "titleCreditBackground", path: "Backgrounds/credits.jpg"},
 
 	{ name: "map_planRDC", path: "Map/Plan_RDC.png"},
 	{ name: "map_planE1", path: "Map/Plan_E1.png"},
@@ -117,7 +118,7 @@ var Progression = {
 	//Si le joueur a quitte sa chambre (intro)
 	OutOfHerosRoom : false,
 	//Si le joueur a passe l'ombre du couloir du second
-	SeenCorridorShadow : true,
+	SeenCorridorShadow : false,
 	//Si le joueur a recupere la cle de l'acsenseur
 	GotElevatorKey : false,
 	//Branche A only. Si le joueur a le passe partout
@@ -140,7 +141,7 @@ var Progression = {
 	RouteBGotNote : false
 };
 var GUI= {
-	Availaible: true,
+	Availaible: false,
 	Obj : null,
 }
 var RoomVisited = {

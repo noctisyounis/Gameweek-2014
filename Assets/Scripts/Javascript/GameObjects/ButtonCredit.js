@@ -125,40 +125,39 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function BoardDigit (id)
+function ButtonCredit()
 {
-	this.name = "BoardDigit "+ id;
+	this.name = "ButtonCredit";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
-	this.number = 0;
 
 	this.transform =
 	{
-		position: {x: 235 + 170 * (id-1), y: 270},
+		position: {x:900, y: 650},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 50, y: 200}
+		scale: {x: 70, y: 50}
 	};
 
 	this.Physics = 
 	{
-		BoxCollider: true,
+		BoxCollider: false,
 		Clickable:   true,
 		DragAndDropable: false,
-		ColliderIsSameSizeAsTransform: false,
-		RelativePosition: true,
+		ColliderIsSameSizeAsTransform: true,
+		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:0, y: 0},
+			position: {x:900, y: 650},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 50, y: 200}
+			scale: {x: 100, y: 50}
 		}
 	};
 	this.Renderer = 
 	{
-		visible: false,
-		GizmosVisible: false,
+		visible: true,
+		GizmosVisible: true,
 		isSprite: false,
 		thit: this.name,
 		that: this.transform,
@@ -194,7 +193,6 @@ function BoardDigit (id)
 		{
 			if(this.isSprite)
 				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
-				ctx.drawImage(Images.coffreBouton, 213 + 170 * (id-1), 270, 98, 190);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -210,7 +208,7 @@ function BoardDigit (id)
 				ctx.fillStyle = "rgba(122,122,122, 0.4)";
 				ctx.RoundedBox (this.that.position.x - 5, this.that.position.y - 60, 160, 55, 4);
 				ctx.fillStyle = "white";
-				ctx.font = "10px Georgia";
+				ctx.font = "11px Georgia";
 				ctx.fillText(this.thit , this.that.position.x, this.that.position.y - 45);
 				ctx.fillText("Rend x:" + Math.floor(this.that.position.x) + ", y:" + Math.floor(this.that.position.y) + ", w:" + Math.floor(this.that.scale.x) + ", h:" + Math.floor(this.that.scale.y), this.that.position.x, this.that.position.y - 25);
 				ctx.fillText("Collis x:" + Math.floor(this.thot.position.x) + ", y:" + Math.floor(this.thot.position.y) + ", w:" + Math.floor(this.thot.scale.x) + ", h:" + Math.floor(this.thot.scale.y), this.that.position.x, this.that.position.y - 10);
@@ -218,6 +216,7 @@ function BoardDigit (id)
 		}
 	}
 
+	this.textButton = "Credits";
 	this.SetActive = function (newState)
 	{
 		this.enabled = newState;
@@ -240,9 +239,9 @@ function BoardDigit (id)
 	this.Awake = function()
 	{
 		this.Physics.BoxColliderOriginal = this.Physics.BoxColliderSize;
-		if(this.physics && this.ColliderIsSameSizeAsTransform)
+		if(this.physics && this.Physics.ColliderIsSameSizeAsTransform)
 		{
-			this.BoxCollider = this.transform; 
+			this.Physics.BoxColliderSize = this.transform; 
 		}
 
 		if(this.physics && this.Physics.RelativePosition)
@@ -264,8 +263,6 @@ function BoardDigit (id)
 	{
 		if(!this.Started)
 		{
-			// DO START HERE
-
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -280,7 +277,7 @@ function BoardDigit (id)
 			{
 				if(this.Physics.BoxCollider)
 				{
-					for(var other in Application.LoadedLevel.GameObjects)
+					for(var other in GameObjects)
 					{
 						if(other.enabled && other.BoxCollider)
 						{
@@ -323,21 +320,14 @@ function BoardDigit (id)
 
 	this.LateUpdate = function ()
 	{
-		// GAMEOBJECT BEHAVIOR HERE !
-
+		ctx.fillStyle = "white";
+		ctx.font = "30px Georgia";
+		ctx.textBaseline="top"; 
+		ctx.fillText(this.textButton, this.transform.position.x, this.transform.position.y);
+		ctx.textBaseline = "bottom";
+		
 		if(this.renderer)
 			this.Renderer.Draw();
-		var originFont = ctx.font;
-		var originFillStyle = ctx.fillStyle;
-		var originTextAlign = ctx.textAlign;
-
-		ctx.font="50px Georgia";
-		ctx.textAlign="center";
-		ctx.fillStyle="yellow";
-		ctx.fillText(this.number,this.transform.position.x+this.transform.scale.x/2,this.transform.position.y+this.transform.scale.y/2);
-		ctx.font = originFont;
-		ctx.textAlign = originTextAlign;
-		ctx.fillStyle = originFillStyle;
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -347,17 +337,12 @@ function BoardDigit (id)
 
 	this.OnClicked = function ()
 	{
+		Scenes["title"].CreditsPressed = true;
 		if(this.Physics.DragAndDropable && !Input.MouseDraging || Input.MouseDraging && Input.DragedElement == this.name)
 		{
 			Input.MouseDraging = true;
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
-		}
-		if(Input.MouseClick && Input.MousePosition.y > this.Physics.BoxColliderSize.position.y && Input.MousePosition.y < this.Physics.BoxColliderSize.position.y + this.Physics.BoxColliderSize.scale.y/2){
-			this.number = this.number == 0 ? 9 : this.number -= 1;
-		}
-		else{
-			this.number = this.number == 9 ? 0 : this.number += 1;
 		}
 	};
 	this.OnHovered = function()

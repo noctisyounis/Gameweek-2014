@@ -81,7 +81,7 @@ function SceneRoom202 ()
 
  												));
 
-			//Table de chevée
+			//Table de chevet
 			this.GameObjects.push(new DecorativeGameObject({
  													position: {x: 650, y: 300}, 
  													rotation: {x: 0, y: 0}, 
@@ -93,7 +93,7 @@ function SceneRoom202 ()
  													scale: {x: 173 - 65, y: 236 - 53}
  												},
 
- 												"Table de chevée",
+ 												"Table de chevet",
  												"Il n'y a rien pour moi là-dedans. [short]",
  												Images.roomTable
 
