@@ -62,6 +62,8 @@ var ImagesPath = [
 	{ name: "logoHtml5", path: "GUI/html5_logo.png"},
 	{ name: "textHtml5", path: "GUI/html5_text.png"},
 	{ name: "logoIsart", path: "GUI/isart_logo.png"},
+	{ name: "mapGUI", path: "GUI/map.png"},
+	{ name: "backGUI", path: "GUI/retour.png"},
 
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},
@@ -137,6 +139,10 @@ var Progression = {
 	//Branche B only. Si le joueur a récupéré la note
 	RouteBGotNote : false
 };
+var GUI= {
+	Availaible: true,
+	Obj : null,
+}
 var RoomVisited = {
 	RDC : {
 		floor : false,
@@ -177,6 +183,7 @@ var Application =
 	LoadedLevel: null,
 	GamePaused: false,
 	DebugMode: true,
+	LastRoom: null,
 	
 	LoadLevel: function (SceneName)
 	{

@@ -154,7 +154,7 @@ function CursorTarget (background, ennemy, parent)
 		{
 			position: {x:0, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: canvas.width, y: 530}
+			scale: {x: canvas.width, y: canvas.height}
 		}
 	};
 	this.Renderer = 
@@ -326,7 +326,7 @@ function CursorTarget (background, ennemy, parent)
 		}
 		
 	};
-
+	this.PanicBar = 0;
 	this.LateUpdate = function ()
 	{
 		this.reloadWeapon -= 2 * Time.DeltaTime; // change by reload;
@@ -374,6 +374,14 @@ function CursorTarget (background, ennemy, parent)
 		if(this.transform.position.x > canvas.width) this.state = false;
 		if(this.transform.position.x < 0) this.state = true;
 
+		this.PanicBar +=  10 * Time.DeltaTime;
+		ctx.drawImage(Images.cardio, 0, 0, this.PanicBar, Images.cardio.height, 0, 500, this.PanicBar, Images.cardio.height);
+
+		if(this.PanicBar > canvas.width)
+		{
+			this.parent.BattleResult("Loose");
+		}
+
 		if(this.renderer)
 			this.Renderer.Draw();
 	}; 
@@ -416,7 +424,7 @@ function CursorTarget (background, ennemy, parent)
 						this.Monsters.splice(i, 1);
 						if(this.Monsters.length < 1)
 						{
-							this.parent.Step = 10;
+							this.parent.BattleResult("Win");
 						}
 					}
 					//if(this.Monsters.)

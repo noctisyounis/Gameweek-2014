@@ -125,51 +125,48 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function BoardCode ()
+function ButtonMap ()
 {
-	this.name = "BoardCode";
+	this.name = "";
 	this.enabled = true;
-	this.physics = false;
-	this.renderer = false;
-	this.GameObjects = [];
-	this.solution = [6,3,5,9];
-	this.code = [];
-	this.winText = false;
+	this.physics = true;
+	this.renderer = true;
 
 	this.transform =
 	{
-		position: {x:0, y: 0},
+		position: {x:canvas.width - 50, y: 0},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 0, y: 0}
+		scale: {x: 50, y: 50}
 	};
 
 	this.Physics = 
 	{
 		BoxCollider: false,
-		Clickable:   false,
+		Clickable:   true,
+		ShowVignetWithNameOnHover: false,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
 		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:0, y: 0},
+			position: {x:canvas.width - 50, y: 0},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 0, y: 0}
+			scale: {x: 50, y: 50}
 		}
 	};
 	this.Renderer = 
 	{
-		visible: false,
+		visible: true,
 		GizmosVisible: false,
-		isSprite: false,
+		isSprite: true,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			source: "",
+			source: Images.mapGUI,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -196,7 +193,9 @@ function BoardCode ()
 		Draw: function ()
 		{
 			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -253,11 +252,6 @@ function BoardCode ()
 			this.Physics.BoxColliderSize.position.y += this.transform.position.y;
 		}
 
-		if(this.Renderer.Material.src != "")
-		{
-			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.source.width / this.Renderer.Animation.current[2];
-			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.source.height;
-		}
 
 		console.log(" %c System: GameObject " + this.name + " Created!", 'background: #222; color: #bada55');
 	};
@@ -267,13 +261,7 @@ function BoardCode ()
 		if(!this.Started)
 		{
 			// DO START HERE
-			var i = 1;
-			while(i != 5)
-			{
-				this.GameObjects.push(new BoardDigit(i));
-				i++;
-			}
-			//creer 4 gameobject digit
+
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -288,7 +276,7 @@ function BoardCode ()
 			{
 				if(this.Physics.BoxCollider)
 				{
-					for(var other in GameObjects)
+					for(var other in Application.LoadedLevel.GameObjects)
 					{
 						if(other.enabled && other.BoxCollider)
 						{
@@ -307,6 +295,10 @@ function BoardCode ()
 					{
 						if(!Input.MouseClick) this.OnHovered();
 						if(Input.MouseClick)  this.OnClicked();
+					}
+					else
+					{
+						this.UnHovered();
 					}
 				}
 			}
@@ -331,32 +323,16 @@ function BoardCode ()
 
 	this.LateUpdate = function ()
 	{
-		this.code = [];
-		// boucle sur les 4 digit qu'on  creer plus haut Start()
-		ctx.fillStyle = "black";
-		ctx.drawImage(Images.coffreBackground,0,0);
-		for(var i = 0; i < this.GameObjects.length; i++)
+		if(Application.LoadedLevel == Scenes["SceneMap"])
 		{
-			if(this.GameObjects[i].enabled)
-			{
-				this.GameObjects[i].Start();
-			}
-			this.code.push(this.GameObjects[i].number);
+			this.Renderer.Material.source = Images.backGUI;
+		}
+		else
+		{
+			this.Renderer.Material.source = Images.mapGUI;
 		}
 		if(this.renderer)
 			this.Renderer.Draw();
-		var i = 0
-		while(i < 4){
-			if(this.code[i] != this.solution[i])
-				return;
-			i++;
-		}
-		
-		Application.LoadLevel("Room104");
-		//Dialogue.Begin("Bingo ! Maintenant que j'ai le passe-partout, sortons d’ici ! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-		
-		
-
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -372,8 +348,23 @@ function BoardCode ()
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
+		if(Application.LoadedLevel == Scenes["SceneMap"])
+		{
+			Application.LoadedLevel = Application.LastRoom;
+			console.log(Application.LoadedLevel);
+		}
+		else
+		{
+			Application.LastRoom = Application.LoadedLevel;
+			Application.LoadLevel("SceneMap");
+		}
 	};
+
 	this.OnHovered = function()
+	{	
+	};
+	
+	this.UnHovered = function()
 	{
 	};
 
