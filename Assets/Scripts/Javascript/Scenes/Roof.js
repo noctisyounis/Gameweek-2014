@@ -46,6 +46,7 @@ function SceneRoof ()
 {
 	this.name = "Toit";
 	this.Started = false;
+	this.step = 0;
 
 	this.GameObjects = [];
 
@@ -129,6 +130,44 @@ function SceneRoof ()
 		if(!Application.GamePaused)
 		{
 			ctx.drawImage(Images.toitBackground ,0,0, canvas.width, canvas.height);
+
+			switch(this.step){
+				case 0:
+					GUI.Availaible = false;
+					Dialogue.Begin("Aucune issue [short] . [short] . [short] . [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
+					this.step++;
+					break;
+				case 1:
+					if(Dialogue.finished){
+						Dialogue.Begin("“RECULEZ ! NE VOUS APPROCHEZ PAS !”", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+					}
+					break;
+				case 2:
+					if(Dialogue.finished){
+						//Combat
+						this.step++;
+					}
+					break;
+				case 3:
+					if(Dialogue.finished){
+						Dialogue.Begin("Je... C’était donc moi...", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+					}
+					break;
+				case 4:
+					if(Dialogue.finished){
+						Dialogue.Begin("Depuis le début...... Qu’ai-je fait...", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+					}
+					break;
+				case 5:
+					if(Dialogue.finished){
+						GUI.Availaible = true;
+						this.step++;
+					}
+					break;
+			}
 
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{

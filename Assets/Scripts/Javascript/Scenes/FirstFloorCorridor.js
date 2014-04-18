@@ -78,20 +78,9 @@ function FirstFloorCorridor ()
 	this.AlphaPosition = 400;
 	this.Update = function()
 	{
-		if(!Application.GamePaused)
-		{
-			ctx.drawImage(Images.ascenseurFerme, 448, 274);
-			ctx.drawImage(Images.couloirBackgroundNoElevator, 0, 0);
-			for(var i = 0; i < this.GameObjects.length; i++)
-			{
-				if(this.GameObjects[i].enabled)
-				{
-					this.GameObjects[i].Start();
-				}
-			}
-		}
 
-
+		ctx.drawImage(Images.ascenseurFerme, 448, 274);
+		ctx.drawImage(Images.couloirBackgroundNoElevator, 0, 0);
 		if(Progression.PassiveRoute && !Progression.HasBattleRoom104Nurse){
 			switch(this.Step){
 				case 1:
@@ -147,6 +136,17 @@ function FirstFloorCorridor ()
 						this.Step++;
 					}
 					break;
+			}
+		}
+
+		if(!Application.GamePaused)
+		{
+			for(var i = 0; i < this.GameObjects.length; i++)
+			{
+				if(this.GameObjects[i].enabled)
+				{
+					this.GameObjects[i].Start();
+				}
 			}
 		}
 

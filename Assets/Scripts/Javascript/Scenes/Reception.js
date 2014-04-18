@@ -46,6 +46,7 @@ function SceneReception ()
 {
 	this.name = "Accueil";
 	this.Started = false;
+	this.step = 0;
 
 	this.GameObjects = [];
 
@@ -61,7 +62,7 @@ function SceneReception ()
 		{
 			//codez le start avant le changement de booleen
 
-			this.GameObjects.push(new DecorativeGameObject({
+		this.GameObjects.push(new DecorativeGameObject({
 											position: {x: 60, y: 150}, 
 											rotation: {x: 0, y: 0}, 
 											scale: {x: Images.monsterNurse.width, y: Images.monsterNurse.height}
@@ -115,6 +116,86 @@ function SceneReception ()
 		{
 			ctx.fillStyle = "black";
 			ctx.drawImage(Images.accueil1Background,0,0, canvas.width, canvas.height);
+
+			if(Progression.GotElevatorKey && !Progression.HasBattleRoom104Nurse){
+				switch(this.step){
+					case 0:
+						GUI.Availaible = false;
+						Dialogue.Begin("Cet hôpital est sans dessus dessous ! Que se passe t-il ici ?!", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							Dialogue.Begin("Je dois trouver un autre chemin.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 2:
+						if(Dialogue.finished){
+							GUI.Availaible = true;
+							this.step++;
+						}
+						break;
+				}
+			}
+			else if(!Progression.PassiveRoute && Progression.RouteBGotNote){
+				switch(this.step){
+					case 0:
+						GUI.Availaible = false;
+						Dialogue.Begin("“Mais qu’est-ce que vous me voulez !? CASSEZ-VOUS !”", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							Dialogue.Begin("Y en a partout ! Il me faut un truc pour me frayer un chemin !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 2:
+						if(Dialogue.finished){
+							Dialogue.Begin("“NE M’APPROCHEZ-PAS !”", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 3:
+						if(Dialogue.finished){
+							//Combat
+							this.step++;
+						}
+						break;
+					case 4:
+						if(Dialogue.finished){
+							Dialogue.Begin("La sortie est juste ici ! Ce cauchemar va enfin se terminer !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 5:
+						if(Dialogue.finished){
+							Dialogue.Begin("Que... Qu’est-ce que... Des hallucinations ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 6:
+						if(Dialogue.finished){
+							Dialogue.Begin("...Tout ça c’était... dans ma tête ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 7:
+						if(Dialogue.finished){
+							Dialogue.Begin("Qu’est-ce qu’il m’arrive... Qu’ai-je fait...", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 8:
+						if(Dialogue.finished){
+							GUI.Availaible = true;
+							this.step++;
+						}
+						break;
+				}
+			}
+
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{
 				if(this.GameObjects[i].enabled)
