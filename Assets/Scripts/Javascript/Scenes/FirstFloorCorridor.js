@@ -133,6 +133,7 @@ function FirstFloorCorridor ()
 				case 4:
 					if(Dialogue.finished){
 						GUI.Availaible = true;
+						Application.LoadLevel("SecondFloorCorridor");
 						this.Step++;
 					}
 					break;

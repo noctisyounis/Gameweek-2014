@@ -308,7 +308,7 @@ function SceneRoom104 ()
 					case 8:
 						if(Dialogue.finished){
 							Progression.HasBattleRoom104Nurse = true;
-							Application.LoadLevel("FirstFloorCorridor");
+							Application.LoadLevel("SecondFloorCorridor");
 							this.step++;
 						}
 						break;
