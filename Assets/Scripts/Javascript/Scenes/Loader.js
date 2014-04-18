@@ -133,9 +133,10 @@ function SceneLoader ()
 					 Scenes["SceneMap"] = new SceneMap();
 					 Scenes["NumericCode"] = new SceneNumericCode();
 					 Scenes["BoardCode"] = new BoardCode();
+					 Scenes["AndroidCode"] = new SceneAndroidCode();
 					 GUI.Obj = new ButtonMap();
 
-					 Application.LoadLevel("Room101");
+					 Application.LoadLevel("Office");
 				}
 			}
 			if(!Dialogue.finished) 
