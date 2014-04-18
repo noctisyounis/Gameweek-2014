@@ -1,4 +1,4 @@
-/*	**** For create a new GameObject **** 
+/*	**** For create a new Scene **** 
 *
 *	@step 1							Copy the content of this file in a new .js document.
 *   ----------------------------------------------------------------------------------------------------------------------------
@@ -42,117 +42,50 @@
 
 
 
-function SceneLoader () 
+function SceneOutro () 
 {
-	this.name = "Loader";
+	this.name = "Model";
 	this.Started = false;
 
 	this.GameObjects = [];
-	this.imageLoaded = 0;
-	var loadingShowed = false;
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
-
-
+		console.clear();
 		console.log(" %c System: Scene " + this.name + " created!", 'background: #222; color: #bada55'); 
 	};
-
 	this.Start = function()
 	{
 		if(!this.Started)
 		{
 			//codez le start avant le changement de booleen
-
+			this.GameObjects.push(new ButtonFinishGame());
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
 		}
 		this.Update();
 	};
-	this.alphacountIsartLogo = 0;
-	this.alphacountHtmlLogo = 0;
+
+	this.OnLoadLevel = function()
+	{
+
+	};
 
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
 		{
-			ctx.fillStyle = "black";
-			ctx.fillRect(0,0, canvas.width, canvas.height);
-			
-			if(Images.loaderBackground)
+			ctx.drawImage(Images.outro, 0,0);
+			for(var i = 0; i < this.GameObjects.length; i++)
 			{
-				ctx.drawImage(Images.loaderBackground, 0, 0, canvas.width, canvas.height);
-			}
-			if(Images.logoIsart && Images.logoHtml5)
-			{
-				ctx.save();
-
-				this.alphacountIsartLogo += 200/*0.3 */* Time.DeltaTime;
-				ctx.globalAlpha = this.alphacountIsartLogo;
-				ctx.drawImage(Images.logoIsart, canvas. width / 2 - Images.logoHtml5.width /2 + 10,50);
-				if(this.alphacountIsartLogo > 1.5)
+				if(this.GameObjects[i].enabled)
 				{
-					this.alphacountHtmlLogo += 200/*1*/ * Time.DeltaTime;
-					ctx.globalAlpha = this.alphacountHtmlLogo;
-					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,150);
+					this.GameObjects[i].Start();
 				}
-				ctx.restore();
-			}
-
-			if(this.alphacountHtmlLogo > 2 && !this.loadingShowed)
-			{
-				this.loadingShowed = true;
-				Dialogue.Begin("Chargement  .  .  . ", 0.01, {x: 465 , y:490}, "white");
-			}
-			if(this.alphacountHtmlLogo > 2 && Dialogue.finished)
-			{ 
-				console.log(this.imageLoaded);
-				console.log(ImagesPath.length);
-				if(this.imageLoaded == ImagesPath.length)
-				{
-					 Scenes["Intro"] = new SceneIntro();
-					 Scenes["HerosRoom"] = new SceneHerosRoom();
-					 Scenes["title"] = new SceneTitle();
-					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
-					 Scenes["BreakRoom"] = new SceneBreakRoom();
-					 Scenes["Room101"] = new SceneRoom101();
-					 Scenes["Room102"] = new SceneRoom102();
-					 Scenes["Room103"] = new SceneRoom103();
-					 Scenes["Room105"] = new SceneRoom105();
-					 Scenes["Room106"] = new SceneRoom106();
-					 Scenes["Room202"] = new SceneRoom202();
-					 Scenes["Room203"] = new SceneRoom203();
-					 Scenes["Office"] = new SceneOffice();
-					 Scenes["Room104"] = new SceneRoom104();
-					 Scenes["Room204"] = new SceneRoom204();
-					 Scenes["Reception"] = new SceneReception();
-					 Scenes["Roof"] = new SceneRoof();
-					 Scenes["SecondFloorCorridor"] = new SecondFloorCorridor();
-					 Scenes["FirstFloorCorridor"] = new FirstFloorCorridor();
-					 Scenes["SceneMap"] = new SceneMap();
-					 Scenes["NumericCode"] = new SceneNumericCode();
-					 Scenes["BoardCode"] = new BoardCode();
-					 Scenes["AndroidCode"] = new SceneAndroidCode();
-					 Scenes["Outro"] = new SceneOutro();
-					 GUI.Obj = new ButtonMap();
-
-
-					 Application.LoadLevel("Office");
-				}
-			}
-			if(!Dialogue.finished) 
-			{
-				Dialogue.Continue();
-			}
-
-			ctx.strokeStyle = "white";
-			ctx.strokeRect( canvas.width / 2 - 200, 500, 400, 20);
-			ctx.fillStyle = "white";
-			var portion = 400 / ImagesPath.length;
-			ctx.RoundedBox( canvas.width / 2 - 198, 503, this.imageLoaded * portion - 4, 15, 6);
-
-			
+			}	
+			if(!Dialogue.finished) {Dialogue.Continue();}
 			this.LateUpdate();
 		}
 	};
@@ -168,11 +101,6 @@ function SceneLoader ()
 			Debug.ShowStats();
 		}
 	};
-	
-	this.OnLoadLevel = function(){
-		
-	}
-
 
 	// lance l'awake a la creation de la scene
 	this.Awake();

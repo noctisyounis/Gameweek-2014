@@ -203,19 +203,19 @@ function SceneReception ()
 						break;
 					case 6:
 						if(Dialogue.finished){
-							Dialogue.Begin("Que... Qu’est-ce que... Des hallucinations ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							Dialogue.Begin("Que... [short] Qu’est-ce que... [short] Des hallucinations ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
 					case 7:
 						if(Dialogue.finished){
-							Dialogue.Begin("...Tout ça c’était... dans ma tête ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							Dialogue.Begin("... [short] Tout ça c’était... [short] dans ma tête ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
 					case 8:
 						if(Dialogue.finished){
-							Dialogue.Begin("Qu’est-ce qu’il m’arrive... Qu’ai-je fait...", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							Dialogue.Begin("Qu’est-ce qu’il m’arrive...  [short] Qu’ai-je fait...", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
@@ -224,6 +224,9 @@ function SceneReception ()
 							GUI.Availaible = true;
 							this.step++;
 						}
+						break;
+					case 10:
+						Application.LoadLevel("title");
 						break;
 				}
 			}

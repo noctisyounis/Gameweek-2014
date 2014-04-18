@@ -125,24 +125,23 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function Papers ()
+function ButtonFinishGame ()
 {
-	this.name = "Papers";
+	this.name = "finish";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
-	this.state = false;
 
 	this.transform =
 	{
-		position: {x: 100, y: 530}, 
-		rotation: {x: 0, y: 0}, 
-		scale: {x: 231 / 2.5, y: 118 / 2.5}
+		position: {x:307, y: 548},
+		rotation: {x:0, y: 0}, // obselete
+		scale: {x: 200, y: 30}
 	};
 
 	this.Physics = 
 	{
-		BoxCollider: true,
+		BoxCollider: false,
 		Clickable:   true,
 		ShowVignetWithNameOnHover: false,
 		DragAndDropable: false,
@@ -151,23 +150,23 @@ function Papers ()
  
  		BoxColliderSize: 
 		{
-			position: {x: 100, y: 530},
-			rotation: {x: 0, y: 0}, 
-			scale: {x: 231 / 2.5, y: 118 / 2.5}
+			position: {x:307, y: 548},
+		rotation: {x:0, y: 0}, // obselete
+		scale: {x: 430, y: 80}
 		}
 	};
 	this.Renderer = 
 	{
-		visible: true,
-		GizmosVisible: false,
-		isSprite: true,
+		visible: false,
+		GizmosVisible: true,
+		isSprite: false,
 		thit: this.name,
 		that: this.transform,
 		thot: this.Physics.BoxColliderSize,
 
 		Material:
 		{
-			source: Images.feuilles,
+			source: "",
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -193,10 +192,6 @@ function Papers ()
 
 		Draw: function ()
 		{
-			if(this.isSprite)
-				if(this.Animation.animated)
-				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
-				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -329,8 +324,6 @@ function Papers ()
 
 	this.LateUpdate = function ()
 	{
-
-		if(this.state) ctx.drawImage(Images.noteDoc,0,0);
 		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
@@ -349,28 +342,18 @@ function Papers ()
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
-
-		if(Input.MouseClick && Dialogue.finished)
-		{
-			if(Progression.PassiveRoute == true)
-			{
-				Dialogue.Begin("Comment j'ai pu me retrouver sur deux blocs en même temps ? [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-			}
-			else
-			{
-				this.state = !this.state;
-			}
-			//Application.LoadedLevel.DestroyKey(this);
-			Progression.RouteBGotNote = true;
-		}
+		Application.LoadLevel("title");
 	};
 
 	this.OnHovered = function()
 	{	
+		if(this.Physics.ShowVignetWithNameOnHover)
+		{
 			ctx.fillStyle = "grey";
 			ctx.RoundedBox(Input.MousePosition.x, Input.MousePosition.y, 100, 30, 5);
 			ctx.fillStyle = "white";
 			ctx.fillText(this.name, Input.MousePosition.x + 20, Input.MousePosition.y + 13);
+		}
 	};
 	
 	this.UnHovered = function()

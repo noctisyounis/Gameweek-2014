@@ -106,13 +106,13 @@ function SceneRoof ()
 				case 4:
 					this.GameObjects = [];
 					if(Dialogue.finished){
-						Dialogue.Begin("Je... C’était donc moi...", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						Dialogue.Begin("Je... [short] C’était donc moi...", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.step++;
 					}
 					break;
 				case 5:
 					if(Dialogue.finished){
-						Dialogue.Begin("Depuis le début...... Qu’ai-je fait...", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						Dialogue.Begin("Depuis le début ...... [short] Qu’ai-je fait...", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.step++;
 					}
 					break;
@@ -121,6 +121,9 @@ function SceneRoof ()
 						GUI.Availaible = true;
 						this.step++;
 					}
+					break;
+				case 7:
+					Application.LoadLevel("Outro");
 					break;
 			}
 
