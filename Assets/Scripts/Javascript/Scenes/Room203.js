@@ -49,6 +49,7 @@ function SceneRoom203 ()
 
 	this.GameObjects = [];
 
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log

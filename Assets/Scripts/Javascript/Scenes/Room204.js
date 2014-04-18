@@ -115,6 +115,28 @@ function SceneRoom204 ()
 
  												));
 
+			if(!Progression.PassiveRoute)
+			{
+				this.GameObjects.push(new PassePartout({
+ 													position: {x: 650, y: 320}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: Images.roomTable.width, y: Images.roomTable.height}
+ 												},
+ 												{
+ 													position: {x: 740, y: 540}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 40, y: 40}
+ 												},
+
+ 												"Passe Partout",
+ 												"Oh tiens, c'est le passe partout de l'hopital. [medium]",
+ 												"",
+ 												this
+
+
+ 												));
+			}
+
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
@@ -153,11 +175,21 @@ function SceneRoom204 ()
 		if(!Application.GamePaused)
 		{
 			//Codez la GUI ici pour que la pause soit prise en compte
+			ctx.fillStyle = "rgba(122,122,122, 0.4)";
+			ctx.RoundedBox(0, 0, 125, 30, 20);
+			ctx.fillStyle = "white";
+			ctx.font = "15px Georgia";
+			ctx.fillText(Application.LoadedLevel.name, 20, 23);
 		}
 		if(Application.DebugMode)
 		{
 			Debug.ShowStats();
 		}
+	};
+
+	this.OnLoadLevel = function()
+	{
+		GUI.Availaible = true;
 	};
 
 	// lance l'awake a la creation de la scene

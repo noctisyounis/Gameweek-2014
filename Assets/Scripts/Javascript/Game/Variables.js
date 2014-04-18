@@ -74,6 +74,7 @@ var ImagesPath = [
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},
 	{ name: "monsterNurse", path: "Enemies/monster_nurse.png"},
+	{ name: "cop", path: "Enemies/cop.png"},
 
 
 	{ name: "roomBed", path: "Objects/room_bed.png"},
@@ -137,7 +138,7 @@ var Progression = {
 	//Branche A only. Si le joueur a regardé la carte d'anniversaire
 	RouteAHasSeenBirthdayCard : false,
 	//Branche A only. Si le joueur a eu acces a l'ordinateur
-	RouteAHasComputerAccess : true,
+	RouteAHasComputerAccess : false,
 	//Branche A only. Si le joueur a combattu les hallu après le pc
 	RouteAHasBattleThingsAfterPC : false,
 	//Branche A only. Résultat du combat dans le couloir du second après le pc

@@ -62,42 +62,6 @@ function SceneReception ()
 		{
 			//codez le start avant le changement de booleen
 
-		this.GameObjects.push(new DecorativeGameObject({
-											position: {x: 60, y: 150}, 
-											rotation: {x: 0, y: 0}, 
-											scale: {x: Images.monsterNurse.width, y: Images.monsterNurse.height}
-										},
-										{
-											position: {x: 0, y: 0}, 
-											rotation: {x: 0, y: 0}, 
-											scale: {x: 0, y:0}
-										},
-
-										"Policier",
-										"Le lit de la chambre 204, il a l'air d'avoir servi récemment. [medium]",
-										Images.monsterNurse
-
-
-										));
-		this.GameObjects.push(new DecorativeGameObject({
-								position: {x: 310, y: 290}, 
-								rotation: {x: 0, y: 0}, 
-								scale: {x: Images.monsterNurse.width, y: Images.monsterNurse.height}
-							},
-							{
-								position: {x: 0, y: 0}, 
-								rotation: {x: 0, y: 0}, 
-								scale: {x: 0, y:0}
-							},
-
-							"Gendarme",
-							"Le lit de la chambre 204, il a l'air d'avoir servi récemment. [medium]",
-							Images.monsterNurse
-
-
-							));
-
-
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
@@ -159,35 +123,42 @@ function SceneReception ()
 						break;
 					case 3:
 						if(Dialogue.finished){
-							//Combat
+							this.GameObjects.push(
+								new CursorTarget(Images.accueil1Background, [
+									{sprite: Images.cop, x: 50, y: 150, w: 400, h: 800, speed: 5, Life: 20},
+									{sprite: Images.cop, x: 520, y: 150, w: 400, h: 800, speed: 5, Life: 20}
+									], this));
 							this.step++;
 						}
 						break;
 					case 4:
+						break;
+					case 5:
+						this.GameObjects = [];
 						if(Dialogue.finished){
 							Dialogue.Begin("La sortie est juste ici ! Ce cauchemar va enfin se terminer !", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
-					case 5:
+					case 6:
 						if(Dialogue.finished){
 							Dialogue.Begin("Que... Qu’est-ce que... Des hallucinations ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
-					case 6:
+					case 7:
 						if(Dialogue.finished){
 							Dialogue.Begin("...Tout ça c’était... dans ma tête ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
-					case 7:
+					case 8:
 						if(Dialogue.finished){
 							Dialogue.Begin("Qu’est-ce qu’il m’arrive... Qu’ai-je fait...", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
-					case 8:
+					case 9:
 						if(Dialogue.finished){
 							GUI.Availaible = true;
 							this.step++;
@@ -223,6 +194,11 @@ function SceneReception ()
 			Debug.ShowStats();
 		}
 	};
+
+	this.BattleResult = function(str)
+	{
+		this.step++;
+	}
 
 	// lance l'awake a la creation de la scene
 	this.Awake();
