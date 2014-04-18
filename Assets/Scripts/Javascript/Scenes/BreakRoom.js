@@ -157,7 +157,7 @@ function SceneBreakRoom ()
 
 	this.OnLoadLevel = function()
 	{
-
+		this.step = 0;
 	};
 
 	this.Update = function()

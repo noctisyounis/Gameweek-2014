@@ -125,16 +125,19 @@ function SceneReception ()
 
 	this.OnLoadLevel = function()
 	{
-
+		this.step = 0;
 	};
 
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
 		{
+			for(i = 0; i < this.GameObjects.length-1; i++){
+				this.GameObjects[i].enabled = false;
+			}
 			ctx.fillStyle = "black";
 			ctx.drawImage(Images.accueil1Background,0,0, canvas.width, canvas.height);
-
+			console.log(Progression.PassiveRoute, Progression.RouteBGotNote);
 			if(Progression.GotElevatorKey && !Progression.HasBattleRoom104Nurse){
 				switch(this.step){
 					case 0:
@@ -164,25 +167,23 @@ function SceneReception ()
 				}
 			}
 			else if(!Progression.PassiveRoute && Progression.RouteBGotNote){
+				if(this.step == 0 || this.step == 1 || this.step == 2){
+					ctx.drawImage(Images.cop, 50, 150, 400, 800);
+					ctx.drawImage(Images.cop, 520, 150, 400, 800);
+				}
 				switch(this.step){
 					case 0:
 						GUI.Availaible = false;
-						Dialogue.Begin("“Mais qu’est-ce que vous me voulez !? CASSEZ-VOUS !”", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						Dialogue.Begin("“Le fou est ici!” “Ne le laissez pas tuer d'autres personnes!”", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.step++;
 						break;
 					case 1:
-						if(Dialogue.finished){
-							Dialogue.Begin("Y en a partout ! Il me faut un truc pour me frayer un chemin !", 0.10, {x:30, y:570}, "white", "30px Georgia");
-							this.step++;
-						}
-						break;
-					case 2:
 						if(Dialogue.finished){
 							Dialogue.Begin("“NE M’APPROCHEZ-PAS !”", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
-					case 3:
+					case 2:
 						if(Dialogue.finished){
 							this.GameObjects.push(
 								new CursorTarget(Images.accueil1Background, [
@@ -192,41 +193,34 @@ function SceneReception ()
 							this.step++;
 						}
 						break;
+					case 3:
+						break;
 					case 4:
-						break;
-					case 5:
-						this.GameObjects = [];
-						if(Dialogue.finished){
-							Dialogue.Begin("La sortie est juste ici ! Ce cauchemar va enfin se terminer !", 0.10, {x:30, y:570}, "white", "30px Georgia");
-							this.step++;
-						}
-						break;
-					case 6:
 						if(Dialogue.finished){
 							Dialogue.Begin("Que... [short] Qu’est-ce que... [short] Des hallucinations ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
-					case 7:
+					case 5:
 						if(Dialogue.finished){
 							Dialogue.Begin("... [short] Tout ça c’était... [short] dans ma tête ?", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
-					case 8:
+					case 6:
 						if(Dialogue.finished){
 							Dialogue.Begin("Qu’est-ce qu’il m’arrive...  [short] Qu’ai-je fait...", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
-					case 9:
+					case 7:
 						if(Dialogue.finished){
 							GUI.Availaible = true;
 							this.step++;
 						}
 						break;
-					case 10:
-						Application.LoadLevel("title");
+					case 8:
+						Application.LoadLevel("Outro");
 						break;
 				}
 			}

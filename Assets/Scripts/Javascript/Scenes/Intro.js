@@ -192,7 +192,7 @@ function SceneIntro ()
 
 	this.OnLoadLevel = function()
 	{
-		
+		this.Step = 0;
 	}
 
 	// lance l'awake a la creation de la scene

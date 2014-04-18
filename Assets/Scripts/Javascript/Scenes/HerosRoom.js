@@ -230,12 +230,12 @@ function SceneHerosRoom ()
 		if(idClicked == 1)
 		{
 			this.Step = 100;
-			Progression.PassveRoute = false;
+			Progression.PassiveRoute = false;
 			//Combat;
 		}
 		else
 		{
-			Progression.PassveRoute = true;
+			Progression.PassiveRoute = true;
 			this.Step = 10; //pasCombat;
 		}
 	}

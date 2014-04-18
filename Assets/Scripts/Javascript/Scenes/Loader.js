@@ -88,12 +88,12 @@ function SceneLoader ()
 			{
 				ctx.save();
 
-				this.alphacountIsartLogo += 200/*0.3 */* Time.DeltaTime;
+				this.alphacountIsartLogo += 0.3 * Time.DeltaTime;
 				ctx.globalAlpha = this.alphacountIsartLogo;
 				ctx.drawImage(Images.logoIsart, canvas. width / 2 - Images.logoHtml5.width /2 + 10,50);
 				if(this.alphacountIsartLogo > 1.5)
 				{
-					this.alphacountHtmlLogo += 200/*1*/ * Time.DeltaTime;
+					this.alphacountHtmlLogo += 1 * Time.DeltaTime;
 					ctx.globalAlpha = this.alphacountHtmlLogo;
 					ctx.drawImage(Images.logoHtml5, canvas. width / 2 - Images.logoHtml5.width /2 ,150);
 				}
@@ -103,7 +103,7 @@ function SceneLoader ()
 			if(this.alphacountHtmlLogo > 2 && !this.loadingShowed)
 			{
 				this.loadingShowed = true;
-				Dialogue.Begin("Chargement  .  .  . ", 0.01, {x: 465 , y:490}, "white");
+				Dialogue.Begin("Chargement  .  .  . ", 0.1, {x: 465 , y:490}, "white");
 			}
 			if(this.alphacountHtmlLogo > 2 && Dialogue.finished)
 			{ 
@@ -138,7 +138,7 @@ function SceneLoader ()
 					 GUI.Obj = new ButtonMap();
 
 
-					 Application.LoadLevel("Office");
+					 Application.LoadLevel("title");
 				}
 			}
 			if(!Dialogue.finished) 

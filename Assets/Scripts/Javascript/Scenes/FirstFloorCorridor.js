@@ -70,7 +70,7 @@ function FirstFloorCorridor ()
 
 	this.OnLoadLevel = function()
 	{
-
+		this.Step = 1;
 	};
 
 	this.Step = 1;
@@ -152,6 +152,7 @@ function FirstFloorCorridor ()
 		}
 
 		if(!Dialogue.finished) {
+			ctx.drawImage(Images.dialogueBox, 0, 470);
 			Dialogue.Continue();
 			this.LateUpdate();
 		}

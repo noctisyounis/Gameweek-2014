@@ -91,14 +91,14 @@ function SecondFloorCorridor ()
 	this.Update = function()
 	{
 		if(!Application.GamePaused)
-		{
-		
+		{	
 			if(this.elevatorstate)
 				ctx.drawImage(Images.ascenseurOuvert, 448, 274);
 			else
 				ctx.drawImage(Images.ascenseurFerme, 448, 274);
 			ctx.drawImage(Images.couloirBackgroundNoElevator, 0, 0);
 
+			console.log(Progression.PassiveRoute);
 			if(!Progression.SeenCorridorShadow){
 				switch(this.step){
 					case 0:
@@ -343,6 +343,7 @@ function SecondFloorCorridor ()
 				}
 			}
 			else if(Progression.RouteBGotNote && Progression.RouteBGotPassePartout && !Progression.PassiveRoute){
+				ctx.drawImage(Images.monsterNurse,canvas.width/2-Images.monsterNurse.width/2,100);
 				switch(this.step){
 					case 0:
 						GUI.Availaible = false;

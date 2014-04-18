@@ -147,7 +147,7 @@ function SceneRoom104 ()
 
 	this.OnLoadLevel = function()
 	{
-
+		this.step = 0;
 	};
 
 	this.Update = function()
@@ -167,6 +167,9 @@ function SceneRoom104 ()
 				switch(this.step)
 				{
 					case 0:
+						for(i = 0; i < this.GameObjects.length-1; i++){
+							this.GameObjects[i].enabled = false;
+						}
 						Dialogue.Begin("*Clic* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 						this.step++;
 						break;
@@ -180,6 +183,13 @@ function SceneRoom104 ()
 						if(Dialogue.finished){
 							Dialogue.Begin("Rien à faire, elle est verrouillée. Je dois trouver un moyen de l’ouvrir.", 0.1, {x:30, y:580}, "white", "30px Georgia");
 							this.step++;
+						}
+						break;
+					case 3:
+						if(Dialogue.finished){
+							for(i = 0; i < this.GameObjects.length-1; i++){
+								this.GameObjects[i].enabled = true;
+							}
 						}
 						break;
 				}
@@ -247,6 +257,9 @@ function SceneRoom104 ()
 				switch(this.step)
 				{
 					case 0:
+						for(i = 0; i < this.GameObjects.length-1; i++){
+							this.GameObjects[i].enabled = false;
+						}
 						Dialogue.Begin("*Toc* [short] *Toc* *Toc* *Toc*! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 						this.step++;
 						break;
@@ -306,6 +319,9 @@ function SceneRoom104 ()
 						break;
 					case 8:
 						if(Dialogue.finished){
+							for(i = 0; i < this.GameObjects.length-1; i++){
+								this.GameObjects[i].enabled = true;
+							}
 							Progression.HasBattleRoom104Nurse = true;
 							Application.LoadLevel("SecondFloorCorridor");
 							this.step++;

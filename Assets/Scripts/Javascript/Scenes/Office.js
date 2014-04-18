@@ -46,6 +46,7 @@ function SceneOffice ()
 {
 	this.name = "Bureau";
 	this.Started = false;
+	this.step = 0;
 
 	this.GameObjects = [];
 
@@ -149,7 +150,7 @@ function SceneOffice ()
 
 	this.OnLoadLevel = function()
 	{
-
+		this.step = 0;
 	};
 
 	this.Update = function()
@@ -170,37 +171,37 @@ function SceneOffice ()
 				Dialogue.Continue();
 			}
 
-			if(Scenes.Office.Step == 1 && Dialogue.finished)
+			if(this.step == 0 && Dialogue.finished)
 			{
 				Dialogue.Begin("*[...] présente de sévères troubles du comportement suite à son opération* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-				Scenes.Office.Step = 2;
+				this.step++;
 			}
 
-			if(Scenes.Office.Step == 2 && Dialogue.finished)
+			if(this.step == 1 && Dialogue.finished)
 			{
 				Dialogue.Begin("*[...] au coeur.* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-				Scenes.Office.Step = 3;
+				this.step++;
 			}
 
-			if(Scenes.Office.Step == 3 && Dialogue.finished)
+			if(this.step == 2 && Dialogue.finished)
 			{
 				Dialogue.Begin("*[...] Nous recommandons une mise en isolement de l’individu.* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-				Scenes.Office.Step = 4;
+				this.step++;
 			}
 
-			if(Scenes.Office.Step == 4 && Dialogue.finished)
+			if(this.step == 3 && Dialogue.finished)
 			{
 				Dialogue.Begin("Ces choses sont réelles !  Je ne les ai pas imaginées, c’est absurde ! [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-				Scenes.Office.Step = 5;
+				this.step++;
 			}
 
-			if(Scenes.Office.Step == 5 && Dialogue.finished)
+			if(this.step == 4 && Dialogue.finished)
 			{
 				Dialogue.Begin("Je le saurais si j’étais fou.... [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-				Scenes.Office.Step = 6;
+				this.step++;
 			}
 
-			if(Scenes.Office.Step == 6 && Dialogue.finished)
+			if(this.step == 5 && Dialogue.finished)
 			{
 				Application.LoadLevel("SecondFloorCorridor");
 			}
