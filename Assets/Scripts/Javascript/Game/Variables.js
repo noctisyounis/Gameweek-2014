@@ -120,7 +120,7 @@ var Images = {};
 var CanAccessMap = false;
 var Progression = {
 	//Bool qui détermine la route suivie, changee au 1er combat
-	PassiveRoute : true,
+	PassiveRoute : false,
 	//Si le joueur a quitte sa chambre (intro)
 	OutOfHerosRoom : false,
 	//Si le joueur a passe l'ombre du couloir du second
@@ -132,13 +132,13 @@ var Progression = {
 	//Branche B only. Si le joueur a le passe partout
 	RouteBGotPassePartout : false,
 	//Si le joueur a combattu l'infirmiere de la chambre 104
-	HasBattleRoom104Nurse : true,
+	HasBattleRoom104Nurse : false,
 	//Si le joueur a gagné contre l'infirmiere de la chambre 104
 	WonAgainstRoom104Nurse : false,
 	//Branche A only. Si le joueur a regardé la carte d'anniversaire
 	RouteAHasSeenBirthdayCard : false,
 	//Branche A only. Si le joueur a eu acces a l'ordinateur
-	RouteAHasComputerAccess : true,
+	RouteAHasComputerAccess : false,
 	//Branche A only. Si le joueur a combattu les hallu après le pc
 	RouteAHasBattleThingsAfterPC : false,
 	//Branche A only. Résultat du combat dans le couloir du second après le pc

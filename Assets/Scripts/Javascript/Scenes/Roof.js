@@ -94,9 +94,9 @@ function SceneRoof ()
 					if(Dialogue.finished){
 						this.GameObjects.push(
 							new CursorTarget(Images.toitBackground, [
-								{sprite: Images.cop, x: 0, y: 150, w: 400, h: 800, speed: 10, Life: 10},
-								{sprite: Images.cop, x: 300, y: 290, w: 400, h: 800, speed: 10, Life: 10},
-								{sprite: Images.cop, x: 600, y: 100, w: 400, h: 800, speed: 10, Life: 10}
+								{sprite: Images.cop, x: 0, y: 150, w: 400, h: 800, speed: 5, Life: 15},
+								{sprite: Images.cop, x: 300, y: 290, w: 400, h: 800, speed: 5, Life: 15},
+								{sprite: Images.cop, x: 600, y: 100, w: 400, h: 800, speed: 5, Life: 15}
 								], this));
 						this.step++;
 					}
