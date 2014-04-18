@@ -175,7 +175,7 @@ function PassePartout (transform, boxCollider, name, message, mymaterial, parent
 
 		Material:
 		{
-			source: mymaterial,
+			source: Images.passePartout,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -311,19 +311,7 @@ function PassePartout (transform, boxCollider, name, message, mymaterial, parent
 				}
 			}
 
-			if(this.renderer && this.Renderer.Animation.animated)
-			{
-				this.Renderer.Animation.countdown -= Time.DeltaTime;
-				if(this.Renderer.Animation.countdown <= 0)
-				{
-					this.Renderer.Material.CurrentFrame.x += 1;
-					this.Renderer.Animation.countdown = this.Renderer.Animation.current [1] / this.Renderer.Animation.current[2];
-
-					if(this.Renderer.Material.CurrentFrame.x > this.Renderer.Animation.current[2] - 1)
-						this.Renderer.Material.CurrentFrame.x = 0;
-				}
-			}
-
+			ctx.drawImage(Images.passePartout, this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
 			this.LateUpdate();
 		}
 		

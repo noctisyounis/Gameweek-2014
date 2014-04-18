@@ -113,6 +113,7 @@ var ImagesPath = [
 	{ name: "trash", path: "Objects/couloir_poubelle.png"},
 	{ name: "lampe", path: "Objects/bureau_lampe.png"},
 	{ name: "blouse", path: "Objects/room_portemanteau.png"},
+	{ name: "passePartout", path:"Objects/passe2.png"},
 
 	{ name: "noteDoc", path: "Provisoire/note_doc.png"},
 	{ name: "anniversaire", path: "Provisoire/carte_anniversaire_doc.png"},
