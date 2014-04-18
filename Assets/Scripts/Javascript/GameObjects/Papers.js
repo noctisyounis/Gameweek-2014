@@ -361,6 +361,7 @@ function Papers ()
 				this.state = !this.state;
 			}
 			//Application.LoadedLevel.DestroyKey(this);
+			Progression.RouteBGotNote = true;
 		}
 	};
 
