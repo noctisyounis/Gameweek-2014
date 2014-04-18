@@ -114,6 +114,9 @@ var ImagesPath = [
 	{ name: "lampe", path: "Objects/bureau_lampe.png"},
 	{ name: "blouse", path: "Objects/room_portemanteau.png"},
 
+	{ name: "noteDoc", path: "Provisoire/note_doc.png"},
+	{ name: "anniversaire", path: "Provisoire/carte_anniversaire_doc.png"},
+
 ];
 
 var Images = {};
