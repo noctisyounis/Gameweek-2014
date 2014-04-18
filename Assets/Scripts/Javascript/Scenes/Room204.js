@@ -118,9 +118,9 @@ function SceneRoom204 ()
 			if(!Progression.PassiveRoute)
 			{
 				this.GameObjects.push(new PassePartout({
- 													position: {x: 650, y: 320}, 
+ 													position: {x: 740, y: 540}, 
  													rotation: {x: 0, y: 0}, 
- 													scale: {x: Images.roomTable.width, y: Images.roomTable.height}
+ 													scale: {x: 40, y: 40}
  												},
  												{
  													position: {x: 740, y: 540}, 

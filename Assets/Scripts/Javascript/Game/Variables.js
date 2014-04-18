@@ -113,6 +113,7 @@ var ImagesPath = [
 	{ name: "trash", path: "Objects/couloir_poubelle.png"},
 	{ name: "lampe", path: "Objects/bureau_lampe.png"},
 	{ name: "blouse", path: "Objects/room_portemanteau.png"},
+	{ name: "passePartout", path:"Objects/passe2.png"},
 
 	{ name: "noteDoc", path: "Provisoire/note_doc.png"},
 	{ name: "anniversaire", path: "Provisoire/carte_anniversaire_doc.png"},
@@ -120,7 +121,6 @@ var ImagesPath = [
 ];
 
 var Images = {};
-var CanAccessMap = false;
 var Progression = {
 	//Bool qui détermine la route suivie, changee au 1er combat
 	PassiveRoute : false,
@@ -153,41 +153,7 @@ var GUI= {
 	Availaible: false,
 	Obj : null,
 }
-var RoomVisited = {
-	RDC : {
-		floor : false,
-		reception : false,
-		waitingRoom : false,
-		archives : false,
-		operatingTheaterA : false,
-		operatingTheaterB : false,
-		stairs : false
-	},
-	premier : {
-		floor : false,
-		corridor : false,
-		elevator : false,
-		stairs : false,
-		room101 : false,
-		room102 : false,
-		room103 : false,
-		room104 : false,
-		room105 : false,
-		room106 : false
-	},
-	second : {
-		floor : false,
-		characterRoom : false,
-		room202 : false,
-		room203 : false,
-		room204 : false,
-		corridor : false,
-		elevator : false,
-		stairs : false,
-		restingArea : false,
-		office : false
-	}
-};
+
 var Application = 
 {
 	LoadedLevel: null,
