@@ -46,6 +46,7 @@ function SceneBreakRoom ()
 {
 	this.name = "BreakRoom";
 	this.Started = false;
+	this.message = "";
 
 	this.GameObjects = [];
 
@@ -138,7 +139,10 @@ function SceneBreakRoom ()
 
  												));
 
-			//Feuilles
+			//Papers
+			this.GameObjects.push(new Papers());
+
+			/*//Feuilles
 			this.GameObjects.push(new DecorativeGameObject({
  													position: {x: 100, y: 530}, 
  													rotation: {x: 0, y: 0}, 
@@ -151,11 +155,11 @@ function SceneBreakRoom ()
  												},
 
  												"Dossier",
- 												"Comment j'ai pu me retrouver sur deux blocs en même temps ? [short]",
+ 												this.message,
  												Images.feuilles
 
 
- 												));
+ 												));*/
 
 			//Clé
 			this.GameObjects.push(new Key());
