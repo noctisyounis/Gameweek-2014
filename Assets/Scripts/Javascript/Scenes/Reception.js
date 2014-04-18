@@ -61,6 +61,60 @@ function SceneReception ()
 		if(!this.Started)
 		{
 			//codez le start avant le changement de booleen
+			this.GameObjects.push(new DecorativeGameObject({
+										position: {x: 575, y: 110}, 
+										rotation: {x: 0, y: 0}, 
+										scale: {x: 752, y: 830}
+									},
+									{
+										position: {x: 575 + 30, y: 210}, 
+										rotation: {x: 0, y: 0}, 
+										scale: {x: 224 - 60, y: 314 - 30}
+
+									},
+
+									"Bibliothèque",
+									"Il y a beaucoup de livres. [medium]",
+									Images.library
+
+
+									));
+
+			this.GameObjects.push(new DecorativeGameObject({
+										position: {x: 0, y: 370}, 
+										rotation: {x: 0, y: 0}, 
+										scale: {x: 1029, y: 634}
+									},
+									{
+										position: {x: 130 + 130, y: 370 + 28}, 
+										rotation: {x: 0, y: 0}, 
+										scale: {x: (1029 - 80), y: (634 - 80)}
+									},
+
+									"Canapé",
+									"Pas de temps à perdre ! [short]",
+									Images.roomSofa2
+
+
+									));
+
+			this.GameObjects.push(new DecorativeGameObject({
+										position: {x: -50, y: 400}, 
+										rotation: {x: 0, y: 0}, 
+										scale: {x: Images.roomCurtains2.width * 2 - 50, y: Images.roomCurtains2.height * 2}
+									},
+									{
+										position: {x: -10, y: 450}, 
+										rotation: {x: 0, y: 0}, 
+										scale: {x: 250, y: 170}
+									},
+
+									"Bureau",
+									"Le bois du bureau commence à ternir. [medium]",
+									Images.desk
+
+
+									));
 
 			this.Started = true;
 			Time.LevelLoaded();
