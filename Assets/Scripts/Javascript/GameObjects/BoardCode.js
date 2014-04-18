@@ -361,7 +361,7 @@ function BoardCode ()
 		}
 		
 		Progression.RouteAGotPassePartout = true;
-		Scenes.Room104.Step = 1;
+		Scenes.Room104.step = 0;
 		Application.LoadLevel("Room104");
 		
 		

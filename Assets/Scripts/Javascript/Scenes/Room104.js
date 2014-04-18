@@ -46,6 +46,9 @@ function SceneRoom104 ()
 {
 	this.name = "Chambre 104";
 	this.Started = false;
+	this.step = 0;
+	this.FadeInNurse = 0;
+	this.NurseVisible = false;
 
 	this.GameObjects = [];
 
@@ -160,27 +163,157 @@ function SceneRoom104 ()
 				}
 			}
 
-			if (Progression.RouteAGotPassePartout == true && this.Step == 1)
+			if(Progression.PassiveRoute && !Progression.RouteAGotPassePartout)
 			{
-				Dialogue.Begin("Bingo ! Maintenant que j'ai le passe-partout, sortons d’ici ! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-				this.Step = 2;
-			}
-
-			if(!Progression.PassiveRoute)
-			{
-				switch(this.Step)
+				switch(this.step)
 				{
-					case 1:
-						Dialogue.Begin("*Toc* [short] *Toc* *Toc* *Toc*! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
-						this.step = 101;
+					case 0:
+						Dialogue.Begin("*Clic* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+						this.step++;
 						break;
-
-					case 101:
-
-						this.step = 102;
+					case 1:
+						if(Dialogue.finished){
+							Dialogue.Begin("“?! Hey ! Ouvrez cette porte !”", 0.1, {x:30, y:580}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 2:
+						if(Dialogue.finished){
+							Dialogue.Begin("Rien à faire, elle est verrouillée. Je dois trouver un moyen de l’ouvrir.", 0.1, {x:30, y:580}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+				}
+			}
+			else if (Progression.PassiveRoute && Progression.RouteAGotPassePartout)
+			{
+				switch(this.step)
+				{
+					case 0:
+						Dialogue.Begin("Bingo ! Maintenant que j'ai le passe-partout, sortons d’ici ! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							Dialogue.Begin("*BAM*", 0.1, {x:30, y:580}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 2:
+						if(Dialogue.finished){
+							Dialogue.Begin("C'était quoi ce bruit ?", 0.1, {x:30, y:580}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 3:
+						if(Dialogue.finished){
+							for(i = 0; i < this.GameObjects.length-1; i++){
+								this.GameObjects[i].enabled = false;
+							}
+							this.NurseVisible = false;
+							this.GameObjects.push(
+								new CursorTarget(Images.roomBackground, [{sprite: Images.monsterNurse, x: 0, y: 0, w: Images.monsterNurse.width, h: Images.monsterNurse.height, speed: 10, Life: 15}], this));
+							this.step++;
+						}
+						break;
+					case 4:
+						break;
+					case 5:
+						for(i = 0; i < this.GameObjects.length-1; i++){
+							this.GameObjects[i].enabled = true;
+						}
+						this.GameObjects.splice(this.GameObjects.indexOf(CursorTarget),1);
+						Dialogue.Begin("Qu’est-ce que c’était que ce monstre ?", 0.1, {x:30, y:580}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 6:
+						if(Dialogue.finished){
+							Dialogue.Begin("Je dois vite trouver quelqu’un de vivant. Partons d’ici.", 0.1, {x:30, y:580}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 7:
+						if(Dialogue.finished){
+							Progression.HasBattleRoom104Nurse = true;
+							Application.LoadLevel("FirstFloorCorridor");
+						}
 						break;
 				}
 
+			}
+			else if(!Progression.PassiveRoute && !Progression.HasBattleRoom104Nurse)
+			{
+				if(this.NurseVisible) 
+					ctx.drawImage(Images.monsterNurse, 0, 0);
+				switch(this.step)
+				{
+					case 0:
+						Dialogue.Begin("*Toc* [short] *Toc* *Toc* *Toc*! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							this.FadeInNurse += Time.DeltaTime;
+							var alphaOri = ctx.globalAlpha;
+							ctx.globalAlpha = this.FadeInNurse;
+							ctx.drawImage(Images.monsterNurse, 0, 0);
+							ctx.globalAlpha = alphaOri;
+
+							if(this.FadeInNurse > 1){
+								this.NurseVisible = true;
+								this.step++;
+							}
+						}
+						break;
+					case 2:
+						if(Dialogue.finished){
+							Dialogue.Begin("Oh merde...", 0.1, {x:30, y:580}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 3:
+						//Combat
+						if(Dialogue.finished){
+							for(i = 0; i < this.GameObjects.length-1; i++){
+								this.GameObjects[i].enabled = false;
+							}
+							this.NurseVisible = false;
+							this.GameObjects.push(
+								new CursorTarget(Images.roomBackground, [{sprite: Images.monsterNurse, x: 0, y: 0, w: Images.monsterNurse.width, h: Images.monsterNurse.height, speed: 10, Life: 15}], this));
+							this.step++;
+						}
+						break;
+					case 4:
+						break;
+					case 5:
+						for(i = 0; i < this.GameObjects.length-1; i++){
+							this.GameObjects[i].enabled = true;
+						}
+						this.GameObjects.splice(this.GameObjects.indexOf(CursorTarget),1);
+						Dialogue.Begin("Mais qu’est-ce qu’il se passe ici ?", 0.1, {x:30, y:580}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 6:
+						if(Dialogue.finished){
+							Dialogue.Begin("C'était quoi cette... chose !?", 0.1, {x:30, y:580}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 7:
+						if(Dialogue.finished){
+							Dialogue.Begin("Faut que je parte, et vite ! Il doit bien y avoir une clé quelque part.", 0.1, {x:30, y:580}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 8:
+						if(Dialogue.finished){
+							Progression.HasBattleRoom104Nurse = true;
+							Application.LoadLevel("SecondFloorCorridor");
+							this.step++;
+						}
+						break;
+						
+				}
 			}
 
 
@@ -204,6 +337,19 @@ function SceneRoom104 ()
 			Debug.ShowStats();
 		}
 	};
+
+	this.BattleResult = function(str)
+	{
+		if(str == "Win")
+		{
+			Progression.WonAgainstRoom104Nurse = true;
+			this.step++;
+		}
+		else if (str == "Loose"){
+			Progression.WonAgainstRoom104Nurse = false;
+			this.step++;
+		}
+	}
 
 	// lance l'awake a la creation de la scene
 	this.Awake();

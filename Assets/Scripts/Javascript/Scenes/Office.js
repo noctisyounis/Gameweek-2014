@@ -60,15 +60,18 @@ function SceneOffice ()
 		if(!this.Started)
 		{
 
+			GUI.Availaible = true;
+
 			this.GameObjects.push(new DecorativeGameObject({
 										position: {x: 575, y: 210}, 
 										rotation: {x: 0, y: 0}, 
 										scale: {x: 224, y: 314}
 									},
 									{
-										position: {x: 575, y: 210}, 
+										position: {x: 575 + 30, y: 210}, 
 										rotation: {x: 0, y: 0}, 
-										scale: {x: 184, y: 274}
+										scale: {x: 224 - 60, y: 314 - 30}
+
 									},
 
 									"Bibliothèque",
@@ -133,24 +136,9 @@ function SceneOffice ()
 
 									));
 
+			this.GameObjects.push(new Computer());
 
-			this.GameObjects.push(new DecorativeGameObject({
-										position: {x: 700, y: 320}, 
-										rotation: {x: 0, y: 0}, 
-										scale: {x: 350 / 1.2, y: 200 / 1.2}
-									},
-									{
-										position: {x: 730, y: 340}, 
-										rotation: {x: 0, y: 0}, 
-										scale: {x: 225, y: 130}
-									},
-
-									"Ordinateur",
-									"Ca doit etre l'ordinateur du medecin. [medium]",
-									Images.computer
-
-
-									));
+			this.GameObjects.push(new Card());
 
 			this.Started = true;
 			Time.LevelLoaded();
@@ -181,6 +169,42 @@ function SceneOffice ()
 				ctx.drawImage(Images.dialogueBox, 0, 470);
 				Dialogue.Continue();
 			}
+
+			if(Scenes.Office.Step == 1 && Dialogue.finished)
+			{
+				Dialogue.Begin("*[...] présente de sévères troubles du comportement suite à son opération* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Scenes.Office.Step = 2;
+			}
+
+			if(Scenes.Office.Step == 2 && Dialogue.finished)
+			{
+				Dialogue.Begin("*[...] au coeur.* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Scenes.Office.Step = 3;
+			}
+
+			if(Scenes.Office.Step == 3 && Dialogue.finished)
+			{
+				Dialogue.Begin("*[...] Nous recommandons une mise en isolement de l’individu.* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Scenes.Office.Step = 4;
+			}
+
+			if(Scenes.Office.Step == 4 && Dialogue.finished)
+			{
+				Dialogue.Begin("Ces choses sont réelles !  Je ne les ai pas imaginées, c’est absurde ! [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Scenes.Office.Step = 5;
+			}
+
+			if(Scenes.Office.Step == 5 && Dialogue.finished)
+			{
+				Dialogue.Begin("Je le saurais si j’étais fou.... [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Scenes.Office.Step = 6;
+			}
+
+			if(Scenes.Office.Step == 6 && Dialogue.finished)
+			{
+				Application.LoadLevel("SecondFloorCorridor");
+			}
+
 			this.LateUpdate();
 		}
 	};

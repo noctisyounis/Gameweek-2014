@@ -329,7 +329,7 @@ function Papers ()
 
 	this.LateUpdate = function ()
 	{
-		
+
 		if(this.state) ctx.drawImage(Images.noteDoc,0,0);
 		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
@@ -358,13 +358,10 @@ function Papers ()
 			}
 			else
 			{
-
 				this.state = !this.state;
 			}
-			//Interaction 
-			
-			Progression.GotElevatorKey = true;
 			//Application.LoadedLevel.DestroyKey(this);
+			Progression.RouteBGotNote = true;
 		}
 	};
 

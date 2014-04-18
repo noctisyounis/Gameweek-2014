@@ -125,36 +125,34 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function AndroidPanel ()
+function Computer ()
 {
-	this.name = "AndroidPanel";
+	this.name = "Ordinateur";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
-	this.GameObjects = [];
-	this.solution = [7, 4, 1, 2, 3, 6, 9, 8, 5];
-	this.code = [];
 
 	this.transform =
 	{
-		position: {x:canvas.width/2-300/2 - 100, y: canvas.height/2-300/2 - 100},
-		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 350, y: 350}
+		position: {x: 700, y: 320}, 
+		rotation: {x: 0, y: 0}, 
+		scale: {x: 350 / 1.2, y: 200 / 1.2}
 	};
 
 	this.Physics = 
 	{
-		BoxCollider: true,
+		BoxCollider: false,
 		Clickable:   true,
+		ShowVignetWithNameOnHover: false,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
-		RelativePosition: true,
+		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:0, y: 0},
-			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 350, y: 350}
+			position: {x: 720, y: 350}, 
+			rotation: {x: 0, y: 0},
+			scale: {x: 225, y: 130}
 		}
 	};
 	this.Renderer = 
@@ -168,7 +166,7 @@ function AndroidPanel ()
 
 		Material:
 		{
-			source: Images.popup,
+			source: Images.computer,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -194,7 +192,10 @@ function AndroidPanel ()
 
 		Draw: function ()
 		{
-			//ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+			if(this.isSprite)
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -265,13 +266,7 @@ function AndroidPanel ()
 		if(!this.Started)
 		{
 			// DO START HERE
-			var i = 1;
-			for(x = 1; x < 4; x++){
-				for(y = 1; y < 4; y++){
-					this.GameObjects.push(new AndroidButton(i,x,y,this.transform,this));
-					i++;
-				}
-			}
+
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -306,6 +301,10 @@ function AndroidPanel ()
 						if(!Input.MouseClick) this.OnHovered();
 						if(Input.MouseClick)  this.OnClicked();
 					}
+					else
+					{
+						this.UnHovered();
+					}
 				}
 			}
 
@@ -329,42 +328,11 @@ function AndroidPanel ()
 
 	this.LateUpdate = function ()
 	{
+
+		if(this.state) ctx.drawImage(Images.noteDoc,0,0);
 		// GAMEOBJECT BEHAVIOR HERE !
-		ctx.drawImage(Images.popup, this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
-		for(var i = 0; i < this.GameObjects.length; i++)
-		{
-			if(this.GameObjects[i].enabled)
-			{
-				this.GameObjects[i].Start();
-			}
-		}
 		if(this.renderer)
 			this.Renderer.Draw();
-		if(this.code.length > 0){
-			var originStrokeStyle = ctx.strokeStyle;
-			var originLineWidth = ctx.lineWidth;
-			ctx.beginPath();
-			ctx.moveTo(this.GameObjects[this.code[0]-1].transform.position.x+this.GameObjects[this.code[0]-1].transform.scale.x/2,this.GameObjects[this.code[0]-1].transform.position.y+this.GameObjects[this.code[0]-1].transform.scale.y/2);
-			for(i = 1; i < this.code.length; i++){
-				ctx.lineTo(this.GameObjects[this.code[i]-1].transform.position.x+this.GameObjects[this.code[i]-1].transform.scale.x/2,this.GameObjects[this.code[i]-1].transform.position.y+this.GameObjects[this.code[i]-1].transform.scale.y/2);
-			}
-			ctx.strokeStyle = "#00FFFF";
-			ctx.lineWidth = 5;
-			ctx.stroke();
-			ctx.strokeStyle = originStrokeStyle;
-			ctx.lineWidth = originLineWidth;
-		}
-
-		var i = 0
-		while(i < 9){
-			if(this.code[i] != this.solution[i])
-				return;
-			i++;
-		}
-		Scenes.Office.Step = 1;
-		Progression.RouteAHasComputerAccess = true;
-		Application.LoadLevel("Office");
-
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -381,14 +349,27 @@ function AndroidPanel ()
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
 
+		if(Input.MouseClick && Dialogue.finished)
+		{
+			//Interaction 
+			Application.LoadLevel("AndroidCode");
+			
+		}
 	};
-	this.OnHovered = function(){
-		if(Input.MouseLongClick){
-			console.log(this.code);
+
+	this.OnHovered = function()
+	{	
+		if(this.Physics.ShowVignetWithNameOnHover)
+		{
+			ctx.fillStyle = "grey";
+			ctx.RoundedBox(Input.MousePosition.x, Input.MousePosition.y, 100, 30, 5);
+			ctx.fillStyle = "white";
+			ctx.fillText(this.name, Input.MousePosition.x + 20, Input.MousePosition.y + 13);
 		}
-		else{
-			this.code = [];
-		}
+	};
+	
+	this.UnHovered = function()
+	{
 	};
 
 	this.Awake();
