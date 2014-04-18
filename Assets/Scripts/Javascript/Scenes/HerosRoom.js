@@ -99,7 +99,7 @@ function SceneHerosRoom ()
 			}
 			if(this.FadeOutWhiteScreen < 0 && this.DialogueStep == 0)
 			{
-				Dialogue.Begin("qu'est ce [short] . [short] . [short] . qu'est ce qu'il se passe ? [long]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+				Dialogue.Begin("Qu'est ce [short] . [short] . [short] . qu'est ce qu'il se passe ? [long]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.DialogueStep = 1;
 			}
 

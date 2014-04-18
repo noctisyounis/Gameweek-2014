@@ -90,11 +90,17 @@ function SceneReception ()
 						break;
 					case 1:
 						if(Dialogue.finished){
-							Dialogue.Begin("Je dois trouver un autre chemin.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							Dialogue.Begin("Impossible de passer en venant de l'ascenseur, il y a des débris partout.", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
 					case 2:
+						if(Dialogue.finished){
+							Dialogue.Begin("Je dois trouver un autre chemin.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							this.step++;
+						}
+						break;
+					case 3:
 						if(Dialogue.finished){
 							GUI.Availaible = true;
 							Application.LoadLevel("FirstFloorCorridor");

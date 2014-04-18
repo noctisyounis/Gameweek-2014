@@ -81,7 +81,7 @@ function FirstFloorCorridor ()
 
 		ctx.drawImage(Images.ascenseurFerme, 448, 274);
 		ctx.drawImage(Images.couloirBackgroundNoElevator, 0, 0);
-		if(Progression.PassiveRoute && !Progression.HasBattleRoom104Nurse){
+		if(!Progression.PassiveRoute && !Progression.HasBattleRoom104Nurse){
 			switch(this.Step){
 				case 1:
 					GUI.Availaible = false;

@@ -323,7 +323,7 @@ function Key ()
 			
 			if(Progression.GotElevatorKey == true && Dialogue.finished)
 			{
-				Application.LoadLevel("SecondFloorCorridor");
+				Application.LoadLevel("Reception");
 			}
 
 			this.LateUpdate();
@@ -355,7 +355,7 @@ function Key ()
 		if(Input.MouseClick && Dialogue.finished)
 		{
 			//Interaction 
-			Dialogue.Begin("Voilà la clé de l'ascenseur de service ! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+			Dialogue.Begin("Voilà la clé de l'ascenseur de service ! [medium] Allons au Rez de Chaussée.", 0.1, {x:30, y:580}, "white", "30px Georgia");
 			Progression.GotElevatorKey = true;
 
 			//Application.LoadedLevel.DestroyKey(this);
