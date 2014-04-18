@@ -49,6 +49,11 @@ function SceneAndroidCode ()
 
 	this.GameObjects = [];
 
+	this.OnLoadLevel = function()
+	{
+
+	};
+
 	this.Awake = function()
 	{
 		//codez l'awake avant le console.log
@@ -97,6 +102,9 @@ function SceneAndroidCode ()
 		{
 			Debug.ShowStats();
 		}
+
+		if(this.renderer)
+			this.Renderer.Draw();
 	};
 
 	// lance l'awake a la creation de la scene
