@@ -232,6 +232,12 @@ function SceneRoom104 ()
 							this.step++;
 						}
 						break;
+					case 7:
+						if(Dialogue.finished){
+							Progression.HasBattleRoom104Nurse = true;
+							Application.LoadLevel("FirstFloorCorridor");
+						}
+						break;
 				}
 
 			}
@@ -296,10 +302,17 @@ function SceneRoom104 ()
 					case 7:
 						if(Dialogue.finished){
 							Dialogue.Begin("Faut que je parte, et vite ! Il doit bien y avoir une clé quelque part.", 0.1, {x:30, y:580}, "white", "30px Georgia");
-							Progression.HasBattleRoom104Nurse = true;
 							this.step++;
 						}
 						break;
+					case 8:
+						if(Dialogue.finished){
+							Progression.HasBattleRoom104Nurse = true;
+							Application.LoadLevel("FirstFloorCorridor");
+							this.step++;
+						}
+						break;
+						
 				}
 			}
 
