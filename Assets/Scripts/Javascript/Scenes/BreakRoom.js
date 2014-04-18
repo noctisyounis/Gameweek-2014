@@ -63,6 +63,8 @@ function SceneBreakRoom ()
 		{
 			//codez le start avant le changement de booleen
 
+			GUI.Availaible = true;
+
 			//Armoire
 			this.GameObjects.push(new DecorativeGameObject({
  													position: {x: 750, y: 105}, 
@@ -139,30 +141,11 @@ function SceneBreakRoom ()
 
  												));
 
-			//Papers
-			this.GameObjects.push(new Papers());
-
-			/*//Feuilles
-			this.GameObjects.push(new DecorativeGameObject({
- 													position: {x: 100, y: 530}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 231 / 2.5, y: 118 / 2.5}
- 												},
- 												{
- 													position: {x: 100, y: 530}, 
- 													rotation: {x: 0, y: 0}, 
- 													scale: {x: 231 / 2.5, y: 118 / 2.5}
- 												},
-
- 												"Dossier",
- 												this.message,
- 												Images.feuilles
-
-
- 												));*/
-
 			//Clé
 			this.GameObjects.push(new Key());
+
+			//Feuilles
+			this.GameObjects.push(new Papers());
 
 			this.Started = true;
 			Time.LevelLoaded();
@@ -213,11 +196,11 @@ function SceneBreakRoom ()
 		}
 	};
 
-	this.DestroyKey = function (key)
+	/*this.DestroyKey = function (key)
 	{
 		var o = this.GameObjects.indexOf(key);
 		this.GameObjects.splice(o, 1);
-	}
+	}*/
 
 	// lance l'awake a la creation de la scene
 	this.Awake();

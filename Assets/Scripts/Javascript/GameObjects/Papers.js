@@ -131,6 +131,7 @@ function Papers ()
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
+	this.state = false;
 
 	this.transform =
 	{
@@ -328,6 +329,8 @@ function Papers ()
 
 	this.LateUpdate = function ()
 	{
+		
+		if(this.state) ctx.drawImage(Images.noteDoc,0,0);
 		// GAMEOBJECT BEHAVIOR HERE !
 		if(this.renderer)
 			this.Renderer.Draw();
@@ -355,7 +358,8 @@ function Papers ()
 			}
 			else
 			{
-				console.log("Afficher la note aux employés");
+
+				this.state = !this.state;
 			}
 			//Interaction 
 			
