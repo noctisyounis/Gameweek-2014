@@ -97,6 +97,7 @@ function SceneReception ()
 					case 2:
 						if(Dialogue.finished){
 							GUI.Availaible = true;
+							Application.LoadLevel("FirstFloorCorridor");
 							this.step++;
 						}
 						break;
