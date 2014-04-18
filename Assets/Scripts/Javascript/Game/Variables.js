@@ -74,6 +74,7 @@ var ImagesPath = [
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},
 	{ name: "monsterNurse", path: "Enemies/monster_nurse.png"},
+	{ name: "cop", path: "Enemies/cop.png"},
 
 
 	{ name: "roomBed", path: "Objects/room_bed.png"},
@@ -119,7 +120,7 @@ var Images = {};
 var CanAccessMap = false;
 var Progression = {
 	//Bool qui détermine la route suivie, changee au 1er combat
-	PassiveRoute : false,
+	PassiveRoute : true,
 	//Si le joueur a quitte sa chambre (intro)
 	OutOfHerosRoom : false,
 	//Si le joueur a passe l'ombre du couloir du second
@@ -131,7 +132,7 @@ var Progression = {
 	//Branche B only. Si le joueur a le passe partout
 	RouteBGotPassePartout : false,
 	//Si le joueur a combattu l'infirmiere de la chambre 104
-	HasBattleRoom104Nurse : false,
+	HasBattleRoom104Nurse : true,
 	//Si le joueur a gagné contre l'infirmiere de la chambre 104
 	WonAgainstRoom104Nurse : false,
 	//Branche A only. Si le joueur a regardé la carte d'anniversaire
