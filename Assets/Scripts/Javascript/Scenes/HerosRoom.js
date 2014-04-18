@@ -230,6 +230,7 @@ function SceneHerosRoom ()
 		if(idClicked == 1)
 		{
 			this.Step = 100;
+			Progression.PassveRoute = false;
 			//Combat;
 		}
 		else
@@ -247,6 +248,7 @@ function SceneHerosRoom ()
 		else if (str == "Loose")
 		{
 			// boo 
+
 		}
 	}
 

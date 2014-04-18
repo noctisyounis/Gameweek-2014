@@ -162,7 +162,6 @@ function SceneRoom104 ()
 					this.GameObjects[i].Start();
 				}
 			}
-
 			if(Progression.PassiveRoute && !Progression.RouteAGotPassePartout)
 			{
 				switch(this.step)

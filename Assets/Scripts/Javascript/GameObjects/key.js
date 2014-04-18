@@ -321,7 +321,7 @@ function Key ()
 				}
 			}
 			
-			if(Progression.GotElevatorKey == true && Dialogue.finished)
+			if(!Progression.HasBattleRoom104Nurse && Progression.GotElevatorKey == true && Dialogue.finished)
 			{
 				Application.LoadLevel("Reception");
 			}
@@ -352,7 +352,7 @@ function Key ()
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
 
-		if(Input.MouseClick && Dialogue.finished)
+		if(!Progression.GotElevatorKey && Input.MouseClick && Dialogue.finished)
 		{
 			//Interaction 
 			Dialogue.Begin("Voilà la clé de l'ascenseur de service ! [medium] Allons au Rez de Chaussée.", 0.1, {x:30, y:580}, "white", "30px Georgia");

@@ -47,6 +47,7 @@ function SceneBreakRoom ()
 	this.name = "Salle de pause";
 	this.Started = false;
 	this.message = "";
+	this.step = 0;
 
 	this.GameObjects = [];
 
@@ -166,6 +167,24 @@ function SceneBreakRoom ()
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
 			ctx.drawImage(Images.roomBackground, 0, 0, canvas.width, canvas.height);
+
+			if(Progression.HasBattleRoom104Nurse && !Progression.RouteBGotNote && !Progression.PassiveRoute){
+				switch(this.step){
+					case 0:
+						GUI.Availaible = false;
+						Dialogue.Begin("D'après la note un passe partout se trouve dans la chambre 204.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.step++;
+						break;
+					case 1:
+						if(Dialogue.finished){
+							GUI.Availaible = true;
+							this.step++;
+							Progression.RouteBGotNote = true;
+							Application.LoadLevel("Room204");
+						}
+						break;
+				}
+			}
 
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{

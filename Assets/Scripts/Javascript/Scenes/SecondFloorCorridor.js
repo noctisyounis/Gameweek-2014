@@ -302,7 +302,7 @@ function SecondFloorCorridor ()
 				switch(this.step){
 					case 0:
 						GUI.Availaible = false;
-						Dialogue.Begin("Il faut que je trouve comment ouvrir ces fichues portes.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						Dialogue.Begin("Il faut absolument que je trouve comment sortir d'ici.", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.step++;
 						break;
 					case 1:
@@ -357,7 +357,7 @@ function SecondFloorCorridor ()
 						break;
 					case 2:
 						if(Dialogue.finished){
-							Dialogue.Begin("La porte ! Faut que je me tire !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							Dialogue.Begin("La porte de l'escalier ! Faut que je me tire !", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
