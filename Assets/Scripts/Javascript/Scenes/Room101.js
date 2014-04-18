@@ -44,7 +44,7 @@
 
 function SceneRoom101 () 
 {
-	this.name = "Room101";
+	this.name = "Chambre 101";
 	this.Started = false;
 
 	this.GameObjects = [];
@@ -176,6 +176,11 @@ function SceneRoom101 ()
 		if(!Application.GamePaused)
 		{
 			//Codez la GUI ici pour que la pause soit prise en compte
+			ctx.fillStyle = "rgba(122,122,122, 0.4)";
+			ctx.RoundedBox(0, 0, 125, 30, 20);
+			ctx.fillStyle = "white";
+			ctx.font = "15px Georgia";
+			ctx.fillText(Application.LoadedLevel.name, 20, 23);
 		}
 		if(Application.DebugMode)
 		{
@@ -185,7 +190,7 @@ function SceneRoom101 ()
 
 	this.OnLoadLevel = function()
 	{
-
+		GUI.Availaible = true;
 	};
 
 	// lance l'awake a la creation de la scene
