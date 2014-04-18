@@ -158,7 +158,7 @@ var Application =
 {
 	LoadedLevel: null,
 	GamePaused: false,
-	DebugMode: true,
+	DebugMode: false,
 	LastRoom: null,
 	
 	LoadLevel: function (SceneName)
