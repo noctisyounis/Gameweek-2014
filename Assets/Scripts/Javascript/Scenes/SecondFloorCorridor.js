@@ -85,7 +85,6 @@ function SecondFloorCorridor ()
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
 		}
-		RoomVisited.second.corridor = true;
 		this.Update();
 	};
 
@@ -193,11 +192,35 @@ function SecondFloorCorridor ()
   							this.step++;
   						}
   						break;
-    				case 13:
+  					case 13:
+    					if(Dialogue.finished){
+    						Dialogue.Begin(" [short] . [short] . [short] . [short] ", 0.10, {x:30, y:570}, "white", "30px Georgia");
+  							this.step++;
+  						}
+  						break;
+  					case 14:
+    					if(Dialogue.finished){
+    						Dialogue.Begin("La porte des escaliers est verrouillée !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+  							this.step++;
+  						}
+  						break;
+ 					case 15:
+    					if(Dialogue.finished){
+    						Dialogue.Begin("Essayons de trouver quelqu’un. Je ne peux tout de même pas être seul !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+  							this.step++;
+  						}
+  						break;
+  					case 16:
+    					if(Dialogue.finished){
+    						Dialogue.Begin("Je vais voir cette salle de repos.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+  							this.step++;
+  						}
+  						break;
+    				case 17:
     					if(Dialogue.finished){
     						GUI.Availaible = true;
     						Progression.SeenCorridorShadow = true;
-  							this.step++;
+    						Application.LoadLevel("BreakRoom");
   						}
   						break;
 				}
@@ -225,6 +248,7 @@ function SecondFloorCorridor ()
 						if(Dialogue.finished){
 							GUI.Availaible = true;
 							this.step++;
+							Application.LoadLevel("Office");
 						}
 						break;
 				}
@@ -269,6 +293,7 @@ function SecondFloorCorridor ()
 							Progression.RouteAHasBattleThingsAfterPC = true;
 							GUI.Availaible = true;
 							this.step++;
+							Application.LoadLevel("Roof");
 						}
 						break;
 				}
@@ -288,7 +313,7 @@ function SecondFloorCorridor ()
 						break;
 					case 2:
 						if(Dialogue.finished){
-							Dialogue.Begin("Je vais aller fouiller la salle de repos.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							Dialogue.Begin("Je vais aller re-fouiller la salle de repos.", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
@@ -296,6 +321,7 @@ function SecondFloorCorridor ()
 						if(Dialogue.finished){
 							GUI.Availaible = true;
 							this.step++;
+							Application.LoadLevel("BreakRoom");
 						}
 						break;
 				}
@@ -304,13 +330,14 @@ function SecondFloorCorridor ()
 				switch(this.step){
 					case 0:
 						GUI.Availaible = false;
-						Dialogue.Begin("Personne pour le moment. Allons dans la la chambre 204.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						Dialogue.Begin("Personne pour le moment. Allons dans la chambre 204.", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.step++;
 						break;
 					case 1:
 						if(Dialogue.finished){
 							GUI.Availaible = true;
 							this.step++;
+							Application.LoadLevel("Room204");
 						}
 						break;
 				}
@@ -338,6 +365,7 @@ function SecondFloorCorridor ()
 						if(Dialogue.finished){
 							GUI.Availaible = true;
 							this.step++;
+							Application.LoadLevel("Reception");
 						}
 						break;
 				}
