@@ -88,44 +88,70 @@ function FirstFloorCorridor ()
 				{
 					this.GameObjects[i].Start();
 				}
-			}	
-
-		if(this.Step == 1)
-		{
-			this.AlphaPosition -=  10 * Time.DeltaTime;
-			ctx.drawImage(Images.couloirOmbre, this.AlphaPosition, 277, 130, 200);
-
-			if(this.AlphaPosition < 356) this.Step = 2;
-
-		}
-		if(this.Step == 2)
-		{
-			this.alphaShadow -= Time.DeltaTime; 
-
-			var alphaOri = ctx.globalAlpha;
-			ctx.globalAlpha = this.alphaShadow;
-			ctx.drawImage(Images.couloirOmbre, 356, 277, 130, 200);
-			ctx.globalAlpha = alphaOri;
-
-			if(this.alphaShadow <= 0.1) this.Step = 3;
+			}
 		}
 
-		if(this.Step == 3)
-		{
-			Dialogue.Begin("Il est rentré dans cette chambre! [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
-			this.Step = 4;
+
+		if(Progression.PassiveRoute && !Progression.HasBattleRoom104Nurse){
+			switch(this.Step){
+				case 1:
+					GUI.Availaible = false;
+					this.AlphaPosition -=  10 * Time.DeltaTime;
+					ctx.drawImage(Images.couloirOmbre, this.AlphaPosition, 277, 130, 200);
+					if(this.AlphaPosition < 356) 
+						this.Step++;
+					break;
+				case 2:
+					this.alphaShadow -= Time.DeltaTime; 
+
+					var alphaOri = ctx.globalAlpha;
+					ctx.globalAlpha = this.alphaShadow;
+					ctx.drawImage(Images.couloirOmbre, 356, 277, 130, 200);
+					ctx.globalAlpha = alphaOri;
+
+					if(this.alphaShadow <= 0.1)
+						this.Step++;
+					break;
+				case 3:
+					Dialogue.Begin("Il est rentré dans cette chambre! [short]", 0.10, {x:30, y:570}, "white", "30px Georgia");
+					this.Step++;
+					break;
+				case 4:
+					if(Dialogue.finished)
+						Application.LoadLevel("Room104");
+					break;
+			}
 		}
-		if(this.Step == 4)
-		{
-			if(Dialogue.finished)
-				this.Step = 5
-		}
-		if(this.Step == 5)
-		{
-			Application.LoadLevel("Room104");
+		else if(Progression.PassiveRoute && Progression.HasBattleRoom104Nurse){
+			switch(this.Step){
+				case 1:
+					GUI.Availaible = false;
+					Dialogue.Begin("L’ascenseur est déjà utilisé, sûrement par une de ces bestioles.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+					this.Step++;
+					break;
+				case 2:
+					if(Dialogue.finished){
+						Dialogue.Begin("Je ne prendrais pas le risque de vérifier.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.Step++;
+					}
+					break;
+				case 3:
+					if(Dialogue.finished){
+						Dialogue.Begin("Passons par les escaliers.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						this.Step++;
+					}
+					break;
+				case 4:
+					if(Dialogue.finished){
+						GUI.Availaible = true;
+						this.Step++;
+					}
+					break;
+			}
 		}
 
-			if(!Dialogue.finished) {Dialogue.Continue();}
+		if(!Dialogue.finished) {
+			Dialogue.Continue();
 			this.LateUpdate();
 		}
 	};
