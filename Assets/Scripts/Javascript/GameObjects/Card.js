@@ -153,7 +153,7 @@ function Card ()
 		{
 			position: {x: 60, y: 520}, 
 			rotation: {x: 0, y: 0}, 
-			scale: {x: Images.papers.width, y: Images.papers.height}
+			scale: {x: Images.papers.width / 2, y: Images.papers.height / 2}
 		}
 	};
 	this.Renderer = 
@@ -352,7 +352,7 @@ function Card ()
 		if(Input.MouseClick && Dialogue.finished)
 		{
 			this.state = !this.state;
-			RouteAHasSeenBirthdayCard = true;
+			Progression.RouteAHasSeenBirthdayCard = true;
 		}
 	};
 

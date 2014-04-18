@@ -77,7 +77,11 @@ function SceneRoof ()
 		if(!Application.GamePaused)
 		{
 			ctx.drawImage(Images.toitBackground ,0,0, canvas.width, canvas.height);
-
+			if(this.step == 0 || this.step == 1 || this.step == 2){
+				ctx.drawImage(Images.cop, 0, 150, 400, 800);
+				ctx.drawImage(Images.cop, 300, 290, 400, 800);
+				ctx.drawImage(Images.cop, 600, 100, 400, 800);
+			}
 			switch(this.step){
 				case 0:
 					GUI.Availaible = false;

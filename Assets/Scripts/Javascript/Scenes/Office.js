@@ -171,37 +171,37 @@ function SceneOffice ()
 				Dialogue.Continue();
 			}
 
-			if(this.step == 0 && Dialogue.finished)
+			if(this.step == 0 && Dialogue.finished && Progression.RouteAHasComputerAccess)
 			{
 				Dialogue.Begin("*[...] présente de sévères troubles du comportement suite à son opération* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.step++;
 			}
 
-			if(this.step == 1 && Dialogue.finished)
+			if(this.step == 1 && Dialogue.finished && Progression.RouteAHasComputerAccess)
 			{
 				Dialogue.Begin("*[...] au coeur.* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.step++;
 			}
 
-			if(this.step == 2 && Dialogue.finished)
+			if(this.step == 2 && Dialogue.finished && Progression.RouteAHasComputerAccess)
 			{
 				Dialogue.Begin("*[...] Nous recommandons une mise en isolement de l’individu.* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.step++;
 			}
 
-			if(this.step == 3 && Dialogue.finished)
+			if(this.step == 3 && Dialogue.finished && Progression.RouteAHasComputerAccess)
 			{
 				Dialogue.Begin("Ces choses sont réelles !  Je ne les ai pas imaginées, c’est absurde ! [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.step++;
 			}
 
-			if(this.step == 4 && Dialogue.finished)
+			if(this.step == 4 && Dialogue.finished && Progression.RouteAHasComputerAccess)
 			{
 				Dialogue.Begin("Je le saurais si j’étais fou.... [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 				this.step++;
 			}
 
-			if(this.step == 5 && Dialogue.finished)
+			if(this.step == 5 && Dialogue.finished && Progression.RouteAHasComputerAccess)
 			{
 				Application.LoadLevel("SecondFloorCorridor");
 			}

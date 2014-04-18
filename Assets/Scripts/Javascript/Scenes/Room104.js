@@ -147,7 +147,7 @@ function SceneRoom104 ()
 
 	this.OnLoadLevel = function()
 	{
-		this.step = 0;
+		
 	};
 
 	this.Update = function()
@@ -168,7 +168,7 @@ function SceneRoom104 ()
 				{
 					case 0:
 						for(i = 0; i < this.GameObjects.length-1; i++){
-							this.GameObjects[i].enabled = false;
+							this.GameObjects[i].Physics.Clickable = false;
 						}
 						Dialogue.Begin("*Clic* [short]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 						this.step++;
@@ -188,7 +188,7 @@ function SceneRoom104 ()
 					case 3:
 						if(Dialogue.finished){
 							for(i = 0; i < this.GameObjects.length-1; i++){
-								this.GameObjects[i].enabled = true;
+								this.GameObjects[i].Physics.Clickable = true;
 							}
 						}
 						break;
@@ -217,7 +217,7 @@ function SceneRoom104 ()
 					case 3:
 						if(Dialogue.finished){
 							for(i = 0; i < this.GameObjects.length-1; i++){
-								this.GameObjects[i].enabled = false;
+								this.GameObjects[i].Physics.Clickable = false;
 							}
 							this.NurseVisible = false;
 							this.GameObjects.push(
@@ -229,7 +229,7 @@ function SceneRoom104 ()
 						break;
 					case 5:
 						for(i = 0; i < this.GameObjects.length-1; i++){
-							this.GameObjects[i].enabled = true;
+							this.GameObjects[i].Physics.Clickable = true;
 						}
 						this.GameObjects.splice(this.GameObjects.indexOf(CursorTarget),1);
 						Dialogue.Begin("Qu’est-ce que c’était que ce monstre ?", 0.1, {x:30, y:580}, "white", "30px Georgia");
@@ -258,7 +258,7 @@ function SceneRoom104 ()
 				{
 					case 0:
 						for(i = 0; i < this.GameObjects.length-1; i++){
-							this.GameObjects[i].enabled = false;
+							this.GameObjects[i].Physics.Clickable = false;
 						}
 						Dialogue.Begin("*Toc* [short] *Toc* *Toc* *Toc*! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 						this.step++;
@@ -287,7 +287,7 @@ function SceneRoom104 ()
 						//Combat
 						if(Dialogue.finished){
 							for(i = 0; i < this.GameObjects.length-1; i++){
-								this.GameObjects[i].enabled = false;
+								this.GameObjects[i].Physics.Clickable = false;
 							}
 							this.NurseVisible = false;
 							this.GameObjects.push(
@@ -299,7 +299,7 @@ function SceneRoom104 ()
 						break;
 					case 5:
 						for(i = 0; i < this.GameObjects.length-1; i++){
-							this.GameObjects[i].enabled = true;
+							this.GameObjects[i].Physics.Clickable = true;
 						}
 						this.GameObjects.splice(this.GameObjects.indexOf(CursorTarget),1);
 						Dialogue.Begin("Mais qu’est-ce qu’il se passe ici ?", 0.1, {x:30, y:580}, "white", "30px Georgia");
@@ -320,7 +320,7 @@ function SceneRoom104 ()
 					case 8:
 						if(Dialogue.finished){
 							for(i = 0; i < this.GameObjects.length-1; i++){
-								this.GameObjects[i].enabled = true;
+								this.GameObjects[i].Physics.Clickable = true;
 							}
 							Progression.HasBattleRoom104Nurse = true;
 							Application.LoadLevel("SecondFloorCorridor");

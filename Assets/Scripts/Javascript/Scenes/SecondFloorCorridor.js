@@ -97,8 +97,7 @@ function SecondFloorCorridor ()
 			else
 				ctx.drawImage(Images.ascenseurFerme, 448, 274);
 			ctx.drawImage(Images.couloirBackgroundNoElevator, 0, 0);
-
-			console.log(Progression.PassiveRoute);
+			
 			if(!Progression.SeenCorridorShadow){
 				switch(this.step){
 					case 0:
@@ -229,22 +228,16 @@ function SecondFloorCorridor ()
 				switch(this.step){
 					case 0:
 						GUI.Availaible = false;
-						Dialogue.Begin("Me revoilà au second étage... Bloquons vite l’accès à la cage d’escalier !", 0.10, {x:30, y:570}, "white", "30px Georgia");
+						Dialogue.Begin("Me revoilà au second étage...", 0.10, {x:30, y:570}, "white", "30px Georgia");
 						this.step++;
 						break;
 					case 1:
 						if(Dialogue.finished){
-							Dialogue.Begin("Cette chaise devrait faire l’affaire.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+							Dialogue.Begin("Je vais essayer de fouiller le bureau.", 0.10, {x:30, y:570}, "white", "30px Georgia");
 							this.step++;
 						}
 						break;
 					case 2:
-						if(Dialogue.finished){
-							Dialogue.Begin("Vu que j’ai le passe-partout, je vais essayer de fouiller le bureau.", 0.10, {x:30, y:570}, "white", "30px Georgia");
-							this.step++;
-						}
-						break;
-					case 3:
 						if(Dialogue.finished){
 							GUI.Availaible = true;
 							this.step++;

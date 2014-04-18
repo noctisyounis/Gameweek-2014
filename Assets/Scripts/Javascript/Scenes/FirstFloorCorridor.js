@@ -81,7 +81,7 @@ function FirstFloorCorridor ()
 
 		ctx.drawImage(Images.ascenseurFerme, 448, 274);
 		ctx.drawImage(Images.couloirBackgroundNoElevator, 0, 0);
-		if(!Progression.PassiveRoute && !Progression.HasBattleRoom104Nurse){
+		if(!Progression.PassiveRoute && !Progression.HasBattleRoom104Nurse || Progression.PassiveRoute && !Progression.HasBattleRoom104Nurse){
 			switch(this.Step){
 				case 1:
 					GUI.Availaible = false;
@@ -115,7 +115,7 @@ function FirstFloorCorridor ()
 			switch(this.Step){
 				case 1:
 					GUI.Availaible = false;
-					Dialogue.Begin("L’ascenseur est déjà utilisé, sûrement par une de ces bestioles.", 0.10, {x:30, y:570}, "white", "30px Georgia");
+					Dialogue.Begin("L’ascenseur est en train d'être utilisé, sûrement par une de ces bestioles.", 0.10, {x:30, y:570}, "white", "30px Georgia");
 					this.Step++;
 					break;
 				case 2:
