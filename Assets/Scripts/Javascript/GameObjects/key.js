@@ -134,9 +134,9 @@ function Key ()
 
 	this.transform =
 	{
-		position: {x: 130, y: 120}, 
+		position: {x: 160, y: 180}, 
 		rotation: {x: 0, y: 0}, 
-		scale: {x: 100, y: 521}
+		scale: {x: 180 / 1.3, y: 476 / 1.3}
 	};
 
 	this.Physics = 
@@ -150,9 +150,9 @@ function Key ()
  
  		BoxColliderSize: 
 		{
-			position: {x: 130, y: 120}, 
+			position: {x: 160, y: 180}, 
 			rotation: {x: 0, y: 0}, 
-			scale: {x: 100, y: 521}
+			scale: {x: 180 / 1.3, y: 476 / 1.3}
 		}
 	};
 	this.Renderer = 
@@ -166,7 +166,7 @@ function Key ()
 
 		Material:
 		{
-			source: Images.roomMedicalstuff,
+			source: Images.blouse,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -350,9 +350,9 @@ function Key ()
 		if(Input.MouseClick && Dialogue.finished)
 		{
 			//Interaction 
-			Dialogue.Begin("Voilà la clé ! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+			Dialogue.Begin("Voilà la clé de l'ascenseur de service ! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
 			Progression.GotElevatorKey = true;
-			Application.LoadedLevel.DestroyKey(this);
+			//Application.LoadedLevel.DestroyKey(this);
 		}
 	};
 

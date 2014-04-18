@@ -75,7 +75,7 @@ function SceneBreakRoom ()
  												},
 
  												"Armoire",
- 												"Ah ! Voici la clé de l’ascenseur ! [medium]",
+ 												"Il n'y a rien pour moi là-dedans. [medium]",
  												Images.roomCloset
 
 
@@ -138,6 +138,25 @@ function SceneBreakRoom ()
 
  												));
 
+			//Feuilles
+			this.GameObjects.push(new DecorativeGameObject({
+ 													position: {x: 100, y: 530}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 231 / 2.5, y: 118 / 2.5}
+ 												},
+ 												{
+ 													position: {x: 100, y: 530}, 
+ 													rotation: {x: 0, y: 0}, 
+ 													scale: {x: 231 / 2.5, y: 118 / 2.5}
+ 												},
+
+ 												"Dossier",
+ 												"Comment j'ai pu me retrouver sur deux blocs en même temps ? [short]",
+ 												Images.feuilles
+
+
+ 												));
+
 			//Clé
 			this.GameObjects.push(new Key());
 
@@ -146,6 +165,11 @@ function SceneBreakRoom ()
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
 		}
 		this.Update();
+	};
+
+	this.OnLoadLevel = function()
+	{
+
 	};
 
 	this.Update = function()

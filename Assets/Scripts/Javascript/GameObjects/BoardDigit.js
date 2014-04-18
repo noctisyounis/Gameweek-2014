@@ -270,7 +270,6 @@ function BoardDigit (id)
 		if(!this.Started)
 		{
 			// DO START HERE
-
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
