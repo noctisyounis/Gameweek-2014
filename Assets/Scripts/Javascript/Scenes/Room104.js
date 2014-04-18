@@ -166,6 +166,23 @@ function SceneRoom104 ()
 				this.Step = 2;
 			}
 
+			if(!Progression.PassiveRoute)
+			{
+				switch(this.Step)
+				{
+					case 1:
+						Dialogue.Begin("*Toc* [short] *Toc* *Toc* *Toc*! [medium]", 0.1, {x:30, y:580}, "white", "30px Georgia");
+						this.step = 101;
+						break;
+
+					case 101:
+
+						this.step = 102;
+						break;
+				}
+
+			}
+
 
 			if(!Dialogue.finished) 
 			{

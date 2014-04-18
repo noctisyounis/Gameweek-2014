@@ -355,6 +355,7 @@ function ButtonMap ()
 		else
 		{
 			Application.LastRoom = Application.LoadedLevel;
+			Scenes["SceneMap"] = new SceneMap();
 			Application.LoadLevel("SceneMap");
 		}
 	};
