@@ -166,6 +166,11 @@ function SceneRoom204 ()
 				ctx.drawImage(Images.dialogueBox, 0, 470);
 				Dialogue.Continue();
 			}
+
+			if (Progression.RouteBGotPassePartout == true && Dialogue.finished)
+			{
+				Application.LoadLevel("SecondFloorCorridor");
+			}
 			this.LateUpdate();
 		}
 	};
