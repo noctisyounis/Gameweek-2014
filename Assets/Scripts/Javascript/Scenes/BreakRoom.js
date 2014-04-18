@@ -44,7 +44,7 @@
 
 function SceneBreakRoom () 
 {
-	this.name = "BreakRoom";
+	this.name = "Salle de pause";
 	this.Started = false;
 	this.message = "";
 
@@ -188,6 +188,11 @@ function SceneBreakRoom ()
 	{
 		if(!Application.GamePaused)
 		{
+			ctx.fillStyle = "rgba(122,122,122, 0.4)";
+			ctx.RoundedBox(0, 0, 125, 30, 20);
+			ctx.fillStyle = "white";
+			ctx.font = "15px Georgia";
+			ctx.fillText(Application.LoadedLevel.name, 20, 23);
 			//Codez la GUI ici pour que la pause soit prise en compte
 		}
 		if(Application.DebugMode)

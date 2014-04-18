@@ -62,6 +62,7 @@ function SceneAndroidCode ()
 		{
 			//codez le start avant le changement de booleen
 			this.GameObjects.push(new AndroidPanel());
+			this.GameObjects.push(new ButtonAndroidReturn());
 			this.Started = true;
 			Time.LevelLoaded();
 			console.log(" %c System: Scene " + this.name + " have started!", 'background: #222; color: #bada55');
@@ -75,6 +76,8 @@ function SceneAndroidCode ()
 		{
 			ctx.fillStyle = "black";
 			ctx.fillRect(0,0, canvas.width, canvas.height);
+			ctx.drawImage(Images.backgroundOrdinateur, 95, 80);
+			ctx.drawImage(Images.contourOrdinateur, 0,0);
 			for(var i = 0; i < this.GameObjects.length; i++)
 			{
 				if(this.GameObjects[i].enabled)
@@ -97,6 +100,11 @@ function SceneAndroidCode ()
 		{
 			Debug.ShowStats();
 		}
+	};
+
+	this.OnLoadLevel = function()
+	{
+
 	};
 
 	// lance l'awake a la creation de la scene

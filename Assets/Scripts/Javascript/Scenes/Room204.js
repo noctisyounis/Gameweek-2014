@@ -175,11 +175,7 @@ function SceneRoom204 ()
 		if(!Application.GamePaused)
 		{
 			//Codez la GUI ici pour que la pause soit prise en compte
-			ctx.fillStyle = "rgba(122,122,122, 0.4)";
-			ctx.RoundedBox(0, 0, 125, 30, 20);
-			ctx.fillStyle = "white";
-			ctx.font = "15px Georgia";
-			ctx.fillText(Application.LoadedLevel.name, 20, 23);
+			
 		}
 		if(Application.DebugMode)
 		{

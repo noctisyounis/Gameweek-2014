@@ -68,7 +68,7 @@ function SceneOffice ()
 									{
 										position: {x: 575, y: 210}, 
 										rotation: {x: 0, y: 0}, 
-										scale: {x: 254, y: 344}
+										scale: {x: 184, y: 274}
 									},
 
 									"Bibliothèque",
@@ -98,14 +98,14 @@ function SceneOffice ()
 									));
 
 			this.GameObjects.push(new DecorativeGameObject({
-										position: {x: 650, y: 370}, 
+										position: {x: 120, y: 370}, 
 										rotation: {x: 0, y: 0}, 
 										scale: {x: 153, y: 196}
 									},
 									{
-										position: {x: 650, y: 370}, 
+										position: {x: 120, y: 370}, 
 										rotation: {x: 0, y: 0}, 
-										scale: {x: 153, y: 196}
+										scale: {x: 123, y: 196}
 									},
 
 									"Chaise de Bureau",

@@ -192,8 +192,6 @@ function AndroidButton (id,xP,yP,ParentT,parent)
 
 		Draw: function ()
 		{
-			if(this.isSprite)
-				ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -275,6 +273,7 @@ function AndroidButton (id,xP,yP,ParentT,parent)
 	{
 		if(!Application.GamePaused && this.enabled)
 		{
+			ctx.drawImage(Images.circle, this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
 			if(this.physics)
 			{
 				if(this.Physics.BoxCollider)

@@ -30,6 +30,7 @@ var ImagesPath = [
 	{ name: "titleLoadBackground", path: "Backgrounds/menu1.jpg"},
 	{ name: "titleCreditBackground", path: "Backgrounds/credits.jpg"},
 	{ name: "tutoBattle", path: "Backgrounds/combat_tuto.jpg"},
+	{ name: "backgroundOrdinateur", path:"Backgrounds/fond_ecran.jpg"},
 
 	{ name: "map_planRDC", path: "Map/Plan_RDC.jpg"},
 	{ name: "map_planE1", path: "Map/Plan_E1.jpg"},
@@ -70,6 +71,8 @@ var ImagesPath = [
 	{ name: "mapGUI", path: "GUI/map.png"},
 	{ name: "backGUI", path: "GUI/retour.png"},
 	{ name: "mouse", path:"GUI/souris.png"},
+	{ name: "circle", path:"GUI/circle.png"},
+	{ name: "popup", path:"GUI/popupxp.png"},
 
 	{ name: "surgeonMain", path: "Enemies/ceiling_mainsurgeon.png"},
 	{ name: "monsterKid", path: "Enemies/monster_kid.png"},

@@ -125,42 +125,40 @@
 *	Add NameOfYourGameObject.Start() in your scene.
 */
 
-function AndroidPanel ()
+function ButtonAndroidReturn ()
 {
-	this.name = "AndroidPanel";
+	this.name = "";
 	this.enabled = true;
 	this.physics = true;
 	this.renderer = true;
-	this.GameObjects = [];
-	this.solution = [];
-	this.code = [];
 
 	this.transform =
 	{
-		position: {x:canvas.width/2-300/2 - 100, y: canvas.height/2-300/2 - 100},
+		position: {x:860, y: 630},
 		rotation: {x:0, y: 0}, // obselete
-		scale: {x: 350, y: 350}
+		scale: {x: 50, y: 50}
 	};
 
 	this.Physics = 
 	{
-		BoxCollider: true,
+		BoxCollider: false,
 		Clickable:   true,
+		ShowVignetWithNameOnHover: false,
 		DragAndDropable: false,
 		ColliderIsSameSizeAsTransform: false,
-		RelativePosition: true,
+		RelativePosition: false,
  
  		BoxColliderSize: 
 		{
-			position: {x:0, y: 0},
+			position: {x:860, y: 630},
 			rotation: {x:0, y: 0}, // obselete
-			scale: {x: 350, y: 350}
+			scale: {x: 50, y: 50}
 		}
 	};
 	this.Renderer = 
 	{
 		visible: true,
-		GizmosVisible: true,
+		GizmosVisible: false,
 		isSprite: true,
 		thit: this.name,
 		that: this.transform,
@@ -168,7 +166,7 @@ function AndroidPanel ()
 
 		Material:
 		{
-			source: Images.popup,
+			source: Images.backGUI,
 
 			//DontTouch bellow 
 			SizeFrame:
@@ -194,7 +192,10 @@ function AndroidPanel ()
 
 		Draw: function ()
 		{
-			//ctx.drawImage(this.Animation.animated ? this.Animation.current[0] : this.Material.source, this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+			if(this.isSprite)
+				if(this.Animation.animated)
+				ctx.drawImage(this.Animation.current[0], this.Material.CurrentFrame.x * this.Material.SizeFrame.x, this.Material.CurrentFrame.y * this.Material.SizeFrame.y, this.Material.CurrentFrame.x + this.Material.SizeFrame.x,this.Material.CurrentFrame.y + this.Material.SizeFrame.y,this.that.position.x,this.that.position.y,this.that.scale.x, this.that.scale.y);
+				else ctx.drawImage( this.Material.source, this.that.position.x, this.that.position.y, this.that.scale.x, this.that.scale.y);
 			if(Application.DebugMode)
 			{
 				if(this.GizmosVisible)
@@ -251,11 +252,6 @@ function AndroidPanel ()
 			this.Physics.BoxColliderSize.position.y += this.transform.position.y;
 		}
 
-		if(this.Renderer.Material.src != "")
-		{
-			this.Renderer.Material.SizeFrame.x = this.Renderer.Material.source.width / this.Renderer.Animation.current[2];
-			this.Renderer.Material.SizeFrame.y = this.Renderer.Material.source.height;
-		}
 
 		console.log(" %c System: GameObject " + this.name + " Created!", 'background: #222; color: #bada55');
 	};
@@ -265,13 +261,7 @@ function AndroidPanel ()
 		if(!this.Started)
 		{
 			// DO START HERE
-			var i = 1;
-			for(x = 1; x < 4; x++){
-				for(y = 1; y < 4; y++){
-					this.GameObjects.push(new AndroidButton(i,x,y,this.transform,this));
-					i++;
-				}
-			}
+
 			console.log(" %c System: GameObject " + this.name + " Started!", 'background: #222; color: #bada55');
 			this.Started = true;
 		}
@@ -306,6 +296,10 @@ function AndroidPanel ()
 						if(!Input.MouseClick) this.OnHovered();
 						if(Input.MouseClick)  this.OnClicked();
 					}
+					else
+					{
+						this.UnHovered();
+					}
 				}
 			}
 
@@ -329,32 +323,10 @@ function AndroidPanel ()
 
 	this.LateUpdate = function ()
 	{
-		// GAMEOBJECT BEHAVIOR HERE !
-		ctx.drawImage(Images.popup, this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);
-		for(var i = 0; i < this.GameObjects.length; i++)
-		{
-			if(this.GameObjects[i].enabled)
-			{
-				this.GameObjects[i].Start();
-			}
-		}
+		this.Renderer.Material.source = Images.backGUI;
+
 		if(this.renderer)
 			this.Renderer.Draw();
-		if(this.code.length > 0){
-			var originStrokeStyle = ctx.strokeStyle;
-			var originLineWidth = ctx.lineWidth;
-			ctx.beginPath();
-			ctx.moveTo(this.GameObjects[this.code[0]-1].transform.position.x+this.GameObjects[this.code[0]-1].transform.scale.x/2,this.GameObjects[this.code[0]-1].transform.position.y+this.GameObjects[this.code[0]-1].transform.scale.y/2);
-			for(i = 1; i < this.code.length; i++){
-				ctx.lineTo(this.GameObjects[this.code[i]-1].transform.position.x+this.GameObjects[this.code[i]-1].transform.scale.x/2,this.GameObjects[this.code[i]-1].transform.position.y+this.GameObjects[this.code[i]-1].transform.scale.y/2);
-			}
-			ctx.strokeStyle = "#00FFFF";
-			ctx.lineWidth = 5;
-			ctx.stroke();
-			ctx.strokeStyle = originStrokeStyle;
-			ctx.lineWidth = originLineWidth;
-		}
-
 	};
 
 	this.OnTriggerEnter = function (other)
@@ -370,15 +342,22 @@ function AndroidPanel ()
 			Input.DragedElement = this.name;
 			this.SetPosition(Input.MousePosition.x - (this.transform.scale.x / 2), Input.MousePosition.y - (this.transform.scale.y / 2) );
 		}
-
+		if(Application.LoadedLevel == Scenes["SceneMap"])
+		{
+			Application.LoadedLevel = Application.LastRoom;
+		}
+		else
+		{
+			Application.LoadLevel("Office");
+		}
 	};
-	this.OnHovered = function(){
-		if(Input.MouseLongClick){
-			console.log(this.code);
-		}
-		else{
-			this.code = [];
-		}
+
+	this.OnHovered = function()
+	{	
+	};
+	
+	this.UnHovered = function()
+	{
 	};
 
 	this.Awake();

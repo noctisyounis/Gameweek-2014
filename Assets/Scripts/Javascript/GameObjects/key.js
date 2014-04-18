@@ -277,6 +277,19 @@ function Key ()
 	{
 		if(!Application.GamePaused && this.enabled)
 		{
+
+			if(this.renderer && this.Renderer.Animation.animated)
+			{
+				this.Renderer.Animation.countdown -= Time.DeltaTime;
+				if(this.Renderer.Animation.countdown <= 0)
+				{
+					this.Renderer.Material.CurrentFrame.x += 1;
+					this.Renderer.Animation.countdown = this.Renderer.Animation.current [1] / this.Renderer.Animation.current[2];
+
+					if(this.Renderer.Material.CurrentFrame.x > this.Renderer.Animation.current[2] - 1)
+						this.Renderer.Material.CurrentFrame.x = 0;
+				}
+			}
 			if(this.physics)
 			{
 				if(this.Physics.BoxCollider)
@@ -308,18 +321,7 @@ function Key ()
 				}
 			}
 
-			if(this.renderer && this.Renderer.Animation.animated)
-			{
-				this.Renderer.Animation.countdown -= Time.DeltaTime;
-				if(this.Renderer.Animation.countdown <= 0)
-				{
-					this.Renderer.Material.CurrentFrame.x += 1;
-					this.Renderer.Animation.countdown = this.Renderer.Animation.current [1] / this.Renderer.Animation.current[2];
 
-					if(this.Renderer.Material.CurrentFrame.x > this.Renderer.Animation.current[2] - 1)
-						this.Renderer.Material.CurrentFrame.x = 0;
-				}
-			}
 
 			this.LateUpdate();
 		}
@@ -358,13 +360,10 @@ function Key ()
 
 	this.OnHovered = function()
 	{	
-		if(this.Physics.ShowVignetWithNameOnHover)
-		{
 			ctx.fillStyle = "grey";
 			ctx.RoundedBox(Input.MousePosition.x, Input.MousePosition.y, 100, 30, 5);
 			ctx.fillStyle = "white";
 			ctx.fillText(this.name, Input.MousePosition.x + 20, Input.MousePosition.y + 13);
-		}
 	};
 	
 	this.UnHovered = function()
