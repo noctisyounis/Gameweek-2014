@@ -43,7 +43,27 @@ Random =
 Collision =
 {
 	BoxCollider: function(box1, box2) {(box2.x >= box1.x + box1.w) || (box2.x + box2.w <= box1.x)|| (box2.y >= box1.y + box1.h)	|| (box2.y + box2.h <= box1.y) ? false : true;},
-	PointCollider: function(curseur_x, curseur_y, box) {return curseur_x >= box.x  && curseur_x < box.x + box.w&& curseur_y >= box.y && curseur_y < box.y + box.h ? true : false;}
+	PointCollider: function(curseur_x, curseur_y, box) {return curseur_x >= box.x  && curseur_x < box.x + box.w&& curseur_y >= box.y && curseur_y < box.y + box.h ? true : false;},
+	CheckClick: function()
+	{
+		for(var i = 0; i < Application.LoadedLevel.GameObjects.length; i++)
+		{
+			var gameObject = Application.LoadedLevel.GameObjects[i];
+			if(gameObject.Physics.Clickable && Dialogue.finished)
+			{
+				if(Collision.PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: gameObject.Physics.BoxColliderSize.position.x, y: gameObject.Physics.BoxColliderSize.position.y,w: gameObject.Physics.BoxColliderSize.scale.x,h: gameObject.Physics.BoxColliderSize.scale.y }))
+				{
+					if(!Input.MouseClick) gameObject.OnHovered();
+					if(Input.MouseClick)  gameObject.OnClicked();
+				}
+				else
+				{
+					gameObject.UnHovered();
+				}
+			
+			}
+		}
+	}
 };
 
 Debug = 

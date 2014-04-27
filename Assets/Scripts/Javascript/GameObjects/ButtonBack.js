@@ -294,19 +294,8 @@ function ButtonBack ()
 					}
 				}
 
-				if(this.Physics.Clickable)
-				{
-					if(Collision.PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
-					{
-						if(!Input.MouseClick) this.OnHovered();
-						if(Input.MouseClick)  this.OnClicked();
-					}
-					else
-					{
-						this.UnHovered();
-					}
-				}
 			}
+		}
 
 			if(this.renderer && this.Renderer.Animation.animated)
 			{
@@ -322,8 +311,6 @@ function ButtonBack ()
 			}
 
 			this.LateUpdate();
-		}
-		
 	};
 
 	this.LateUpdate = function ()
@@ -368,6 +355,8 @@ function ButtonBack ()
 	this.UnHovered = function()
 	{
 	};
+
+	this.UnHovered = function(){};
 
 	this.Awake();
 }

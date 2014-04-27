@@ -349,5 +349,7 @@ function AndroidButton (id,xP,yP,ParentT,parent)
 		}
 	};
 
+	this.UnHovered = function(){};
+
 	this.Awake();
 }

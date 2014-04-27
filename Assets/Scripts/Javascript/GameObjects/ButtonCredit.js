@@ -289,15 +289,6 @@ function ButtonCredit()
 						}
 					}
 				}
-
-				if(this.Physics.Clickable)
-				{
-					if(Collision.PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
-					{
-						if(!Input.MouseClick) this.OnHovered();
-						if(Input.MouseClick)  this.OnClicked();
-					}
-				}
 			}
 
 			if(this.renderer && this.Renderer.Animation.animated)
@@ -342,6 +333,8 @@ function ButtonCredit()
 	this.OnHovered = function()
 	{
 	};
+
+	this.UnHovered = function(){};
 
 	this.Awake();
 }

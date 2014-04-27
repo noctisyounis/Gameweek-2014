@@ -296,19 +296,6 @@ function PassePartout (transform, boxCollider, name, message, mymaterial, parent
 						}
 					}
 				}
-
-				if(this.Physics.Clickable)
-				{
-					if(Collision.PointCollider(Input.MousePosition.x, Input.MousePosition.y, {x: this.Physics.BoxColliderSize.position.x, y: this.Physics.BoxColliderSize.position.y,w: this.Physics.BoxColliderSize.scale.x,h: this.Physics.BoxColliderSize.scale.y }))
-					{
-						if(!Input.MouseClick) this.OnHovered();
-						if(Input.MouseClick)  this.OnClicked();
-					}
-					else
-					{
-						this.UnHovered();
-					}
-				}
 			}
 
 			ctx.drawImage(Images.passePartout, this.transform.position.x, this.transform.position.y, this.transform.scale.x, this.transform.scale.y);

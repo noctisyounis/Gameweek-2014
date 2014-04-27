@@ -391,5 +391,7 @@ function AndroidPanel ()
 		}
 	};
 
+	this.UnHovered = function(){};
+
 	this.Awake();
 }
